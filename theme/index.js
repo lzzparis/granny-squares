@@ -45,14 +45,19 @@ const typography = {
     fontSize: 20,
     color: colors.text,
   },
+  h3: {
+    fontFamily: 'Poppins_500Medium',
+    fontSize: 18,
+    color: colors.text,
+  },
   p: {
     fontFamily: 'Poppins_400Regular',
-    fontSize: 18,
+    fontSize: 16,
     color: colors.text,
   },
   em: {
     fontFamily: 'Poppins_500Medium',
-    fontSize: 18,
+    fontSize: 16,
     color: colors.text,
   },
 };
@@ -62,9 +67,19 @@ export const gutter = halfGutter * 2;
 
 export const styles = {
   ...typography,
+  section: {
+    width: '100%',
+    margin: 'auto',
+    padding: halfGutter,
+    backgroundColor: colors.paper,
+    borderRadius: 8,
+  },
   textInput: {
     ...typography.p,
-    padding: halfGutter,
+    paddingLeft: halfGutter,
+    paddingRight: halfGutter,
+    borderBottomColor: colors.accent1,
+    borderBottomWidth: 4,
   },
 };
 

@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import {
-  SafeAreaView, ScrollView, TextInput, View, Button,
+  Button,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
-import Typography from '../components/Typography';
 
 function AccountScreen({ uid, user }) {
   const { name: savedName } = user;
@@ -17,12 +21,12 @@ function AccountScreen({ uid, user }) {
         contentContainerStyle={styles.listContainer}
       >
         <>
-          <Typography>You've arrived at the account screen!</Typography>
+          <Text>You've arrived at the account screen!</Text>
           <View>
-            <Typography>
+            <Text>
               Name:
               {savedName}
-            </Typography>
+            </Text>
             <TextInput onChangeText={(val) => setName(val)}>{name}</TextInput>
           </View>
           <Button onPress={saveForm} title="Save" />

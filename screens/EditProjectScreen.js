@@ -13,8 +13,8 @@ import { useRoute } from '@react-navigation/native';
 import {
 } from 'lodash';
 
-import { colors, styles as themeStyles } from '../theme';
-import { halfGutter } from '../theme';
+import Button from '../components/Button';
+import { colors, styles as themeStyles, gutter } from '../theme';
 
 function EditProjectScreen() {
   const route = useRoute();
@@ -24,8 +24,8 @@ function EditProjectScreen() {
       <ScrollView
         contentContainerStyle={styles.listContainer}
       >
-        <View style={styles.section}>
-          <Text>Name</Text>
+        <View style={styles.meta}>
+          <Text style={themeStyles.h2}>Name</Text>
           <TextInput
             style={themeStyles.textInput}
             onChangeText={(text) => setName(text)}
@@ -33,17 +33,28 @@ function EditProjectScreen() {
           />
         </View>
       </ScrollView>
+      <Button
+        title="Save"
+        onPress={() => {}}
+        color={colors.accent1}
+        accessibilityLabel="Save"
+      />
     </SafeAreaView>
   );
 }
 const styles = {
-  container: {},
+  container: {
+    width: '100%',
+  },
   listContainer: {
     width: '100%',
     margin: 'auto',
-    padding: halfGutter,
+    padding: gutter,
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  meta: {
+    ...themeStyles.section,
   },
 };
 

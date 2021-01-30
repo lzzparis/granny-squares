@@ -7,8 +7,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 
-import { colors } from '../theme';
-import { halfGutter } from '../theme';
+import { colors, halfGutter, styles as themeStyles } from '../theme';
 
 function ProjectListItem({ name, projectId }) {
   const navigation = useNavigation();
@@ -16,7 +15,7 @@ function ProjectListItem({ name, projectId }) {
   return (
     <Pressable onPress={() => navigation.navigate('Project', { title: name, projectId })}>
       <View style={styles.container}>
-        <Text style={styles.text}>
+        <Text style={themeStyles.h3}>
           {name}
         </Text>
         <Icon
@@ -43,11 +42,6 @@ const styles = {
     backgroundColor: colors.paper,
     borderRadius: 8,
 
-  },
-  text: {
-    color: colors.text,
-    fontFamily: 'Poppins_400Regular',
-    fontSize: 18,
   },
 };
 
