@@ -5,6 +5,8 @@ import {
   Text,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Icon } from 'react-native-elements';
+
 import { colors } from '../theme';
 import { halfGutter } from '../utils';
 
@@ -16,9 +18,14 @@ function ProjectListItem({ name, projectId }) {
       <View style={styles.container}>
         <Text style={styles.text}>
           {name}
-          {' '}
-          -&gt;
         </Text>
+        <Icon
+          color={colors.text}
+          name="arrow-right"
+          size={16}
+          type="font-awesome-5"
+        />
+
       </View>
     </Pressable>
   );
@@ -26,10 +33,21 @@ function ProjectListItem({ name, projectId }) {
 
 const styles = {
   container: {
-    width: '100%',
+    width: 'auto',
     margin: halfGutter,
-    justifyContent: 'center',
+    paddingLeft: halfGutter,
+    paddingRight: halfGutter,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: colors.paper,
+    borderRadius: 8,
+
+  },
+  text: {
+    color: colors.text,
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 18,
   },
 };
 

@@ -30,7 +30,8 @@ export const colors = {
   accent4Dark: getDark(accent4),
   text: black,
   invertedText: white,
-  background: white,
+  background: getDark(white),
+  paper: white,
 };
 
 console.log('colors', colors);
