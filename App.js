@@ -29,12 +29,12 @@ const store = createStore(
 );
 
 const fbConfig = {
-  apiKey: 'AIzaSyAoqRifbq84AWoohA43KPadmJHUalGGPPc',
-  authDomain: 'diary-832a3.firebaseapp.com',
-  projectId: 'diary-832a3',
-  storageBucket: 'diary-832a3.appspot.com',
-  messagingSenderId: '634470948172',
-  appId: '1:634470948172:web:0abd55b635aef0c307c3e9',
+  apiKey: 'AIzaSyB-GZRTijpgwi3lKtIaiwbkDy9DUyWZfjU',
+  authDomain: 'granny-squares.firebaseapp.com',
+  projectId: 'granny-squares',
+  storageBucket: 'granny-squares.appspot.com',
+  messagingSenderId: '35690673249',
+  appId: '1:35690673249:web:0976a4cea98eeaba52e620',
 };
 
 // react-redux-firebase config
