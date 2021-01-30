@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 
 import { colors } from '../theme';
-import { halfGutter } from '../utils';
+import { halfGutter } from '../theme';
 
 function ProjectListItem({ name, projectId }) {
   const navigation = useNavigation();

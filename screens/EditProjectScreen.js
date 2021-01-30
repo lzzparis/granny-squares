@@ -1,29 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { useFirebaseConnect } from 'react-redux-firebase';
 import {
   SafeAreaView,
   ScrollView,
-  View,
   Text,
+  TextInput,
+  View,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import {
-  get, map, sortBy, size,
 } from 'lodash';
 
-import ProjectListItem from '../components/ProjectListItem';
-import { colors } from '../theme';
-import { halfGutter } from '../utils';
+import { colors, styles as themeStyles } from '../theme';
+import { halfGutter } from '../theme';
 
 function EditProjectScreen() {
+  const route = useRoute();
+  const [name, setName] = useState(route.params.name || 'New Project');
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.listContainer}
       >
-        <Text>You've reached the EditProjectScreen</Text>
+        <View style={styles.section}>
+          <Text>Name</Text>
+          <TextInput
+            style={themeStyles.textInput}
+            onChangeText={(text) => setName(text)}
+            value={name}
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

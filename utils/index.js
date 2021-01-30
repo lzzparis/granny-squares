@@ -1,10 +1,9 @@
 import { Dimensions, Platform } from 'react-native';
+import { halfGutter, gutter } from '../theme';
 
 export const windowWidth = Dimensions.get('window').width;
 export const windowHeight = Dimensions.get('window').height;
 
-export const halfGutter = 8;
-export const gutter = halfGutter * 2;
 export const getGridItemWidth = (columns) => (windowWidth - ((columns + 1) * gutter)) / columns;
 
 export const shadowProps = Platform.select({

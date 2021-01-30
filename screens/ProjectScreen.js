@@ -20,7 +20,7 @@ import {
 
 import ProjectListItem from '../components/ProjectListItem';
 import { colors } from '../theme';
-import { halfGutter } from '../utils';
+import { halfGutter } from '../theme';
 
 function ProjectScreen() {
   return (

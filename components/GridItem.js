@@ -2,8 +2,7 @@ import React from 'react';
 import {
   View,
 } from 'react-native';
-import { colors } from '../theme';
-import { halfGutter, getGridItemWidth } from '../utils';
+import { colors, halfGutter, getGridItemWidth } from '../theme';
 
 function GridItem({ columns, children }) {
   const styles = {

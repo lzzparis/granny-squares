@@ -34,8 +34,43 @@ export const colors = {
   paper: white,
 };
 
-console.log('colors', colors);
+const typography = {
+  h1: {
+    fontFamily: 'Poppins_500Medium',
+    fontSize: 24,
+    color: colors.text,
+  },
+  h2: {
+    fontFamily: 'Poppins_500Medium',
+    fontSize: 20,
+    color: colors.text,
+  },
+  p: {
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 18,
+    color: colors.text,
+  },
+  em: {
+    fontFamily: 'Poppins_500Medium',
+    fontSize: 18,
+    color: colors.text,
+  },
+};
+
+export const halfGutter = 8;
+export const gutter = halfGutter * 2;
+
+export const styles = {
+  ...typography,
+  textInput: {
+    ...typography.p,
+    padding: halfGutter,
+  },
+};
 
 export default {
   colors,
+  styles,
+  halfGutter,
+  gutter,
 };

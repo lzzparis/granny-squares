@@ -53,7 +53,7 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="ProjectEdit"
+          name="EditProject"
           component={EditProjectScreen}
           options={({ route }) => ({
             title: route.params.new ? 'Add Project' : 'Edit Project',

@@ -16,7 +16,7 @@ import {
 import ProjectListItem from '../components/ProjectListItem';
 import { uid } from '../constants';
 import { colors } from '../theme';
-import { halfGutter } from '../utils';
+import { halfGutter } from '../theme';
 
 function HomeScreen() {
   useFirebaseConnect(`projects/${uid}`);
