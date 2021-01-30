@@ -1,0 +1,16 @@
+{
+  "projects": {
+    "projectId": {
+      "tiers": 4,
+      "colors": {
+        "colorId": {
+          "name": "Sailor Blue",
+          "hex": "#1122BB",
+        }
+      },
+      "saved": {
+        "sqId": ["colorId", "colorId", "colorId"],
+      }
+    }
+  }
+}

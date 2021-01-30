@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import {
   ReactReduxFirebaseProvider,
-  firebaseReducer,
 } from 'react-redux-firebase';
 import firebase from 'firebase';
 /* eslint-disable camelcase */
@@ -18,6 +17,7 @@ import {
 
 import AppNavigator from './AppNavigator';
 import cacheAssetsAsync from './config/cacheAssetsAsync';
+import { firebaseConfig } from './config/firebase';
 
 import reducer from './reducers';
 
@@ -27,23 +27,13 @@ const store = createStore(
   reducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), // eslint-disable-line no-underscore-dangle
 );
-
-const fbConfig = {
-  apiKey: 'AIzaSyB-GZRTijpgwi3lKtIaiwbkDy9DUyWZfjU',
-  authDomain: 'granny-squares.firebaseapp.com',
-  projectId: 'granny-squares',
-  storageBucket: 'granny-squares.appspot.com',
-  messagingSenderId: '35690673249',
-  appId: '1:35690673249:web:0976a4cea98eeaba52e620',
-};
-
 // react-redux-firebase config
 const rrfConfig = {
   userProfile: 'users',
 };
 
 // Initialize firebase instance
-firebase.initializeApp(fbConfig);
+firebase.initializeApp(firebaseConfig);
 
 const rrfProps = {
   firebase,

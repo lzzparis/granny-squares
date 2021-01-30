@@ -14,37 +14,16 @@ import {
 } from 'lodash';
 
 import ProjectListItem from '../components/ProjectListItem';
-import { uid } from '../constants';
 import { colors } from '../theme';
 import { halfGutter } from '../utils';
 
-function HomeScreen() {
-  useFirebaseConnect(`projects/${uid}`);
-  const projects = useSelector((state) => get(state, 'firebase.data.projects', {}));
-  const navigation = useNavigation();
-
+function EditProjectScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.listContainer}
       >
-        <Text>{JSON.stringify(projects, null, 2)}</Text>
-        {
-          // size(projects)
-          //   ? map(sortBy(projects, 'updatedAt'), (project, projectId) => (
-          //     <ProjectListItem name={project.name} projectId={projectId} />
-          //   ))
-          //   : <View><Text>No projects</Text></View>
-        }
-        <Icon
-          color={colors.accent1}
-          name="plus"
-          onPress={() => navigation.navigate('EditProject', { new: true })}
-          raised
-          reverse
-          size={32}
-          type="font-awesome-5"
-        />
+        <Text>You've reached the EditProjectScreen</Text>
       </ScrollView>
     </SafeAreaView>
   );
@@ -60,4 +39,4 @@ const styles = {
   },
 };
 
-export default (HomeScreen);
+export default (EditProjectScreen);

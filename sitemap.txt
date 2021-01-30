@@ -1,0 +1,20 @@
+HomeScreen
+|_ Add Project (EditProjectScreen)
+|_ List of Projects (ProjectScreen)
+| |_ Edit Project (EditProjectScreen)
+|_ Quick Start (ProjectScreen - not saving, default metadata)
+|_ Account (AccountScreen)
+
+Project colors
+- Swatches?
+- Add/edit color (button )
+  - Add creates random color to start? Names it? API or random a nice subset that I like (20ish?)
+
+ProjectScreen
+- Name
+- Color input circles
+  - Tap to open color editor
+    - Saved colors or RGB
+  - Longpress to lock
+- Randomize button
+  
