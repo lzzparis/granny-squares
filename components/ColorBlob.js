@@ -5,18 +5,20 @@ import {
 } from 'react-native';
 import { gutter } from '../theme';
 
-function ColorBlob({ color, size = 32 }) {
+function ColorBlob({ name = 'white', hex = '#FFFFFF', size = 32 }) {
   const styles = {
     container: {
-      backgroundColor: color,
+      backgroundColor: hex,
       margin: gutter,
       width: size,
       height: size,
       borderRadius: 100,
+      borderColor: 'grey',
+      borderWidth: hex === '#FFFFFF' ? 1 : null,
     },
   };
 
-  const onPress = console.log('hi', color);
+  const onPress = console.log('hi', name, hex);
   return (
     <Pressable onPress={onPress} style={styles.container} />
   );

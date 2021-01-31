@@ -3,7 +3,7 @@
 // button for colors? (new screen?)
 //
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useFirebaseConnect } from 'react-redux-firebase';
 import {
@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import {
-  get, map, take, size,
+  fill, get, map, size,
 } from 'lodash';
 
 import GridItem from '../components/GridItem';
@@ -30,9 +30,9 @@ function ProjectScreen() {
 
   useFirebaseConnect(`projects/${uid}`);
   const project = useSelector((state) => get(state, `firebase.data.projects.${uid}.${projectId}`, {}));
-  const { tiers, colors: dbColors } = project;
-
-  const colors = take(dbColors, tiers);
+  const { tiers, colors: projectColors } = project;
+  const starterColors = fill(new Array(tiers), { name: 'white', hex: '#FFFFFF' });
+  const [colors, setColors] = useState(starterColors);
 
   return (
     <SafeAreaView style={themeStyles.screenContainer}>
@@ -47,14 +47,7 @@ function ProjectScreen() {
               <ColorBlob />
             </GridItem>
           ))}
-
         </View>
-        <IconButton
-          name="plus"
-          level="1"
-          size="medium"
-          onPress={() => console.log('Pressed')}
-        />
       </ScrollView>
     </SafeAreaView>
   );
