@@ -39,7 +39,8 @@ ProjectListItem.propTypes = {
 const styles = {
   container: {
     width: 'auto',
-    margin: halfGutter,
+    marginTop: halfGutter,
+    marginBottom: halfGutter,
     paddingLeft: halfGutter,
     paddingRight: halfGutter,
     flexDirection: 'row',
@@ -47,7 +48,6 @@ const styles = {
     alignItems: 'center',
     backgroundColor: colors.paper,
     borderRadius: 8,
-
   },
 };
 

@@ -15,7 +15,7 @@ import {
 import IconButton from '../components/IconButton';
 import ProjectListItem from '../components/ProjectListItem';
 import { uid } from '../constants';
-import { colors, halfGutter } from '../theme';
+import { colors, styles as themeStyles, halfGutter } from '../theme';
 
 function HomeScreen() {
   useFirebaseConnect(`projects/${uid}`);
@@ -25,7 +25,7 @@ function HomeScreen() {
   console.log('lzz projects', projects);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={themeStyles.screenContainer}>
       <ScrollView
         contentContainerStyle={styles.listContainer}
         style={{ width: '100%' }}

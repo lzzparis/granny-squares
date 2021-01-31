@@ -35,9 +35,10 @@ function ProjectScreen() {
   const colors = take(dbColors, tiers);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={themeStyles.screenContainer}>
       <ScrollView
         contentContainerStyle={styles.listContainer}
+        style={{ width: '100%' }}
       >
         <View style={styles.colorBlobs}>
           <Text style={themeStyles.h2}>Colors</Text>
@@ -46,25 +47,22 @@ function ProjectScreen() {
               <ColorBlob />
             </GridItem>
           ))}
-          <IconButton
-            name="plus"
-            level="1"
-            size="medium"
-            onPress={() => console.log('Pressed')}
-          />
+
         </View>
+        <IconButton
+          name="plus"
+          level="1"
+          size="medium"
+          onPress={() => console.log('Pressed')}
+        />
       </ScrollView>
     </SafeAreaView>
   );
 }
 const styles = {
-  container: {},
-  listContainer: {
-    width: '100%',
-    margin: 'auto',
-    padding: halfGutter,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+  listContainer: {},
+  colorBlobs: {
+    ...themeStyles.card,
   },
 };
 

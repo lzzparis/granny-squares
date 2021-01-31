@@ -9,13 +9,14 @@ import {
   Text,
 } from 'react-native';
 
-import { halfGutter } from '../theme';
+import { halfGutter, styles as themeStyles } from '../theme';
 
 function QuickStartScreen() {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={themeStyles.screenContainer}>
       <ScrollView
         contentContainerStyle={styles.listContainer}
+        style={{ width: '100%' }}
       >
         <Text>You've reached the QuickStartScreen</Text>
       </ScrollView>

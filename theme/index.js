@@ -73,6 +73,12 @@ export const buttonSizes = {
 
 export const styles = {
   ...typography,
+  screenContainer: {
+    width: '100%',
+    margin: 'auto',
+    padding: gutter,
+    alignItems: 'center',
+  },
   card: {
     width: '100%',
     margin: 'auto',

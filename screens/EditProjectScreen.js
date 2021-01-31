@@ -18,9 +18,10 @@ function EditProjectScreen() {
   const [name, setName] = useState(route.params.name || 'New Project');
   const [tiers, setTiers] = useState(route.params.tiers || 4);
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={themeStyles.screenContainer}>
       <ScrollView
         contentContainerStyle={styles.listContainer}
+        style={{ width: '100%' }}
       >
         <View style={styles.meta}>
           <Text style={themeStyles.h2}>Name</Text>
@@ -47,16 +48,7 @@ function EditProjectScreen() {
   );
 }
 const styles = {
-  container: {
-    width: '100%',
-  },
-  listContainer: {
-    width: '100%',
-    margin: 'auto',
-    padding: gutter,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
+  listContainer: {},
   meta: {
     ...themeStyles.card,
   },
