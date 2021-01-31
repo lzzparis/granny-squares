@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
 } from 'react-native';
-import { colors, halfGutter, getGridItemWidth } from '../theme';
+import { halfGutter } from '../theme';
+import { getGridItemWidth } from '../utils';
 
 function GridItem({ columns, children }) {
   const styles = {
@@ -21,5 +23,10 @@ function GridItem({ columns, children }) {
     </View>
   );
 }
+
+GridItem.propTypes = {
+  columns: PropTypes.number,
+  children: PropTypes.node,
+};
 
 export default GridItem;

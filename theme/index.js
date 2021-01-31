@@ -65,9 +65,15 @@ const typography = {
 export const halfGutter = 8;
 export const gutter = halfGutter * 2;
 
+export const buttonSizes = {
+  small: 24,
+  medium: 32,
+  large: 48,
+};
+
 export const styles = {
   ...typography,
-  section: {
+  card: {
     width: '100%',
     margin: 'auto',
     padding: halfGutter,
@@ -86,6 +92,7 @@ export const styles = {
 export default {
   colors,
   styles,
+  buttonSizes,
   halfGutter,
   gutter,
 };

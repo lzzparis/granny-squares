@@ -5,6 +5,14 @@ HomeScreen
 |_ Quick Start (ProjectScreen - not saving, default metadata)
 |_ Account (AccountScreen)
 
+
+EditProjectScreen
+- Name -
+- Tiers - slider?
+- Notes
+- Shape - coming soon
+- Colors
+
 Project colors
 - Swatches?
 - Add/edit color (button )
@@ -17,4 +25,3 @@ ProjectScreen
     - Saved colors or RGB
   - Longpress to lock
 - Randomize button
-  

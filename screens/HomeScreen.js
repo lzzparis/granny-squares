@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useFirebaseConnect } from 'react-redux-firebase';
 import {
   SafeAreaView,
@@ -7,16 +7,15 @@ import {
   View,
   Text,
 } from 'react-native';
-import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import {
   get, map, sortBy, size,
 } from 'lodash';
 
+import IconButton from '../components/IconButton';
 import ProjectListItem from '../components/ProjectListItem';
 import { uid } from '../constants';
-import { colors } from '../theme';
-import { halfGutter } from '../theme';
+import { colors, halfGutter } from '../theme';
 
 function HomeScreen() {
   useFirebaseConnect(`projects/${uid}`);
@@ -43,14 +42,11 @@ function HomeScreen() {
             : <View><Text>No projects</Text></View>
         }
       </ScrollView>
-      <Icon
-        color={colors.accent1}
-        name="plus"
+      <IconButton
+        level="1"
         onPress={() => navigation.navigate('EditProject', { new: true })}
-        raised
-        reverse
-        size={32}
-        type="font-awesome-5"
+        size="medium"
+        name="plus"
       />
     </SafeAreaView>
   );

@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { connect, useSelector } from 'react-redux';
-import { useFirebaseConnect } from 'react-redux-firebase';
 import {
   SafeAreaView,
   ScrollView,
@@ -8,7 +6,6 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { Icon } from 'react-native-elements';
 import { useRoute } from '@react-navigation/native';
 import {
 } from 'lodash';
@@ -19,6 +16,7 @@ import { colors, styles as themeStyles, gutter } from '../theme';
 function EditProjectScreen() {
   const route = useRoute();
   const [name, setName] = useState(route.params.name || 'New Project');
+  const [tiers, setTiers] = useState(route.params.tiers || 4);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -30,6 +28,12 @@ function EditProjectScreen() {
             style={themeStyles.textInput}
             onChangeText={(text) => setName(text)}
             value={name}
+          />
+          <Text style={themeStyles.h2}>Tiers</Text>
+          <TextInput
+            style={themeStyles.textInput}
+            onChangeText={(text) => setTiers(+text)}
+            value={tiers}
           />
         </View>
       </ScrollView>
@@ -54,8 +58,8 @@ const styles = {
     flexWrap: 'wrap',
   },
   meta: {
-    ...themeStyles.section,
+    ...themeStyles.card,
   },
 };
 
-export default (EditProjectScreen);
+export default EditProjectScreen;

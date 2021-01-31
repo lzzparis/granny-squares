@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Pressable,
   View,
@@ -29,6 +30,11 @@ function ProjectListItem({ name, projectId }) {
     </Pressable>
   );
 }
+
+ProjectListItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  projectId: PropTypes.string.isRequired,
+};
 
 const styles = {
   container: {

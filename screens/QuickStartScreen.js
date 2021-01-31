@@ -3,22 +3,12 @@
 //
 
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
-import { useFirebaseConnect } from 'react-redux-firebase';
 import {
   SafeAreaView,
   ScrollView,
-  View,
   Text,
 } from 'react-native';
-import { Icon } from 'react-native-elements';
-import { useNavigation } from '@react-navigation/native';
-import {
-  get, map, sortBy, size,
-} from 'lodash';
 
-import ProjectListItem from '../components/ProjectListItem';
-import { colors } from '../theme';
 import { halfGutter } from '../theme';
 
 function QuickStartScreen() {
