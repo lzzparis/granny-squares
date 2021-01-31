@@ -10,8 +10,8 @@ function ColorBlob({ name = 'white', hex = '#FFFFFF', size = 32 }) {
     container: {
       backgroundColor: hex,
       margin: gutter,
-      width: size,
-      height: size,
+      width: '100%',
+      height: '100%',
       borderRadius: 100,
       borderColor: 'grey',
       borderWidth: hex === '#FFFFFF' ? 1 : null,
@@ -25,7 +25,8 @@ function ColorBlob({ name = 'white', hex = '#FFFFFF', size = 32 }) {
 }
 
 ColorBlob.propTypes = {
-  color: PropTypes.string,
+  name: PropTypes.string,
+  hex: PropTypes.string,
   size: PropTypes.number,
 };
 

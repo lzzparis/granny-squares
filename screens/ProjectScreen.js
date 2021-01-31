@@ -19,7 +19,6 @@ import {
 
 import GridItem from '../components/GridItem';
 import ColorBlob from '../components/ColorBlob';
-import IconButton from '../components/IconButton';
 
 import { uid } from '../constants';
 import { colors as themeColors, styles as themeStyles, halfGutter } from '../theme';
@@ -30,7 +29,7 @@ function ProjectScreen() {
 
   useFirebaseConnect(`projects/${uid}`);
   const project = useSelector((state) => get(state, `firebase.data.projects.${uid}.${projectId}`, {}));
-  const { tiers, colors: projectColors } = project;
+  const { tiers = 3, colors: projectColors } = project;
   const starterColors = fill(new Array(tiers), { name: 'white', hex: '#FFFFFF' });
   const [colors, setColors] = useState(starterColors);
 
@@ -40,13 +39,15 @@ function ProjectScreen() {
         contentContainerStyle={styles.listContainer}
         style={{ width: '100%' }}
       >
-        <View style={styles.colorBlobs}>
+        <View style={styles.colors}>
           <Text style={themeStyles.h2}>Colors</Text>
-          {map(colors, (color, colorId) => (
-            <GridItem columns={size(colors)}>
-              <ColorBlob />
-            </GridItem>
-          ))}
+          <View style={styles.blobsGroup}>
+            {map(colors, (color, colorId) => (
+              <GridItem columns={size(colors)}>
+                <ColorBlob />
+              </GridItem>
+            ))}
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -54,8 +55,11 @@ function ProjectScreen() {
 }
 const styles = {
   listContainer: {},
-  colorBlobs: {
+  colors: {
     ...themeStyles.card,
+  },
+  blobsGroup: {
+    flexDirection: 'row',
   },
 };
 
