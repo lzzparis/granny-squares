@@ -21,15 +21,26 @@ function GrannySquare({ colors = ['red', 'orange', 'yellow', 'green'] }) {
     grid[i] = new Array(gridSize);
     for (j = 0; j < gridSize; j++) {
       if ((i + j) % 2 === 0) {
+        // console.log('lzz null          ', `[${i}][${j}]`, null);
         grid[i][j] = null;
-      } else if (i < tiers) {
-        console.log('lzz i < tiers - 1]', i, tiers - i);
-        grid[i][j] = colors[tiers - i];
-      } else if (i > tiers) {
-        console.log('lzz i > tiers - 1]', i, i - tiers);
-        grid[i][j] = colors[i - tiers];
+      } else if (i < tiers - 1 /* || j < tiers */) {
+        // if (i < tiers) {
+        console.log('lzz i < tiers - 1]', `[${i}][${j}]`, tiers - i);
+        grid[i][j] = colors[tiers - i - 1];
+        // } else {
+        //   console.log('lzz j < tiers - 1]', j, tiers - j);
+        //   grid[i][j] = colors[tiers - j];
+        // }
+      } else if (i > tiers + 1 /* || j > tiers */) {
+        // if (i > tiers) {
+        console.log('lzz i > tiers - 1]', `[${i}][${j}]`, i - tiers);
+        grid[i][j] = colors[i - 1 - tiers];
+        // } else {
+        //   console.log('lzz j > tiers - 1]', j, j - tiers);
+        //   grid[i][j] = colors[j - tiers];
+        // }
       } else {
-        console.log('lzz default', i);
+        console.log('lzz default       ', `[${i}][${j}]`, 0);
         grid[i][j] = colors[0];
       }
     }
@@ -66,6 +77,7 @@ const styles = {
     width: 30,
     height: 30,
     borderRadius: 4,
+    borderWidth: 1,
   },
 };
 
