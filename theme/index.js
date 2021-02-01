@@ -1,16 +1,29 @@
+import { Platform } from 'react-native';
 import Color from 'color';
 
 const primary = 'plum';
 const accent1 = 'peachpuff';
-const accent2 = 'peachpuff';
+const accent2 = 'pink';
 const accent3 = 'paleturquoise';
 const accent4 = 'palegreen';
 
 const black = 'black';
 const white = 'white';
 
-const getLight = (color) => Color(color).lighten(0.32).hex();
-const getDark = (color) => Color(color).darken(0.5).hex();
+const getLight = (color) => Color(color).lighten(0.15).hex();
+const getDark = (color) => Color(color).darken(0.2).hex();
+
+export const shadow = Platform.select({
+  android: {
+    elevation: 2,
+  },
+  default: {
+    shadowColor: 'rgba(0,0,0, .4)',
+    shadowOffset: { height: 1, width: 1 },
+    shadowOpacity: 1,
+    shadowRadius: 1,
+  },
+});
 
 export const colors = {
   primary,
@@ -32,6 +45,10 @@ export const colors = {
   invertedText: white,
   background: getDark(white),
   paper: white,
+  white,
+  black,
+  lightBlack: getLight(black),
+  darkWhite: getDark(white),
 };
 
 const typography = {
@@ -96,6 +113,7 @@ export const styles = {
 };
 
 export default {
+  testColors,
   colors,
   styles,
   buttonSizes,

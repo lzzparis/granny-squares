@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   View,
 } from 'react-native';
-import { halfGutter } from '../theme';
+import { gutter } from '../theme';
 import { getGridItemWidth } from '../utils';
 
 function GridItem({ columns, children }) {
@@ -11,7 +11,7 @@ function GridItem({ columns, children }) {
     container: {
       width: getGridItemWidth(columns),
       height: getGridItemWidth(columns),
-      margin: halfGutter,
+      padding: gutter,
       justifyContent: 'center',
       alignItems: 'center',
     },

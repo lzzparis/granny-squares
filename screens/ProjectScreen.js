@@ -21,7 +21,9 @@ import GridItem from '../components/GridItem';
 import ColorBlob from '../components/ColorBlob';
 
 import { uid } from '../constants';
-import { colors as themeColors, styles as themeStyles, halfGutter } from '../theme';
+import {
+  colors as themeColors, styles as themeStyles,
+} from '../theme';
 
 function ProjectScreen() {
   const route = useRoute();
@@ -42,9 +44,9 @@ function ProjectScreen() {
         <View style={styles.colors}>
           <Text style={themeStyles.h2}>Colors</Text>
           <View style={styles.blobsGroup}>
-            {map(colors, (color, colorId) => (
+            {map(colors, ({ name, hex }) => (
               <GridItem columns={size(colors)}>
-                <ColorBlob />
+                <ColorBlob name={name} hex={hex} />
               </GridItem>
             ))}
           </View>
@@ -60,6 +62,7 @@ const styles = {
   },
   blobsGroup: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
 };
 
