@@ -92,9 +92,11 @@ export const styles = {
   ...typography,
   screenContainer: {
     width: '100%',
+    height: '100%',
     margin: 'auto',
     padding: gutter,
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   card: {
     width: '100%',

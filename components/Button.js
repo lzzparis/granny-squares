@@ -5,21 +5,13 @@ import {
   Text,
   View,
 } from 'react-native';
-import { halfGutter, colors, styles as themeStyles } from '../theme';
+import {
+  halfGutter, gutter, colors, styles as themeStyles,
+} from '../theme';
 
 function Button({ color, onPress, title }) {
-  const styles = {
-    container: {
-      backgroundColor: color || colors.accent1,
-      margin: 'auto',
-      width: 'auto',
-      paddingLeft: halfGutter,
-      paddingRight: halfGutter,
-    },
-  };
-
   return (
-    <Pressable onPress={onPress} style={styles.container}>
+    <Pressable onPress={onPress} style={{ ...styles.container, backgroundColor: color || colors.accent1 }}>
       <View>
         <Text style={{ ...themeStyles.h3, color: colors.invertedText }}>
           {title}
@@ -28,6 +20,18 @@ function Button({ color, onPress, title }) {
     </Pressable>
   );
 }
+const styles = {
+  container: {
+    ...themeStyles.shadow,
+    margin: 'auto',
+    width: 'auto',
+    paddingTop: halfGutter,
+    paddingBottom: halfGutter,
+    paddingLeft: gutter,
+    paddingRight: gutter,
+    borderRadius: 8,
+  },
+};
 
 Button.propTypes = {
   color: PropTypes.string,

@@ -23,9 +23,10 @@ import {
   values,
 } from 'lodash';
 
-import GridItem from '../components/GridItem';
+import Button from '../components/Button';
 import ColorBlob from '../components/ColorBlob';
 import GrannySquare from '../components/GrannySquare';
+import GridItem from '../components/GridItem';
 
 import { uid } from '../constants';
 import {
@@ -48,6 +49,16 @@ function getRandomSubset(set, size) {
   return shuffled.slice(min);
 }
 
+function randomizeColors(colorSet, length) {
+  const colorSetSize = size(colorSet);
+  if (colorSetSize === 0) {
+    return fill(new Array(length), { name: 'white', hex: '#FFFFFF' });
+  } if (colorSetSize < length) {
+    return getRandomSubset(colorSet, colorSetSize);
+  }
+  return getRandomSubset(colorSet, length);
+}
+
 function ProjectScreen() {
   const route = useRoute();
   const { projectId } = route.params;
@@ -55,16 +66,9 @@ function ProjectScreen() {
   useFirebaseConnect(`projects/${uid}`);
   const project = useSelector((state) => get(state, `firebase.data.projects.${uid}.${projectId}`, {}));
   const { tiers = 3, colors: projectColors } = project;
-  const numProjectColors = size(projectColors);
-  let starterColors = [];
-  if (numProjectColors < tiers) {
-    const fillerColors = fill(new Array(tiers), { name: 'white', hex: '#FFFFFF' });
-    starterColors = concat(getRandomSubset(projectColors, numProjectColors), fillerColors);
-  } else {
-    starterColors = getRandomSubset(projectColors, tiers);
-  }
+
+  const starterColors = randomizeColors(projectColors, tiers);
   const [colors, setColors] = useState(starterColors);
-  console.log('lzz', colors);
 
   return (
     <SafeAreaView style={themeStyles.screenContainer}>
@@ -84,6 +88,7 @@ function ProjectScreen() {
         </View>
         <GrannySquare colors={reverse(colors)} />
       </ScrollView>
+      <Button title="Randomize" onPress={() => setColors(randomizeColors(projectColors, tiers))} />
     </SafeAreaView>
   );
 }
