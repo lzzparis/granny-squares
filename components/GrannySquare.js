@@ -4,10 +4,15 @@ import {
   View,
 } from 'react-native';
 import Color from 'color';
-import { fill, map, size } from 'lodash';
-import { gutter, colors } from '../theme';
+import {
+  fill,
+  get,
+  map,
+  size,
+} from 'lodash';
+import { colors as themeColors, gutter } from '../theme';
 
-function GrannySquare({ colors = ['red', 'orange', 'yellow', 'green', 'blue'] }) {
+function GrannySquare({ colors }) {
   const tiers = size(colors);
   const gridSize = 2 * tiers + 1;
 
@@ -25,7 +30,6 @@ function GrannySquare({ colors = ['red', 'orange', 'yellow', 'green', 'blue'] })
       fill(grid[i], 0);
     }
   }
-  // console.log('lzz grid', JSON.stringify(grid));
   for (i = 0; i < gridSize; i++) {
     for (j = 0; j < gridSize; j++) {
       if ((i + j) % 2 === 0) {
@@ -38,7 +42,7 @@ function GrannySquare({ colors = ['red', 'orange', 'yellow', 'green', 'blue'] })
     }
   }
 
-  // console.log('hi', grid);
+  console.log('lzz', { colors, gridSize, tiers });
   return (
     <View style={styles.container}>
       {
@@ -46,7 +50,7 @@ function GrannySquare({ colors = ['red', 'orange', 'yellow', 'green', 'blue'] })
           <View style={styles.row}>
             {
             map(row, (cell) => (
-              <View style={{ ...styles.cell, backgroundColor: colors[cell] }} />
+              <View style={{ ...styles.cell, backgroundColor: get(colors[cell], 'hex', null) }} />
             ))
           }
           </View>
@@ -69,6 +73,8 @@ const styles = {
     width: 30,
     height: 30,
     borderRadius: 6,
+    borderColor: themeColors.darkWhite,
+    borderWidth: 2,
   },
 };
 

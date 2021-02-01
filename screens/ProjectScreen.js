@@ -14,7 +14,13 @@ import {
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import {
-  fill, get, map, size,
+  concat,
+  fill,
+  get,
+  map,
+  reverse,
+  size,
+  values,
 } from 'lodash';
 
 import GridItem from '../components/GridItem';
@@ -26,6 +32,22 @@ import {
   colors as themeColors, styles as themeStyles,
 } from '../theme';
 
+function getRandomSubset(set, size) {
+  const arr = values(set);
+  const shuffled = arr.slice(0);
+  let i = arr.length;
+  const min = i - size;
+  let temp; let
+    index;
+  while (i-- > min) {
+    index = Math.floor((i + 1) * Math.random());
+    temp = shuffled[index];
+    shuffled[index] = shuffled[i];
+    shuffled[i] = temp;
+  }
+  return shuffled.slice(min);
+}
+
 function ProjectScreen() {
   const route = useRoute();
   const { projectId } = route.params;
@@ -33,8 +55,16 @@ function ProjectScreen() {
   useFirebaseConnect(`projects/${uid}`);
   const project = useSelector((state) => get(state, `firebase.data.projects.${uid}.${projectId}`, {}));
   const { tiers = 3, colors: projectColors } = project;
-  const starterColors = fill(new Array(tiers), { name: 'white', hex: '#FFFFFF' });
+  const numProjectColors = size(projectColors);
+  let starterColors = [];
+  if (numProjectColors < tiers) {
+    const fillerColors = fill(new Array(tiers), { name: 'white', hex: '#FFFFFF' });
+    starterColors = concat(getRandomSubset(projectColors, numProjectColors), fillerColors);
+  } else {
+    starterColors = getRandomSubset(projectColors, tiers);
+  }
   const [colors, setColors] = useState(starterColors);
+  console.log('lzz', colors);
 
   return (
     <SafeAreaView style={themeStyles.screenContainer}>
@@ -47,12 +77,12 @@ function ProjectScreen() {
           <View style={styles.blobsGroup}>
             {map(colors, ({ name, hex }) => (
               <GridItem columns={size(colors)}>
-                <ColorBlob name={name} hex={hex} locked />
+                <ColorBlob name={name} hex={hex} />
               </GridItem>
             ))}
           </View>
         </View>
-        <GrannySquare />
+        <GrannySquare colors={reverse(colors)} />
       </ScrollView>
     </SafeAreaView>
   );

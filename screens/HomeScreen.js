@@ -22,8 +22,6 @@ function HomeScreen() {
   const projects = useSelector((state) => get(state, `firebase.data.projects.${uid}`, {}));
   const navigation = useNavigation();
 
-  console.log('lzz projects', projects);
-
   return (
     <SafeAreaView style={themeStyles.screenContainer}>
       <ScrollView
@@ -32,7 +30,7 @@ function HomeScreen() {
       >
         {
           size(projects)
-            ? map(sortBy(projects, 'updatedAt'), (project, projectId) => (
+            ? map(projects, (project, projectId) => (
               <ProjectListItem
                 key={`project-list-item-${projectId}`}
                 name={project.name}
