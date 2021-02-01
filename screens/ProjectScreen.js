@@ -47,7 +47,7 @@ function ProjectScreen() {
           <View style={styles.blobsGroup}>
             {map(colors, ({ name, hex }) => (
               <GridItem columns={size(colors)}>
-                <ColorBlob name={name} hex={hex} />
+                <ColorBlob name={name} hex={hex} locked />
               </GridItem>
             ))}
           </View>
