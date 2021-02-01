@@ -4,44 +4,36 @@ import {
   View,
 } from 'react-native';
 import Color from 'color';
-import { map, size } from 'lodash';
+import { fill, map, size } from 'lodash';
 import { gutter, colors } from '../theme';
 
-function GrannySquare({ colors = ['red', 'orange', 'yellow', 'green'] }) {
+function GrannySquare({ colors = ['red', 'orange', 'yellow', 'green', 'blue'] }) {
   const tiers = size(colors);
   const gridSize = 2 * tiers + 1;
 
   const grid = [];
   let i;
   let j;
-  let t;
 
-  console.log('lzz ----');
   for (i = 0; i < gridSize; i++) {
     grid[i] = new Array(gridSize);
+    if (i < tiers - 1) {
+      fill(grid[i], tiers - i - 1);
+    } else if (i > tiers + 1 /* || j > tiers */) {
+      fill(grid[i], i - 1 - tiers);
+    } else {
+      fill(grid[i], 0);
+    }
+  }
+  // console.log('lzz grid', JSON.stringify(grid));
+  for (i = 0; i < gridSize; i++) {
     for (j = 0; j < gridSize; j++) {
       if ((i + j) % 2 === 0) {
-        // console.log('lzz null          ', `[${i}][${j}]`, null);
         grid[i][j] = null;
-      } else if (i < tiers - 1 /* || j < tiers */) {
-        // if (i < tiers) {
-        console.log('lzz i < tiers - 1]', `[${i}][${j}]`, tiers - i);
-        grid[i][j] = colors[tiers - i - 1];
-        // } else {
-        //   console.log('lzz j < tiers - 1]', j, tiers - j);
-        //   grid[i][j] = colors[tiers - j];
-        // }
-      } else if (i > tiers + 1 /* || j > tiers */) {
-        // if (i > tiers) {
-        console.log('lzz i > tiers - 1]', `[${i}][${j}]`, i - tiers);
-        grid[i][j] = colors[i - 1 - tiers];
-        // } else {
-        //   console.log('lzz j > tiers - 1]', j, j - tiers);
-        //   grid[i][j] = colors[j - tiers];
-        // }
+      } else if (i + j < tiers * 2) {
+        grid[j][i] = grid[i][j];
       } else {
-        console.log('lzz default       ', `[${i}][${j}]`, 0);
-        grid[i][j] = colors[0];
+        grid[i][j] = grid[j][i];
       }
     }
   }
@@ -50,11 +42,11 @@ function GrannySquare({ colors = ['red', 'orange', 'yellow', 'green'] }) {
   return (
     <View style={styles.container}>
       {
-        map(grid, (row, rowNum) => (
+        map(grid, (row) => (
           <View style={styles.row}>
             {
-            map(row, (cell, colNum) => (
-              <View style={{ ...styles.cell, backgroundColor: cell }} />
+            map(row, (cell) => (
+              <View style={{ ...styles.cell, backgroundColor: colors[cell] }} />
             ))
           }
           </View>
@@ -76,8 +68,7 @@ const styles = {
   cell: {
     width: 30,
     height: 30,
-    borderRadius: 4,
-    borderWidth: 1,
+    borderRadius: 6,
   },
 };
 
