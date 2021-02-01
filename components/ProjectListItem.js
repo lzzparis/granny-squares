@@ -25,7 +25,6 @@ function ProjectListItem({ name, projectId }) {
           size={16}
           type="font-awesome-5"
         />
-
       </View>
     </Pressable>
   );

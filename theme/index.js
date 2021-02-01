@@ -113,7 +113,6 @@ export const styles = {
 };
 
 export default {
-  testColors,
   colors,
   styles,
   buttonSizes,

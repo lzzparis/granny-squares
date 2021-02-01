@@ -19,6 +19,7 @@ import {
 
 import GridItem from '../components/GridItem';
 import ColorBlob from '../components/ColorBlob';
+import GrannySquare from '../components/GrannySquare';
 
 import { uid } from '../constants';
 import {
@@ -51,6 +52,7 @@ function ProjectScreen() {
             ))}
           </View>
         </View>
+        <GrannySquare />
       </ScrollView>
     </SafeAreaView>
   );
