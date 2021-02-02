@@ -1,5 +1,10 @@
 import { Platform } from 'react-native';
+import { DefaultTheme } from '@react-navigation/native';
+
 import Color from 'color';
+
+const getLight = (color) => Color(color).lighten(0.15).hex();
+const getDark = (color) => Color(color).darken(0.2).hex();
 
 const primary = 'plum';
 const accent1 = 'peachpuff';
@@ -9,9 +14,8 @@ const accent4 = 'palegreen';
 
 const black = 'black';
 const white = 'white';
-
-const getLight = (color) => Color(color).lighten(0.15).hex();
-const getDark = (color) => Color(color).darken(0.2).hex();
+const lightBlack = getLight(black);
+const darkWhite = getDark(white);
 
 export const shadow = Platform.select({
   android: {
@@ -43,19 +47,20 @@ export const colors = {
   accent4Dark: getDark(accent4),
   text: black,
   invertedText: white,
-  background: getDark(white),
+  border: darkWhite,
+  background: getLight(darkWhite),
   paper: white,
   white,
   black,
-  lightBlack: getLight(black),
-  darkWhite: getDark(white),
+  lightBlack,
+  darkWhite,
 };
 
 const typography = {
   h1: {
     fontFamily: 'Poppins_500Medium',
     fontSize: 24,
-    color: colors.text,
+    color: colors.invertedText,
   },
   h2: {
     fontFamily: 'Poppins_500Medium',
@@ -111,6 +116,19 @@ export const styles = {
     paddingRight: halfGutter,
     borderBottomColor: colors.accent1,
     borderBottomWidth: 4,
+  },
+};
+
+export const navigationTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary,
+    background: colors.background,
+    card: colors.paper,
+    text: colors.text,
+    border: colors.border,
+    notification: colors.accent1,
   },
 };
 

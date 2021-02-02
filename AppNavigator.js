@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Platform } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
 
 import HomeScreen from './screens/HomeScreen';
 import ProjectScreen from './screens/ProjectScreen';
@@ -10,13 +8,13 @@ import EditProjectScreen from './screens/EditProjectScreen';
 import QuickStartScreen from './screens/QuickStartScreen';
 import AccountScreen from './screens/AccountScreen';
 
-import { colors } from './theme';
+import { colors, navigationTheme } from './theme';
 
 const Stack = createStackNavigator();
 
 export default function RootAppNavigator() {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={navigationTheme}>
       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={{
