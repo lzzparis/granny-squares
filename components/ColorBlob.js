@@ -17,9 +17,8 @@ function ColorBlob({
 
   const onPress = () => console.log('hi', name, hex);
   return (
-    <Pressable onPress={onPress} style={{ ...styles.container }}>
-      <View style={{ ...styles.blob, backgroundColor: hex }}>
-        {
+    <Pressable onPress={onPress} style={{ ...styles.container, backgroundColor: hex }}>
+      {
         !!locked
         && (
         <Icon
@@ -30,8 +29,6 @@ function ColorBlob({
         />
         )
       }
-      </View>
-      <Text>{capitalize(name)}</Text>
     </Pressable>
   );
 }
@@ -41,10 +38,6 @@ const styles = {
     margin: gutter,
     width: '100%',
     height: '100%',
-  },
-  blob: {
-    width: 'auto',
-    height: 'auto',
     borderRadius: 100,
     borderColor: colors.darkWhite,
     borderWidth: 4,
