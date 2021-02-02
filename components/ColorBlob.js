@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Pressable,
+  Text,
+  View,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import Color from 'color';
+import { capitalize } from 'lodash';
 import { gutter, colors } from '../theme';
 
 function ColorBlob({
@@ -14,8 +17,9 @@ function ColorBlob({
 
   const onPress = () => console.log('hi', name, hex);
   return (
-    <Pressable onPress={onPress} style={{ ...styles.container, backgroundColor: hex }}>
-      {
+    <Pressable onPress={onPress} style={{ ...styles.container }}>
+      <View style={{ ...styles.blob, backgroundColor: hex }}>
+        {
         !!locked
         && (
         <Icon
@@ -26,6 +30,8 @@ function ColorBlob({
         />
         )
       }
+      </View>
+      <Text>{capitalize(name)}</Text>
     </Pressable>
   );
 }
@@ -35,6 +41,10 @@ const styles = {
     margin: gutter,
     width: '100%',
     height: '100%',
+  },
+  blob: {
+    width: 'auto',
+    height: 'auto',
     borderRadius: 100,
     borderColor: colors.darkWhite,
     borderWidth: 4,
