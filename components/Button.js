@@ -9,9 +9,10 @@ import {
   halfGutter, gutter, colors, styles as themeStyles,
 } from '../theme';
 
-function Button({ color, onPress, title }) {
+function Button({ level, onPress, title }) {
+  const color = colors[`accent${level}`] || colors.accent1;
   return (
-    <Pressable onPress={onPress} style={{ ...styles.container, backgroundColor: color || colors.accent1 }}>
+    <Pressable onPress={onPress} style={{ ...styles.container, backgroundColor: color }}>
       <View>
         <Text style={{ ...themeStyles.h3, color: colors.invertedText }}>
           {title}

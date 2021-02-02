@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Text,
   View,
 } from 'react-native';
 import Color from 'color';
@@ -11,6 +12,8 @@ import {
   size,
 } from 'lodash';
 import { colors as themeColors, gutter } from '../theme';
+
+import GridItem from './GridItem';
 
 function GrannySquare({ colors }) {
   const tiers = size(colors);
@@ -50,7 +53,15 @@ function GrannySquare({ colors }) {
           <View style={styles.row}>
             {
             map(row, (cell) => (
-              <View style={{ ...styles.cell, backgroundColor: get(colors[cell], 'hex', null) }} />
+              <GridItem columns={gridSize}>
+                <View
+                  style={{
+                    ...styles.cell,
+                    borderWidth: colors[cell] ? 2 : null,
+                    backgroundColor: get(colors[cell], 'hex', null),
+                  }}
+                />
+              </GridItem>
             ))
           }
           </View>
@@ -62,19 +73,22 @@ function GrannySquare({ colors }) {
 
 const styles = {
   container: {
-    margin: gutter,
+    marginTop: 2 * gutter,
     width: '100%',
     height: '100%',
   },
   row: {
+    width: '100%',
     flexDirection: 'row',
+    justifyContent: 'center',
   },
   cell: {
-    width: 30,
-    height: 30,
+    margin: 1,
+    width: '100%',
+    height: '100%',
     borderRadius: 6,
     borderColor: themeColors.darkWhite,
-    borderWidth: 2,
+    // borderWidth: 2,
   },
 };
 

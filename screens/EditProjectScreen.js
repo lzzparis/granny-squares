@@ -41,7 +41,6 @@ function EditProjectScreen() {
       <Button
         title="Save"
         onPress={() => {}}
-        color={colors.accent1}
         accessibilityLabel="Save"
       />
     </SafeAreaView>

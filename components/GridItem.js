@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import {
   View,
 } from 'react-native';
-import { gutter } from '../theme';
+import { halfGutter } from '../theme';
 import { getGridItemWidth } from '../utils';
 
-function GridItem({ columns, children }) {
+function GridItem({ columns, withPadding, children }) {
   const styles = {
     container: {
       width: getGridItemWidth(columns),
       height: getGridItemWidth(columns),
-      padding: gutter,
+      padding: withPadding ? halfGutter : null,
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -25,7 +25,8 @@ function GridItem({ columns, children }) {
 }
 
 GridItem.propTypes = {
-  columns: PropTypes.number,
+  columns: PropTypes.number.isRequired,
+  withPadding: PropTypes.bool,
   children: PropTypes.node,
 };
 

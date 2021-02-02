@@ -38,7 +38,6 @@ const styles = {
     borderRadius: 100,
     borderColor: colors.darkWhite,
     borderWidth: 4,
-    justifyContent: 'center',
   },
 };
 

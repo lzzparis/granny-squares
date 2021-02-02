@@ -80,7 +80,7 @@ function ProjectScreen() {
           <Text style={themeStyles.h2}>Colors</Text>
           <View style={styles.blobsGroup}>
             {map(colors, ({ name, hex }) => (
-              <GridItem columns={size(colors)}>
+              <GridItem columns={size(colors)} withPadding>
                 <ColorBlob name={name} hex={hex} />
               </GridItem>
             ))}
@@ -88,7 +88,10 @@ function ProjectScreen() {
         </View>
         <GrannySquare colors={reverse(colors)} />
       </ScrollView>
-      <Button title="Randomize" onPress={() => setColors(randomizeColors(projectColors, tiers))} />
+      <Button
+        title="Randomize"
+        onPress={() => setColors(randomizeColors(projectColors, tiers))}
+      />
     </SafeAreaView>
   );
 }
