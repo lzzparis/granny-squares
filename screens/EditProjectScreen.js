@@ -13,7 +13,7 @@ import {
 } from 'lodash';
 
 import Button from '../components/Button';
-import Modal from '../components/Modal';
+import ColorEditor from '../components/ColorEditor';
 import { colors, styles as themeStyles, gutter } from '../theme';
 import { uid } from '../constants';
 
@@ -21,10 +21,18 @@ function EditProjectScreen() {
   const route = useRoute();
   const { projectId } = route.params;
   const project = useSelector((state) => get(state, `firebase.data.projects.${uid}.${projectId}`, {}));
-  const { name: savedName, tiers: savedTiers } = project;
+  const {
+    name: savedName,
+    tiers: savedTiers,
+    colors: savedColors,
+  } = project;
   const [name, setName] = useState(savedName || 'New Project');
   const [tiers, setTiers] = useState(savedTiers || 4);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [projectColors, setProjectColors] = useState(savedColors);
+  const [colorToEdit, setColorToEdit] = useState();
+
+  const saveColors = (newColor) => setProjectColors([...projectColors][newColor.colorId] = newColor);
+
   return (
     <SafeAreaView style={themeStyles.screenContainer}>
       <ScrollView
@@ -48,15 +56,14 @@ function EditProjectScreen() {
       </ScrollView>
       <Button
         title="Save"
-        onPress={() => setModalOpen(true)}
+        onPress={
+          () => setColorToEdit({ name: 'pink', hex: 'pink', colorId: 'pink' })
+        }
         accessibilityLabel="Save"
       />
-      <Modal
-        title="Edit Color"
-        visible={modalOpen}
-        onRequestClose={() => setModalOpen(false)}
-        onSave={() => console.log('Saved!')}
-        showCancel
+      <ColorEditor
+        color={colorToEdit}
+        onSave={saveColors}
       />
     </SafeAreaView>
   );
