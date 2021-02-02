@@ -55,10 +55,9 @@ function EditProjectScreen() {
         title="Edit Color"
         visible={modalOpen}
         onRequestClose={() => setModalOpen(false)}
-      >
-        <Text>boop</Text>
-      </Modal>
-
+        onSave={() => console.log('Saved!')}
+        showCancel
+      />
     </SafeAreaView>
   );
 }

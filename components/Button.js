@@ -9,12 +9,20 @@ import {
   halfGutter, gutter, colors, styles as themeStyles,
 } from '../theme';
 
-function Button({ level, onPress, title }) {
+function Button({
+  level, onPress, title, type = 'filled',
+}) {
   const color = colors[`accent${level}`] || colors.accent1;
+  const buttonTypeStyles = {
+    filled: { backgroundColor: color },
+    outline: {
+      backgroundColor: null, borderWidth: 4, borderColor: color,
+    },
+  };
   return (
-    <Pressable onPress={onPress} style={{ ...styles.container, backgroundColor: color }}>
+    <Pressable onPress={onPress} style={{ ...styles.container, ...buttonTypeStyles[type] }}>
       <View>
-        <Text style={{ ...themeStyles.h3, color: colors.invertedText }}>
+        <Text style={{ ...themeStyles.h3, color: type === 'filled' ? colors.invertedText : color }}>
           {title}
         </Text>
       </View>
@@ -24,8 +32,7 @@ function Button({ level, onPress, title }) {
 const styles = {
   container: {
     ...themeStyles.shadow,
-    margin: 'auto',
-    width: 'auto',
+    margin: halfGutter,
     paddingTop: halfGutter,
     paddingBottom: halfGutter,
     paddingLeft: gutter,
@@ -35,9 +42,10 @@ const styles = {
 };
 
 Button.propTypes = {
-  color: PropTypes.string,
+  level: PropTypes.string,
   onPress: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
+  type: PropTypes.oneOf['filled', 'outline'],
 };
 
 export default Button;

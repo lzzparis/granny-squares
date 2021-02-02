@@ -6,11 +6,11 @@ import Color from 'color';
 const getLight = (color) => Color(color).lighten(0.15).hex();
 const getDark = (color) => Color(color).darken(0.2).hex();
 
-const primary = 'plum';
-const accent1 = 'peachpuff';
-const accent2 = 'pink';
-const accent3 = 'paleturquoise';
-const accent4 = 'palegreen';
+const primary = 'paleturquoise';
+const accent1 = 'plum';
+const accent2 = 'peachpuff';
+const accent3 = 'palegreen';
+const accent4 = 'pink';
 
 const black = 'black';
 const white = 'white';
@@ -114,7 +114,7 @@ export const styles = {
     ...typography.p,
     paddingLeft: halfGutter,
     paddingRight: halfGutter,
-    borderBottomColor: colors.accent1,
+    borderBottomColor: colors.accent2,
     borderBottomWidth: 4,
   },
 };

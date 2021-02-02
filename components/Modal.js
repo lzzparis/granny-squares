@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 
+import Button from './Button';
 import {
   halfGutter, gutter, colors, styles as themeStyles,
 } from '../theme';
@@ -14,6 +15,8 @@ import {
 function Modal({
   children,
   onRequestClose,
+  onSave,
+  showCancel,
   title,
   visible,
 }) {
@@ -28,7 +31,7 @@ function Modal({
             name="times"
             type="font-awesome-5"
             size={32}
-            color={colors.accent2}
+            color={colors.accent3}
           />
           <Text style={themeStyles.h1}>{title}</Text>
           <Icon
@@ -40,6 +43,23 @@ function Modal({
           />
         </View>
         {children}
+        <View style={styles.footer}>
+          {onSave && (
+            <Button
+              style={styles.button}
+              title="Save"
+              onPress={() => { onSave(); onRequestClose(); }}
+            />
+          )}
+          {showCancel && (
+            <Button
+              style={styles.button}
+              title="Cancel"
+              onPress={onRequestClose}
+              type="outline"
+            />
+          )}
+        </View>
       </View>
     </ReactNativeModal>
   );
@@ -49,6 +69,7 @@ const styles = {
   container: {
     width: '100%',
     height: '100%',
+    justifyContent: 'space-between',
   },
   header: {
     width: '100%',
@@ -56,10 +77,18 @@ const styles = {
     paddingBottom: halfGutter,
     paddingLeft: gutter,
     paddingRight: gutter,
-    backgroundColor: colors.accent2,
+    backgroundColor: colors.accent3,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  footer: {
+    width: '100%',
+    padding: gutter,
+    flexDirection: 'row-reverse',
+  },
+  button: {
+    alignSelf: 'flex-start',
   },
 };
 
