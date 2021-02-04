@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useFirebaseConnect } from 'react-redux-firebase';
+import { useFirebase, useFirebaseConnect } from 'react-redux-firebase';
 import {
   SafeAreaView,
   ScrollView,
@@ -63,12 +63,18 @@ function ProjectScreen() {
   const route = useRoute();
   const { projectId } = route.params;
 
+  const firebase = useFirebase();
   useFirebaseConnect(`projects/${uid}`);
   const project = useSelector((state) => get(state, `firebase.data.projects.${uid}.${projectId}`, {}));
   const { tiers = 3, colors: projectColors } = project;
 
   const starterColors = randomizeColors(projectColors, tiers);
   const [colors, setColors] = useState(starterColors);
+
+  function saveSquare(e) {
+    e.preventDefault();
+    firebase.push(`projects/${uid}/${projectId}/saved`, colors);
+  }
 
   return (
     <SafeAreaView style={themeStyles.screenContainer}>
@@ -88,10 +94,16 @@ function ProjectScreen() {
         </View>
         <GrannySquare colors={reverse(colors)} />
       </ScrollView>
-      <Button
-        title="Randomize"
-        onPress={() => setColors(randomizeColors(projectColors, tiers))}
-      />
+      <View style={styles.buttonsGroup}>
+        <Button
+          title="Save"
+          onPress={saveSquare}
+        />
+        <Button
+          title="Randomize"
+          onPress={() => setColors(randomizeColors(projectColors, tiers))}
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -103,6 +115,9 @@ const styles = {
   blobsGroup: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+  },
+  buttonsGroup: {
+    flexDirection: 'row',
   },
 };
 

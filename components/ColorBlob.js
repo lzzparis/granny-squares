@@ -29,6 +29,7 @@ function ColorBlob({
         />
         )
       }
+      <Text>{name}</Text>
     </Pressable>
   );
 }
