@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 
 import { Text, View } from 'react-native';
 import { CustomPicker } from 'react-native-custom-picker';
-import { map } from 'lodash';
+import { get, keys } from 'lodash';
 
 import Modal from './Modal';
 
-import { halfGutter, colors as themeColors } from '../theme';
+import {
+  halfGutter, gutter, colors as themeColors, styles as themeStyles,
+} from '../theme';
 
 function ColorEditor({
   colorToEditId,
@@ -18,15 +20,12 @@ function ColorEditor({
 }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedColorId, setSelectedColorId] = useState(null);
-  const options = map(projectColors, ({ name, hex }, colorId) => ({
-    hex,
-    label: name,
-    value: colorId,
-  }));
-  const renderOption = ({ item, getLabel }) => (
-    <View style={styles.listItemContainer}>
-      <View style={{ ...styles.listItemDot, backgroundColor: item.hex }} />
-      <Text style={styles.listItemLabel}>{getLabel(item)}</Text>
+  const options = keys(projectColors);
+
+  const getItem = (id) => (
+    <View style={styles.itemContainer}>
+      <View style={{ ...styles.dot, backgroundColor: get(projectColors, `${id}.hex`, themeColors.white) }} />
+      <Text style={themeStyles.p}>{get(projectColors, `${id}.name`, 'White')}</Text>
     </View>
   );
 
@@ -51,7 +50,9 @@ function ColorEditor({
         options={options}
         value={selectedColorId}
         onValueChange={(itemValue) => setSelectedColorId(itemValue)}
-        optionTemplate={renderOption}
+        optionTemplate={({ item }) => getItem(item)}
+        fieldTemplate={({ selectedItem }) => getItem(selectedItem)}
+        style={styles.picker}
       />
     </Modal>
   );
@@ -66,17 +67,27 @@ ColorEditor.propTypes = {
 };
 
 const styles = {
-  listItemContainer: {
+  picker: {
+    margin: gutter,
+    borderBottomColor: themeColors.accent2,
+    borderBottomWidth: 4,
+  },
+  itemContainer: {
     padding: halfGutter,
     flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderColor: themeColors.border,
+    alignItems: 'center',
   },
-  listItemDot: {
+  dot: {
     width: 20,
     height: 20,
+    margin: halfGutter,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: themeColors.darkWhite,
+    borderColor: themeColors.border,
   },
+
 };
 
 export default ColorEditor;
