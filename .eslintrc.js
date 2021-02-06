@@ -29,7 +29,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 2,
     'import/no-named-as-default': 0,
     'no-return-await': 2,
-    'no-plusplus':2,
+    'no-plusplus': ["error", { "allowForLoopAfterthoughts": true }],
     'semi': 2,
     'no-underscore-dangle': 1,
     "no-use-before-define": 0,
