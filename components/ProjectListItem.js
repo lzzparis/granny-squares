@@ -8,7 +8,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 
-import { colors, halfGutter, styles as themeStyles } from '../theme';
+import { colors as themeColors, halfGutter, styles as themeStyles } from '../theme';
 
 function ProjectListItem({ name, projectId }) {
   const navigation = useNavigation();
@@ -20,7 +20,7 @@ function ProjectListItem({ name, projectId }) {
           {name}
         </Text>
         <Icon
-          color={colors.text}
+          color={themeColors.text}
           name="arrow-right"
           size={16}
           type="font-awesome-5"
@@ -45,7 +45,7 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: colors.paper,
+    backgroundColor: themeColors.paper,
     borderRadius: 8,
   },
 };

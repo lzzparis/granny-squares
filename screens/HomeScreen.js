@@ -9,13 +9,13 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {
-  get, map, sortBy, size,
+  get, map, size,
 } from 'lodash';
 
 import IconButton from '../components/IconButton';
 import ProjectListItem from '../components/ProjectListItem';
 import { uid } from '../constants';
-import { colors, styles as themeStyles, halfGutter } from '../theme';
+import { styles as themeStyles, halfGutter } from '../theme';
 
 function HomeScreen() {
   useFirebaseConnect(`projects/${uid}`);

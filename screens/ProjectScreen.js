@@ -101,7 +101,7 @@ function ProjectScreen() {
         contentContainerStyle={styles.listContainer}
         style={{ width: '100%' }}
       >
-        <View style={styles.colors}>
+        <View style={styles.colorBlobs}>
           <Text style={themeStyles.h2}>Colors</Text>
           <View style={styles.blobsGroup}>
             {map(colorIds, (colorId, colorBlobIndex) => (
@@ -143,7 +143,7 @@ function ProjectScreen() {
 }
 const styles = {
   listContainer: {},
-  colors: {
+  colorBlobs: {
     ...themeStyles.card,
   },
   blobsGroup: {

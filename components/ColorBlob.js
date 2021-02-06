@@ -7,7 +7,7 @@ import {
 import { Icon } from 'react-native-elements';
 import Color from 'color';
 import { noop } from 'lodash';
-import { gutter, colors } from '../theme';
+import { gutter, colors as themeColors } from '../theme';
 
 function ColorBlob({
   name = 'white',
@@ -30,7 +30,7 @@ function ColorBlob({
         !!locked
         && (
         <Icon
-          color={isDark ? colors.invertedText : colors.darkWhite}
+          color={isDark ? themeColors.invertedText : themeColors.darkWhite}
           name="lock"
           type="font-awesome-5"
           size={20}
@@ -48,7 +48,7 @@ const styles = {
     width: '100%',
     height: '100%',
     borderRadius: 100,
-    borderColor: colors.darkWhite,
+    borderColor: themeColors.darkWhite,
     borderWidth: 4,
   },
 };
