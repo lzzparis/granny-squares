@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Pressable,
-  Text,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import Color from 'color';
@@ -10,34 +9,40 @@ import { noop } from 'lodash';
 import { gutter, colors as themeColors } from '../theme';
 
 function ColorBlob({
-  name = 'white',
   hex = '#FFFFFF',
   locked,
   onPress = noop,
+  onLongPress = noop,
 }) {
-  const isDark = Color(hex).luminosity() < 0.5;
+  const isLight = Color(hex).luminosity() < 0.9;
   const onPressBlob = (e) => {
     e.preventDefault(e);
     onPress();
   };
 
+  const onLongPressBlob = (e) => {
+    e.preventDefault(e);
+    onLongPress();
+  };
+
   return (
     <Pressable
       onPress={onPressBlob}
+      onLongPress={onLongPressBlob}
+      delayLongPress={200}
       style={{ ...styles.container, backgroundColor: hex }}
     >
       {
         !!locked
         && (
         <Icon
-          color={isDark ? themeColors.invertedText : themeColors.darkWhite}
+          color={isLight ? themeColors.darkWhite : themeColors.invertedText}
           name="lock"
           type="font-awesome-5"
           size={20}
         />
         )
       }
-      <Text>{name}</Text>
     </Pressable>
   );
 }
@@ -47,6 +52,7 @@ const styles = {
     margin: gutter,
     width: '100%',
     height: '100%',
+    justifyContent: 'center',
     borderRadius: 100,
     borderColor: themeColors.border,
     borderWidth: 4,
@@ -54,10 +60,10 @@ const styles = {
 };
 
 ColorBlob.propTypes = {
-  name: PropTypes.string.isRequired,
   hex: PropTypes.string.isRequired,
   locked: PropTypes.bool,
   onPress: PropTypes.func,
+  onLongPress: PropTypes.func,
 };
 
 export default ColorBlob;

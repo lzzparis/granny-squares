@@ -71,9 +71,16 @@ function ProjectScreen() {
   const { tiers = 3, colors: projectColors } = project;
 
   const starterColors = randomizeColors(projectColors, tiers);
-  const [colorIds, setColorIds] = useState(starterColors);
+  const [workingColorIds, setWorkingColorIds] = useState(starterColors);
   const [colorToEditId, setColorToEditId] = useState(null);
   const [colorToEditIndex, setColorToEditIndex] = useState(null);
+  const [isLocked, setIsLocked] = useState(new Array(tiers));
+
+  const toggleLockColor = (index) => () => {
+    const newIsLocked = [...isLocked];
+    newIsLocked[index] = !newIsLocked[index];
+    setIsLocked(newIsLocked);
+  };
 
   const openColorEditor = (colorId, colorIndex) => () => {
     setColorToEditId(colorId);
@@ -82,13 +89,13 @@ function ProjectScreen() {
 
   function saveSquare(e) {
     e.preventDefault();
-    firebase.push(`projects/${uid}/${projectId}/saved`, colorIds);
+    firebase.push(`projects/${uid}/${projectId}/saved`, workingColorIds);
   }
 
   const saveColor = (colorToSave, index) => () => {
-    const newColors = [...colorIds];
+    const newColors = [...workingColorIds];
     newColors[index] = colorToSave;
-    setColorIds(newColors);
+    setWorkingColorIds(newColors);
     setColorToEditId(null);
   };
   const cancelColorEdit = () => {
@@ -104,22 +111,24 @@ function ProjectScreen() {
         <View style={styles.colorBlobs}>
           <Text style={themeStyles.h2}>Colors</Text>
           <View style={styles.blobsGroup}>
-            {map(colorIds, (colorId, colorBlobIndex) => (
+            {map(workingColorIds, (colorId, colorBlobIndex) => (
               <GridItem
                 key={`color-blob-${colorBlobIndex}`}
-                columns={size(colorIds)}
+                columns={size(workingColorIds)}
                 withPadding
               >
                 <ColorBlob
                   name={projectColors[colorId].name}
                   hex={projectColors[colorId].hex}
                   onPress={openColorEditor(colorId, colorBlobIndex)}
+                  onLongPress={toggleLockColor(colorBlobIndex)}
+                  locked={isLocked[colorBlobIndex]}
                 />
               </GridItem>
             ))}
           </View>
         </View>
-        <GrannySquare projectColors={projectColors} colorIds={colorIds} />
+        <GrannySquare projectColors={projectColors} colorIds={workingColorIds} />
       </ScrollView>
       <View style={styles.buttonsGroup}>
         <Button
@@ -128,7 +137,7 @@ function ProjectScreen() {
         />
         <Button
           title="Randomize"
-          onPress={() => setColorIds(randomizeColors(projectColors, tiers))}
+          onPress={() => setWorkingColorIds(randomizeColors(projectColors, tiers))}
         />
       </View>
       <ColorEditor
