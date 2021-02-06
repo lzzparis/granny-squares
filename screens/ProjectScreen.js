@@ -74,9 +74,11 @@ function ProjectScreen() {
   const starterColors = randomizeColors(projectColors, tiers);
   const [colors, setColors] = useState(starterColors);
   const [colorToEditId, setColorToEditId] = useState(null);
+  const [colorToEditIndex, setColorToEditIndex] = useState(null);
 
-  const openColorEditor = (color) => {
-    setColorToEditId(get(color, 'colorId', null));
+  const openColorEditor = (colorId, colorIndex) => () => {
+    setColorToEditId(colorId);
+    setColorToEditIndex(colorIndex);
   };
 
   function saveSquare(e) {
@@ -85,18 +87,16 @@ function ProjectScreen() {
   }
 
   const saveColor = (colorToSave, index) => () => {
+    // TODO - we gotta fix this somehow cuz new array has color objects by reference
     const newColors = [...colors];
     newColors[index] = colorToSave;
+    // console.log('lzz', { newColors, colors });
     setColors(newColors);
     setColorToEditId(null);
   };
   const cancelColorEdit = () => {
     setColorToEditId(null);
   };
-
-  useEffect(() => {
-    console.log('lzz colors changed', colors);
-  });
 
   return (
     <SafeAreaView style={themeStyles.screenContainer}>
@@ -107,9 +107,9 @@ function ProjectScreen() {
         <View style={styles.colors}>
           <Text style={themeStyles.h2}>Colors</Text>
           <View style={styles.blobsGroup}>
-            {map(colors, ({ name, hex, colorId }, colorBlobIdx) => (
+            {map(colors, ({ name, hex, colorId }, colorBlobIndex) => (
               <GridItem
-                key={`color-blob-${colorBlobIdx}`}
+                key={`color-blob-${colorBlobIndex}`}
                 columns={size(colors)}
                 withPadding
               >
@@ -117,7 +117,7 @@ function ProjectScreen() {
                   colorId={colorId}
                   name={name}
                   hex={hex}
-                  onPress={openColorEditor}
+                  onPress={openColorEditor(colorId, colorBlobIndex)}
                 />
               </GridItem>
             ))}
@@ -140,6 +140,7 @@ function ProjectScreen() {
         colorToEditId={colorToEditId}
         onSaveColor={saveColor}
         onCancel={cancelColorEdit}
+        colorToEditIndex={colorToEditIndex}
       />
     </SafeAreaView>
   );

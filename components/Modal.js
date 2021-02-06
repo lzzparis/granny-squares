@@ -104,7 +104,9 @@ const styles = {
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
   visible: PropTypes.bool.isRequired,
+  onSave: PropTypes.func,
   onRequestClose: PropTypes.func.isRequired,
+  showCancel: PropTypes.bool,
   title: PropTypes.string.isRequired,
 };
 

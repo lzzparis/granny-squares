@@ -3,25 +3,22 @@ import PropTypes from 'prop-types';
 import {
   Pressable,
   Text,
-  View,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import Color from 'color';
-import { capitalize, noop } from 'lodash';
+import { noop } from 'lodash';
 import { gutter, colors } from '../theme';
 
 function ColorBlob({
   name = 'white',
   hex = '#FFFFFF',
-  colorId,
-  size = 32,
   locked,
   onPress = noop,
 }) {
   const isDark = Color(hex).luminosity() < 0.5;
   const onPressBlob = (e) => {
     e.preventDefault(e);
-    onPress({ name, hex, colorId });
+    onPress();
   };
 
   return (
@@ -57,9 +54,11 @@ const styles = {
 };
 
 ColorBlob.propTypes = {
-  name: PropTypes.string,
-  hex: PropTypes.string,
-  size: PropTypes.number,
+  name: PropTypes.string.isRequired,
+  hex: PropTypes.string.isRequired,
+  colorId: PropTypes.string.isRequired,
+  locked: PropTypes.bool,
+  onPress: PropTypes.func,
 };
 
 export default ColorBlob;

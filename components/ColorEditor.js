@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Text,
-} from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import { get, map, sample } from 'lodash';
+import PropTypes from 'prop-types';
 
-import ColorBlob from './ColorBlob';
+import { Picker } from '@react-native-picker/picker';
+import { map } from 'lodash';
+
 import Modal from './Modal';
 
 function ColorEditor({
@@ -13,7 +11,7 @@ function ColorEditor({
   projectColors,
   onSaveColor,
   onCancel,
-  index,
+  colorToEditIndex,
 }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedColorId, setSelectedColorId] = useState(null);
@@ -32,7 +30,7 @@ function ColorEditor({
       title="Edit Color"
       visible={modalOpen}
       onRequestClose={onCancel}
-      onSave={onSaveColor(projectColors[selectedColorId], index)}
+      onSave={onSaveColor(projectColors[selectedColorId], colorToEditIndex)}
       showCancel
     >
       <Picker
@@ -50,5 +48,13 @@ function ColorEditor({
     </Modal>
   );
 }
+
+ColorEditor.propTypes = {
+  colorToEditId: PropTypes.string,
+  projectColors: PropTypes.object.isRequired,
+  onSaveColor: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  colorToEditIndex: PropTypes.number,
+};
 
 export default ColorEditor;

@@ -14,7 +14,7 @@ import {
 
 import Button from '../components/Button';
 import ColorEditor from '../components/ColorEditor';
-import { colors, styles as themeStyles, gutter } from '../theme';
+import { styles as themeStyles } from '../theme';
 import { uid } from '../constants';
 
 function EditProjectScreen() {
@@ -31,7 +31,11 @@ function EditProjectScreen() {
   const [projectColors, setProjectColors] = useState(savedColors);
   const [colorToEdit, setColorToEdit] = useState();
 
-  const saveColors = (newColor) => setProjectColors([...projectColors][newColor.colorId] = newColor);
+  const saveColors = (newColor) => {
+    const newProjectColors = [...projectColors];
+    newProjectColors[newColor.colorId] = newColor;
+    setProjectColors(newProjectColors);
+  };
 
   return (
     <SafeAreaView style={themeStyles.screenContainer}>

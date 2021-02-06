@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Text,
   View,
 } from 'react-native';
-import Color from 'color';
 import {
   fill,
   get,
@@ -48,11 +46,11 @@ function GrannySquare({ colors }) {
   return (
     <View style={styles.container}>
       {
-        map(grid, (row, rowIdx) => (
-          <View key={`granny-square-row-${rowIdx}`} style={styles.row}>
+        map(grid, (row, rowIndex) => (
+          <View key={`granny-square-row-${rowIndex}`} style={styles.row}>
             {
-            map(row, (cell, colIdx) => (
-              <GridItem key={`granny-square-row-${rowIdx}-col-${colIdx}`} columns={gridSize}>
+            map(row, (cell, colIndex) => (
+              <GridItem key={`granny-square-row-${rowIndex}-col-${colIndex}`} columns={gridSize}>
                 <View
                   style={{
                     ...styles.cell,
@@ -89,6 +87,10 @@ const styles = {
     borderColor: themeColors.darkWhite,
     // borderWidth: 2,
   },
+};
+
+GrannySquare.propTypes = {
+  colors: PropTypes.object.isRequired,
 };
 
 export default GrannySquare;
