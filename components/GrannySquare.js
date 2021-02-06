@@ -13,8 +13,8 @@ import { colors as themeColors, gutter } from '../theme';
 
 import GridItem from './GridItem';
 
-function GrannySquare({ colors }) {
-  const tiers = size(colors);
+function GrannySquare({ colorIds, projectColors }) {
+  const tiers = size(colorIds);
   const gridSize = 2 * tiers + 1;
 
   const grid = [];
@@ -54,8 +54,8 @@ function GrannySquare({ colors }) {
                 <View
                   style={{
                     ...styles.cell,
-                    borderWidth: colors[cell] ? 2 : null,
-                    backgroundColor: get(colors[cell], 'hex', null),
+                    borderWidth: colorIds[cell] ? 2 : null,
+                    backgroundColor: get(projectColors, `${colorIds[cell]}.hex`, null),
                   }}
                 />
               </GridItem>
@@ -85,12 +85,12 @@ const styles = {
     height: '100%',
     borderRadius: 6,
     borderColor: themeColors.darkWhite,
-    // borderWidth: 2,
   },
 };
 
 GrannySquare.propTypes = {
-  colors: PropTypes.object.isRequired,
+  colorIds: PropTypes.array.isRequired,
+  projectColors: PropTypes.object.isRequired,
 };
 
 export default GrannySquare;

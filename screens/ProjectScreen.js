@@ -14,14 +14,12 @@ import {
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import {
-  concat,
   fill,
   get,
+  keys,
   map,
-  reverse,
   size,
   values,
-  sample,
 } from 'lodash';
 
 import Button from '../components/Button';
@@ -32,14 +30,14 @@ import GridItem from '../components/GridItem';
 
 import { uid } from '../constants';
 import {
-  colors as themeColors, styles as themeStyles,
+  styles as themeStyles,
 } from '../theme';
 
-function getRandomSubset(set, size) {
+function getRandomSubset(set, subsetSize) {
   const arr = values(set);
   const shuffled = arr.slice(0);
   let i = arr.length;
-  const min = i - size;
+  const min = i - subsetSize;
   let temp; let
     index;
   while (i-- > min) {
@@ -52,14 +50,14 @@ function getRandomSubset(set, size) {
 }
 
 function randomizeColors(colorSet, length) {
-  const colorSetWithIds = map(colorSet, (color, colorId) => ({ ...color, colorId }));
-  const colorSetSize = size(colorSetWithIds);
+  const colorSetIds = keys(colorSet);
+  const colorSetSize = size(colorSetIds);
   if (colorSetSize === 0) {
     return fill(new Array(length), { name: 'white', hex: '#FFFFFF' });
   } if (colorSetSize < length) {
-    return getRandomSubset(colorSetWithIds, colorSetSize);
+    return getRandomSubset(colorSetIds, colorSetSize);
   }
-  return getRandomSubset(colorSetWithIds, length);
+  return getRandomSubset(colorSetIds, length);
 }
 
 function ProjectScreen() {
@@ -72,7 +70,7 @@ function ProjectScreen() {
   const { tiers = 3, colors: projectColors } = project;
 
   const starterColors = randomizeColors(projectColors, tiers);
-  const [colors, setColors] = useState(starterColors);
+  const [colorIds, setColorIds] = useState(starterColors);
   const [colorToEditId, setColorToEditId] = useState(null);
   const [colorToEditIndex, setColorToEditIndex] = useState(null);
 
@@ -83,15 +81,13 @@ function ProjectScreen() {
 
   function saveSquare(e) {
     e.preventDefault();
-    firebase.push(`projects/${uid}/${projectId}/saved`, colors);
+    firebase.push(`projects/${uid}/${projectId}/saved`, colorIds);
   }
 
   const saveColor = (colorToSave, index) => () => {
-    // TODO - we gotta fix this somehow cuz new array has color objects by reference
-    const newColors = [...colors];
+    const newColors = [...colorIds];
     newColors[index] = colorToSave;
-    // console.log('lzz', { newColors, colors });
-    setColors(newColors);
+    setColorIds(newColors);
     setColorToEditId(null);
   };
   const cancelColorEdit = () => {
@@ -107,23 +103,22 @@ function ProjectScreen() {
         <View style={styles.colors}>
           <Text style={themeStyles.h2}>Colors</Text>
           <View style={styles.blobsGroup}>
-            {map(colors, ({ name, hex, colorId }, colorBlobIndex) => (
+            {map(colorIds, (colorId, colorBlobIndex) => (
               <GridItem
                 key={`color-blob-${colorBlobIndex}`}
-                columns={size(colors)}
+                columns={size(colorIds)}
                 withPadding
               >
                 <ColorBlob
-                  colorId={colorId}
-                  name={name}
-                  hex={hex}
+                  name={projectColors[colorId].name}
+                  hex={projectColors[colorId].hex}
                   onPress={openColorEditor(colorId, colorBlobIndex)}
                 />
               </GridItem>
             ))}
           </View>
         </View>
-        <GrannySquare colors={colors} />
+        <GrannySquare projectColors={projectColors} colorIds={colorIds} />
       </ScrollView>
       <View style={styles.buttonsGroup}>
         <Button
@@ -132,7 +127,7 @@ function ProjectScreen() {
         />
         <Button
           title="Randomize"
-          onPress={() => setColors(randomizeColors(projectColors, tiers))}
+          onPress={() => setColorIds(randomizeColors(projectColors, tiers))}
         />
       </View>
       <ColorEditor

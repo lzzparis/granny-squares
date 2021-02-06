@@ -30,7 +30,7 @@ function ColorEditor({
       title="Edit Color"
       visible={modalOpen}
       onRequestClose={onCancel}
-      onSave={onSaveColor(projectColors[selectedColorId], colorToEditIndex)}
+      onSave={onSaveColor(selectedColorId, colorToEditIndex)}
       showCancel
     >
       <Picker
