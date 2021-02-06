@@ -56,7 +56,6 @@ const styles = {
 ColorBlob.propTypes = {
   name: PropTypes.string.isRequired,
   hex: PropTypes.string.isRequired,
-  colorId: PropTypes.string.isRequired,
   locked: PropTypes.bool,
   onPress: PropTypes.func,
 };

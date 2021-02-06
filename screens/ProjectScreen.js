@@ -3,7 +3,7 @@
 // button for colors? (new screen?)
 //
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useFirebase, useFirebaseConnect } from 'react-redux-firebase';
 import {
@@ -40,7 +40,8 @@ function getRandomSubset(set, subsetSize) {
   const min = i - subsetSize;
   let temp; let
     index;
-  while (i-- > min) {
+  while (i > min) {
+    i -= 1;
     index = Math.floor((i + 1) * Math.random());
     temp = shuffled[index];
     shuffled[index] = shuffled[i];
