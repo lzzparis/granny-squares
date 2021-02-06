@@ -3,7 +3,7 @@
 // button for colors? (new screen?)
 //
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useFirebase, useFirebaseConnect } from 'react-redux-firebase';
 import {
@@ -21,10 +21,12 @@ import {
   reverse,
   size,
   values,
+  sample,
 } from 'lodash';
 
 import Button from '../components/Button';
 import ColorBlob from '../components/ColorBlob';
+import ColorEditor from '../components/ColorEditor';
 import GrannySquare from '../components/GrannySquare';
 import GridItem from '../components/GridItem';
 
@@ -50,13 +52,14 @@ function getRandomSubset(set, size) {
 }
 
 function randomizeColors(colorSet, length) {
-  const colorSetSize = size(colorSet);
+  const colorSetWithIds = map(colorSet, (color, colorId) => ({ ...color, colorId }));
+  const colorSetSize = size(colorSetWithIds);
   if (colorSetSize === 0) {
     return fill(new Array(length), { name: 'white', hex: '#FFFFFF' });
   } if (colorSetSize < length) {
-    return getRandomSubset(colorSet, colorSetSize);
+    return getRandomSubset(colorSetWithIds, colorSetSize);
   }
-  return getRandomSubset(colorSet, length);
+  return getRandomSubset(colorSetWithIds, length);
 }
 
 function ProjectScreen() {
@@ -70,11 +73,30 @@ function ProjectScreen() {
 
   const starterColors = randomizeColors(projectColors, tiers);
   const [colors, setColors] = useState(starterColors);
+  const [colorToEditId, setColorToEditId] = useState(null);
+
+  const openColorEditor = (color) => {
+    setColorToEditId(get(color, 'colorId', null));
+  };
 
   function saveSquare(e) {
     e.preventDefault();
     firebase.push(`projects/${uid}/${projectId}/saved`, colors);
   }
+
+  const saveColor = (colorToSave, index) => () => {
+    const newColors = [...colors];
+    newColors[index] = colorToSave;
+    setColors(newColors);
+    setColorToEditId(null);
+  };
+  const cancelColorEdit = () => {
+    setColorToEditId(null);
+  };
+
+  useEffect(() => {
+    console.log('lzz colors changed', colors);
+  });
 
   return (
     <SafeAreaView style={themeStyles.screenContainer}>
@@ -85,14 +107,23 @@ function ProjectScreen() {
         <View style={styles.colors}>
           <Text style={themeStyles.h2}>Colors</Text>
           <View style={styles.blobsGroup}>
-            {map(colors, ({ name, hex }) => (
-              <GridItem columns={size(colors)} withPadding>
-                <ColorBlob name={name} hex={hex} />
+            {map(colors, ({ name, hex, colorId }, colorBlobIdx) => (
+              <GridItem
+                key={`color-blob-${colorBlobIdx}`}
+                columns={size(colors)}
+                withPadding
+              >
+                <ColorBlob
+                  colorId={colorId}
+                  name={name}
+                  hex={hex}
+                  onPress={openColorEditor}
+                />
               </GridItem>
             ))}
           </View>
         </View>
-        <GrannySquare colors={reverse(colors)} />
+        <GrannySquare colors={colors} />
       </ScrollView>
       <View style={styles.buttonsGroup}>
         <Button
@@ -104,6 +135,12 @@ function ProjectScreen() {
           onPress={() => setColors(randomizeColors(projectColors, tiers))}
         />
       </View>
+      <ColorEditor
+        projectColors={projectColors}
+        colorToEditId={colorToEditId}
+        onSaveColor={saveColor}
+        onCancel={cancelColorEdit}
+      />
     </SafeAreaView>
   );
 }
@@ -113,7 +150,7 @@ const styles = {
     ...themeStyles.card,
   },
   blobsGroup: {
-    flexDirection: 'row',
+    flexDirection: 'row-reverse',
     flexWrap: 'wrap',
   },
   buttonsGroup: {

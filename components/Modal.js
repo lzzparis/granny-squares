@@ -20,6 +20,15 @@ function Modal({
   title,
   visible,
 }) {
+  const saveAndClose = (e) => {
+    e.preventDefault();
+    onSave();
+    onRequestClose();
+  };
+  const close = (e) => {
+    e.preventDefault();
+    onRequestClose();
+  };
   return (
     <ReactNativeModal
       visible={visible}
@@ -48,14 +57,14 @@ function Modal({
             <Button
               style={styles.button}
               title="Save"
-              onPress={() => { onSave(); onRequestClose(); }}
+              onPress={saveAndClose}
             />
           )}
           {showCancel && (
             <Button
               style={styles.button}
               title="Cancel"
-              onPress={onRequestClose}
+              onPress={close}
               type="outline"
             />
           )}

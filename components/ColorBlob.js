@@ -7,17 +7,28 @@ import {
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import Color from 'color';
-import { capitalize } from 'lodash';
+import { capitalize, noop } from 'lodash';
 import { gutter, colors } from '../theme';
 
 function ColorBlob({
-  name = 'white', hex = '#FFFFFF', size = 32, locked,
+  name = 'white',
+  hex = '#FFFFFF',
+  colorId,
+  size = 32,
+  locked,
+  onPress = noop,
 }) {
   const isDark = Color(hex).luminosity() < 0.5;
+  const onPressBlob = (e) => {
+    e.preventDefault(e);
+    onPress({ name, hex, colorId });
+  };
 
-  const onPress = () => console.log('hi', name, hex);
   return (
-    <Pressable onPress={onPress} style={{ ...styles.container, backgroundColor: hex }}>
+    <Pressable
+      onPress={onPressBlob}
+      style={{ ...styles.container, backgroundColor: hex }}
+    >
       {
         !!locked
         && (

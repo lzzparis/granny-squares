@@ -45,15 +45,14 @@ function GrannySquare({ colors }) {
     }
   }
 
-  console.log('lzz', { colors, gridSize, tiers });
   return (
     <View style={styles.container}>
       {
-        map(grid, (row) => (
-          <View style={styles.row}>
+        map(grid, (row, rowIdx) => (
+          <View key={`granny-square-row-${rowIdx}`} style={styles.row}>
             {
-            map(row, (cell) => (
-              <GridItem columns={gridSize}>
+            map(row, (cell, colIdx) => (
+              <GridItem key={`granny-square-row-${rowIdx}-col-${colIdx}`} columns={gridSize}>
                 <View
                   style={{
                     ...styles.cell,
