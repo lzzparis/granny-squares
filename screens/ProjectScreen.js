@@ -20,6 +20,8 @@ import {
   map,
   size,
   values,
+  sample,
+  remove,
 } from 'lodash';
 
 import Button from '../components/Button';
@@ -33,33 +35,49 @@ import {
   styles as themeStyles,
 } from '../theme';
 
-function getRandomSubset(set, subsetSize) {
-  const arr = values(set);
-  const shuffled = arr.slice(0);
-  let i = arr.length;
-  const min = i - subsetSize;
-  let temp; let
-    index;
-  while (i > min) {
-    i -= 1;
-    index = Math.floor((i + 1) * Math.random());
-    temp = shuffled[index];
-    shuffled[index] = shuffled[i];
-    shuffled[i] = temp;
-  }
-  return shuffled.slice(min);
-}
+// function getRandomSubset(set, subsetSize) {
+//   const arr = values(set);
+//   const shuffled = arr.slice(0);
+//   let i = arr.length;
+//   const min = i - subsetSize;
+//   let temp; let
+//     index;
+//   while (i > min) {
+//     i -= 1;
+//     index = Math.floor((i + 1) * Math.random());
+//     temp = shuffled[index];
+//     shuffled[index] = shuffled[i];
+//     shuffled[i] = temp;
+//   }
+//   return shuffled.slice(min);
+// }
 
-function randomizeColors(colorSet, length) {
-  const colorSetIds = keys(colorSet);
-  const colorSetSize = size(colorSetIds);
-  if (colorSetSize === 0) {
-    return fill(new Array(length), { name: 'white', hex: '#FFFFFF' });
-  } if (colorSetSize < length) {
-    return getRandomSubset(colorSetIds, colorSetSize);
+// function randomizeColors(colorSet, length) {
+//   const colorSetIds = keys(colorSet);
+//   const colorSetSize = size(colorSetIds);
+//   if (colorSetSize === 0) {
+//     return fill(new Array(length), { name: 'white', hex: '#FFFFFF' });
+//   } if (colorSetSize < length) {
+//     return getRandomSubset(colorSetIds, colorSetSize);
+//   }
+//   return getRandomSubset(colorSetIds, length);
+// }
+
+const randomizeColors = ({
+  tiers, projectColors, workingColorIds, isLocked,
+}) => {
+  const colorOptions = keys(projectColors);
+  const newWorkingColorIds = new Array(tiers);
+  for (let i = 0; i < tiers; i++) {
+    if (workingColorIds && isLocked[i]) {
+      newWorkingColorIds[i] = workingColorIds[i];
+    } else {
+      newWorkingColorIds[i] = sample(colorOptions);
+    }
+    remove(colorOptions, newWorkingColorIds[i]);
   }
-  return getRandomSubset(colorSetIds, length);
-}
+  return newWorkingColorIds;
+};
 
 function ProjectScreen() {
   const route = useRoute();
@@ -70,27 +88,30 @@ function ProjectScreen() {
   const project = useSelector((state) => get(state, `firebase.data.projects.${uid}.${projectId}`, {}));
   const { tiers = 3, colors: projectColors } = project;
 
-  const starterColors = randomizeColors(projectColors, tiers);
+  const starterColors = randomizeColors({ projectColors, tiers });
   const [workingColorIds, setWorkingColorIds] = useState(starterColors);
   const [colorToEditId, setColorToEditId] = useState(null);
   const [colorToEditIndex, setColorToEditIndex] = useState(null);
   const [isLocked, setIsLocked] = useState(new Array(tiers));
 
+  // Database functions
+  const saveSquare = (e) => {
+    e.preventDefault();
+    firebase.push(`projects/${uid}/${projectId}/saved`, workingColorIds);
+  };
+
+  // Randomizing functions
   const toggleLockColor = (index) => () => {
     const newIsLocked = [...isLocked];
     newIsLocked[index] = !newIsLocked[index];
     setIsLocked(newIsLocked);
   };
 
+  // ColorEditor functions
   const openColorEditor = (colorId, colorIndex) => () => {
     setColorToEditId(colorId);
     setColorToEditIndex(colorIndex);
   };
-
-  function saveSquare(e) {
-    e.preventDefault();
-    firebase.push(`projects/${uid}/${projectId}/saved`, workingColorIds);
-  }
 
   const saveColor = (colorToSave, index) => () => {
     const newColors = [...workingColorIds];
@@ -98,6 +119,7 @@ function ProjectScreen() {
     setWorkingColorIds(newColors);
     setColorToEditId(null);
   };
+
   const cancelColorEdit = () => {
     setColorToEditId(null);
   };
@@ -137,7 +159,9 @@ function ProjectScreen() {
         />
         <Button
           title="Randomize"
-          onPress={() => setWorkingColorIds(randomizeColors(projectColors, tiers))}
+          onPress={() => setWorkingColorIds(randomizeColors({
+            workingColorIds, isLocked, projectColors, tiers,
+          }))}
         />
       </View>
       <ColorEditor
