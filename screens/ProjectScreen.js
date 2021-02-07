@@ -33,34 +33,6 @@ import {
   styles as themeStyles,
 } from '../theme';
 
-// function getRandomSubset(set, subsetSize) {
-//   const arr = values(set);
-//   const shuffled = arr.slice(0);
-//   let i = arr.length;
-//   const min = i - subsetSize;
-//   let temp; let
-//     index;
-//   while (i > min) {
-//     i -= 1;
-//     index = Math.floor((i + 1) * Math.random());
-//     temp = shuffled[index];
-//     shuffled[index] = shuffled[i];
-//     shuffled[i] = temp;
-//   }
-//   return shuffled.slice(min);
-// }
-
-// function randomizeColors(colorSet, length) {
-//   const colorSetIds = keys(colorSet);
-//   const colorSetSize = size(colorSetIds);
-//   if (colorSetSize === 0) {
-//     return fill(new Array(length), { name: 'white', hex: '#FFFFFF' });
-//   } if (colorSetSize < length) {
-//     return getRandomSubset(colorSetIds, colorSetSize);
-//   }
-//   return getRandomSubset(colorSetIds, length);
-// }
-
 const randomizeColors = ({
   tiers, projectColors, workingColorIds, isLocked,
 }) => {
