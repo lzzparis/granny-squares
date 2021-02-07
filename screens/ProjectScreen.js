@@ -14,14 +14,12 @@ import {
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import {
-  fill,
   get,
   keys,
   map,
   size,
-  values,
   sample,
-  remove,
+  pull,
 } from 'lodash';
 
 import Button from '../components/Button';
@@ -74,7 +72,7 @@ const randomizeColors = ({
     } else {
       newWorkingColorIds[i] = sample(colorOptions);
     }
-    remove(colorOptions, newWorkingColorIds[i]);
+    pull(colorOptions, newWorkingColorIds[i]);
   }
   return newWorkingColorIds;
 };
