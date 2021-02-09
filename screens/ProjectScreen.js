@@ -97,8 +97,8 @@ function ProjectScreen() {
   return (
     <SafeAreaView style={themeStyles.screenContainer}>
       <ScrollView
-        contentContainerStyle={styles.listContainer}
         style={{ width: '100%' }}
+        contentContainerStyle={themeStyles.scrollContainer}
       >
         <View style={styles.colorBlobs}>
           <Text style={themeStyles.h2}>Colors</Text>

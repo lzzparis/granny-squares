@@ -10,10 +10,13 @@ import {
 import { useRoute } from '@react-navigation/native';
 import {
   get,
+  map,
 } from 'lodash';
 
 import Button from '../components/Button';
-import ColorEditor from '../components/ColorEditor';
+import ColorBlob from '../components/ColorBlob';
+import GridItem from '../components/GridItem';
+
 import { styles as themeStyles } from '../theme';
 import { uid } from '../constants';
 
@@ -40,10 +43,10 @@ function EditProjectScreen() {
   return (
     <SafeAreaView style={themeStyles.screenContainer}>
       <ScrollView
-        contentContainerStyle={styles.listContainer}
         style={{ width: '100%' }}
+        contentContainerStyle={themeStyles.scrollContainer}
       >
-        <View style={styles.meta}>
+        <View style={themeStyles.card}>
           <Text style={themeStyles.h2}>Name</Text>
           <TextInput
             style={themeStyles.textInput}
@@ -57,6 +60,24 @@ function EditProjectScreen() {
             value={tiers}
           />
         </View>
+        <View style={themeStyles.card}>
+          <Text style={themeStyles.h2}>Colors</Text>
+          <View style={styles.blobs}>
+            {map(projectColors, ({ name, hex }, projectColorId) => (
+              <GridItem
+                key={`color-blob-${projectColorId}`}
+                columns={4}
+                withPadding
+              >
+                <ColorBlob
+                  name={name}
+                  hex={hex}
+                  onPress={() => console.log('Blob', projectColorId)}
+                />
+              </GridItem>
+            ))}
+          </View>
+        </View>
       </ScrollView>
       <Button
         title="Save"
@@ -65,17 +86,13 @@ function EditProjectScreen() {
         }
         accessibilityLabel="Save"
       />
-      <ColorEditor
-        color={colorToEdit}
-        onSave={saveColors}
-      />
     </SafeAreaView>
   );
 }
 const styles = {
-  listContainer: {},
-  meta: {
-    ...themeStyles.card,
+  blobs: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
 };
 

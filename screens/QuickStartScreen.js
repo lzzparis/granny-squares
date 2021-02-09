@@ -15,7 +15,7 @@ function QuickStartScreen() {
   return (
     <SafeAreaView style={themeStyles.screenContainer}>
       <ScrollView
-        contentContainerStyle={styles.listContainer}
+        contentContainerStyle={themeStyles.scrollContainer}
         style={{ width: '100%' }}
       >
         <Text>You've reached the QuickStartScreen</Text>
@@ -25,13 +25,7 @@ function QuickStartScreen() {
 }
 const styles = {
   container: {},
-  listContainer: {
-    width: '100%',
-    margin: 'auto',
-    padding: halfGutter,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
+  listContainer: { },
 };
 
 export default (QuickStartScreen);

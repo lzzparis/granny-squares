@@ -1,6 +1,10 @@
 import * as React from 'react';
+import { View } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
+import ProjectHeaderIcons from './components/ProjectHeaderIcons';
 
 import HomeScreen from './screens/HomeScreen';
 import ProjectScreen from './screens/ProjectScreen';
@@ -8,7 +12,7 @@ import EditProjectScreen from './screens/EditProjectScreen';
 import QuickStartScreen from './screens/QuickStartScreen';
 import AccountScreen from './screens/AccountScreen';
 
-import { colors, navigationTheme } from './theme';
+import { gutter, colors, navigationTheme } from './theme';
 
 const Stack = createStackNavigator();
 
@@ -22,9 +26,9 @@ export default function RootAppNavigator() {
             backgroundColor: colors.primary,
 
           },
+          headerTintColor: colors.invertedText,
           headerTitleStyle: {
             alignSelf: 'center',
-            color: colors.invertedText,
             fontFamily: 'Poppins_500Medium', //
           },
         }}
@@ -48,7 +52,12 @@ export default function RootAppNavigator() {
           component={ProjectScreen}
           options={({ route }) => ({
             title: route.params.title,
-          })}
+            headerRight: () => (
+              <ProjectHeaderIcons projectId={route.params.projectId} />
+            ),
+          }
+          )}
+
         />
         <Stack.Screen
           name="EditProject"
@@ -69,3 +78,9 @@ export default function RootAppNavigator() {
     </NavigationContainer>
   );
 }
+
+const styles = {
+  navIcon: {
+    paddingRight: gutter,
+  },
+};

@@ -99,14 +99,18 @@ export const styles = {
     width: '100%',
     height: '100%',
     margin: 'auto',
-    padding: gutter,
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  scrollContainer: {
+    padding: gutter,
   },
   card: {
     width: '100%',
     margin: 'auto',
-    padding: halfGutter,
+    marginBottom: gutter,
+    marginTop: gutter,
+    padding: gutter,
     backgroundColor: colors.paper,
     borderRadius: 8,
   },
@@ -116,6 +120,10 @@ export const styles = {
     paddingRight: halfGutter,
     borderBottomColor: colors.accent2,
     borderBottomWidth: 4,
+  },
+  headerIcon: {
+    paddingRight: gutter,
+    color: colors.invertedText,
   },
 };
 

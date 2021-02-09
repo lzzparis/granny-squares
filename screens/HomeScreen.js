@@ -25,7 +25,7 @@ function HomeScreen() {
   return (
     <SafeAreaView style={themeStyles.screenContainer}>
       <ScrollView
-        contentContainerStyle={styles.listContainer}
+        contentContainerStyle={themeStyles.scrollContainer}
         style={{ width: '100%' }}
       >
         {
