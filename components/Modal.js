@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Modal as ReactNativeModal,
   Text,
   View,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
+import ReactNativeModal from 'react-native-modal';
 
 import Button from './Button';
 import {
@@ -31,8 +31,11 @@ function Modal({
   };
   return (
     <ReactNativeModal
-      visible={visible}
+      isVisible={visible}
       onRequestClose={onRequestClose}
+      avoidKeyboard
+      onBackButtonPress={close}
+      onBackdropPress={close}
     >
       <View style={styles.container}>
         <View style={styles.header}>
@@ -76,9 +79,9 @@ function Modal({
 
 const styles = {
   container: {
-    width: '100%',
-    height: '100%',
+    backgroundColor: colors.paper,
     justifyContent: 'space-between',
+    ...themeStyles.roundedCorners,
   },
   header: {
     width: '100%',
@@ -90,6 +93,9 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    ...themeStyles.roundedCorners,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
   },
   footer: {
     width: '100%',

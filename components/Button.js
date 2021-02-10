@@ -32,12 +32,12 @@ function Button({
 const styles = {
   container: {
     ...themeStyles.shadow,
+    ...themeStyles.roundedCorners,
     margin: halfGutter,
     paddingTop: halfGutter,
     paddingBottom: halfGutter,
     paddingLeft: gutter,
     paddingRight: gutter,
-    borderRadius: 8,
   },
 };
 

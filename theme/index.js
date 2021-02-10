@@ -98,8 +98,17 @@ export const buttonSizes = {
   large: 48,
 };
 
+const roundedCorners = {
+  borderRadius: 8,
+};
+const circle = {
+  borderRadius: 100,
+};
+
 export const styles = {
   ...typography,
+  roundedCorners,
+  circle,
   screenContainer: {
     width: '100%',
     height: '100%',
@@ -117,7 +126,7 @@ export const styles = {
     marginTop: gutter,
     padding: gutter,
     backgroundColor: colors.paper,
-    borderRadius: 8,
+    ...roundedCorners,
   },
   textInput: {
     ...typography.p,
