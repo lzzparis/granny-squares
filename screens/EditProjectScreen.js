@@ -74,6 +74,7 @@ function EditProjectScreen() {
                   hex={hex}
                   onPress={() => console.log('Blob', projectColorId)}
                 />
+                <Text style={{ elevation: 2, marginTop: -32 }}>{projectColorId}</Text>
               </GridItem>
             ))}
           </View>

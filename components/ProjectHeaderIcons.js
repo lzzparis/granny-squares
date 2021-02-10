@@ -21,6 +21,7 @@ function ProjectHeaderIcons({ projectId }) {
         type="font-awesome-5"
         size={24}
         iconStyle={themeStyles.headerIcon}
+        onPress={() => navigation.navigate('QuiltView', { projectId })}
       />
     </View>
 

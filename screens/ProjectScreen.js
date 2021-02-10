@@ -25,6 +25,7 @@ import {
 import Button from '../components/Button';
 import ColorBlob from '../components/ColorBlob';
 import ColorEditor from '../components/ColorEditor';
+import FeedbackModal from '../components/FeedbackModal';
 import GrannySquare from '../components/GrannySquare';
 import GridItem from '../components/GridItem';
 
@@ -63,11 +64,21 @@ function ProjectScreen() {
   const [colorToEditId, setColorToEditId] = useState(null);
   const [colorToEditIndex, setColorToEditIndex] = useState(null);
   const [isLocked, setIsLocked] = useState(new Array(tiers));
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [feedback, setFeedback] = useState({});
 
   // Database functions
-  const saveSquare = (e) => {
+  const saveSquare = async (e) => {
     e.preventDefault();
-    firebase.push(`projects/${uid}/${projectId}/saved`, workingColorIds);
+    const res = await firebase.push(`projects/${uid}/${projectId}/saved`, workingColorIds).then((res) => console.log('lzz res', res));
+    if (res === 'error') {
+      setFeedback({ type: 'error', message: 'Error saving square' });
+      setFeedbackOpen(true);
+    } else {
+      setFeedback({ type: 'success', message: 'Save successful!' });
+      setFeedbackOpen(true);
+    }
+    setTimeout(() => setFeedbackOpen(false), 2000);
   };
 
   // Randomizing functions
@@ -141,6 +152,7 @@ function ProjectScreen() {
         onCancel={cancelColorEdit}
         colorToEditIndex={colorToEditIndex}
       />
+      <FeedbackModal open={feedbackOpen} type={feedback.type} message={feedback.message} />
     </SafeAreaView>
   );
 }

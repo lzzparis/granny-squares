@@ -9,7 +9,7 @@ import ProjectHeaderIcons from './components/ProjectHeaderIcons';
 import HomeScreen from './screens/HomeScreen';
 import ProjectScreen from './screens/ProjectScreen';
 import EditProjectScreen from './screens/EditProjectScreen';
-import QuickStartScreen from './screens/QuickStartScreen';
+import QuiltViewScreen from './screens/QuiltViewScreen';
 import AccountScreen from './screens/AccountScreen';
 
 import { gutter, colors, navigationTheme } from './theme';
@@ -67,10 +67,10 @@ export default function RootAppNavigator() {
           })}
         />
         <Stack.Screen
-          name="QuickStart"
-          component={QuickStartScreen}
+          name="QuiltView"
+          component={QuiltViewScreen}
           options={{
-            title: 'Quick Start',
+            title: 'Quilt View',
           }}
         />
 

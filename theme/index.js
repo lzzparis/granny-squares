@@ -17,6 +17,9 @@ const white = 'white';
 const lightBlack = getLight(black);
 const darkWhite = getDark(white);
 
+const error = '#c93732';
+const success = '#32c96a';
+
 export const shadow = Platform.select({
   android: {
     elevation: 2,
@@ -54,6 +57,8 @@ export const colors = {
   black,
   lightBlack,
   darkWhite,
+  error,
+  success,
 };
 
 const typography = {
