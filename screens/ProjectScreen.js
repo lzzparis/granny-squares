@@ -70,6 +70,7 @@ function ProjectScreen() {
   // Database functions
   const saveSquare = async (e) => {
     e.preventDefault();
+    //
     const res = await firebase.push(`projects/${uid}/${projectId}/saved`, workingColorIds).then((res) => console.log('lzz res', res));
     if (res === 'error') {
       setFeedback({ type: 'error', message: 'Error saving square' });

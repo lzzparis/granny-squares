@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { View } from 'react-native';
-import { Icon } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -12,7 +10,7 @@ import EditProjectScreen from './screens/EditProjectScreen';
 import QuiltViewScreen from './screens/QuiltViewScreen';
 import AccountScreen from './screens/AccountScreen';
 
-import { gutter, colors, navigationTheme } from './theme';
+import { colors, navigationTheme } from './theme';
 
 const Stack = createStackNavigator();
 
@@ -78,9 +76,3 @@ export default function RootAppNavigator() {
     </NavigationContainer>
   );
 }
-
-const styles = {
-  navIcon: {
-    paddingRight: gutter,
-  },
-};

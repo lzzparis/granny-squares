@@ -63,14 +63,14 @@ function EditProjectScreen() {
         <View style={themeStyles.card}>
           <Text style={themeStyles.h2}>Colors</Text>
           <View style={styles.blobs}>
-            {map(projectColors, ({ name, hex }, projectColorId) => (
+            {map(projectColors, ({ name: colorName, hex }, projectColorId) => (
               <GridItem
                 key={`color-blob-${projectColorId}`}
                 columns={4}
                 withPadding
               >
                 <ColorBlob
-                  name={name}
+                  name={colorName}
                   hex={hex}
                   onPress={() => console.log('Blob', projectColorId)}
                 />

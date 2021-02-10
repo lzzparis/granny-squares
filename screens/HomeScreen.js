@@ -15,7 +15,7 @@ import {
 import IconButton from '../components/IconButton';
 import ProjectListItem from '../components/ProjectListItem';
 import { uid } from '../constants';
-import { styles as themeStyles, halfGutter } from '../theme';
+import { styles as themeStyles } from '../theme';
 
 function HomeScreen() {
   useFirebaseConnect(`projects/${uid}`);
@@ -49,16 +49,5 @@ function HomeScreen() {
     </SafeAreaView>
   );
 }
-const styles = {
-  container: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  listContainer: {
-    width: '100%',
-    margin: 'auto',
-    padding: halfGutter,
-  },
-};
 
 export default (HomeScreen);

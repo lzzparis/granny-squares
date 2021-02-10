@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
@@ -27,5 +28,9 @@ function ProjectHeaderIcons({ projectId }) {
 
   );
 }
+
+ProjectHeaderIcons.propTypes = {
+  projectId: PropTypes.string,
+};
 
 export default ProjectHeaderIcons;
