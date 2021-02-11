@@ -77,6 +77,11 @@ const typography = {
     fontSize: 18,
     color: colors.text,
   },
+  h4: {
+    fontFamily: 'Poppins_500Medium',
+    fontSize: 14,
+    color: colors.text,
+  },
   p: {
     fontFamily: 'Poppins_400Regular',
     fontSize: 16,

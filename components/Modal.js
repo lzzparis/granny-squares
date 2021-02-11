@@ -61,6 +61,7 @@ function Modal({
               style={styles.button}
               title="Save"
               onPress={saveAndClose}
+              size="small"
             />
           )}
           {showCancel && (
@@ -69,6 +70,7 @@ function Modal({
               title="Cancel"
               onPress={close}
               type="outline"
+              size="small"
             />
           )}
         </View>
