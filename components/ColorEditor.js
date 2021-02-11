@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { Text, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { CustomPicker } from 'react-native-custom-picker';
 import { get, keys } from 'lodash';
 
@@ -22,10 +23,27 @@ function ColorEditor({
   const [selectedColorId, setSelectedColorId] = useState(null);
   const options = keys(projectColors);
 
-  const getItem = (id) => (
-    <View style={styles.itemContainer}>
-      <View style={{ ...styles.dot, backgroundColor: get(projectColors, `${id}.hex`, themeColors.white) }} />
-      <Text style={themeStyles.p}>{get(projectColors, `${id}.name`, 'White')}</Text>
+  const getItem = (id, isField) => (
+    <View style={{ ...styles.itemContainer, borderBottomWidth: +!isField }}>
+      <View style={styles.labelWrapper}>
+        <View
+          style={{
+            ...styles.dot,
+            backgroundColor: get(projectColors, `${id}.hex`, themeColors.white),
+          }}
+        />
+        <Text style={themeStyles.p}>{get(projectColors, `${id}.name`, 'White')}</Text>
+      </View>
+      {
+        isField && (
+        <Icon
+          name="chevron-down"
+          type="font-awesome-5"
+          size={16}
+          color={themeColors.text}
+        />
+        )
+      }
     </View>
   );
 
@@ -51,7 +69,7 @@ function ColorEditor({
         value={selectedColorId}
         onValueChange={(itemValue) => setSelectedColorId(itemValue)}
         optionTemplate={({ item }) => getItem(item)}
-        fieldTemplate={({ selectedItem }) => getItem(selectedItem)}
+        fieldTemplate={({ selectedItem }) => getItem(selectedItem, true)}
         style={styles.picker}
       />
     </Modal>
@@ -73,10 +91,15 @@ const styles = {
     borderBottomWidth: 4,
   },
   itemContainer: {
+    width: '100%',
     padding: halfGutter,
     flexDirection: 'row',
-    borderBottomWidth: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
     borderColor: themeColors.border,
+  },
+  labelWrapper: {
+    flexDirection: 'row',
     alignItems: 'center',
   },
   dot: {
