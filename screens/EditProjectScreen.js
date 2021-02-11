@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   ScrollView,
   Text,
-  TextInput,
   View,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
@@ -16,6 +15,7 @@ import {
 import Button from '../components/Button';
 import ColorBlob from '../components/ColorBlob';
 import GridItem from '../components/GridItem';
+import TextInput from '../components/TextInput';
 
 import { styles as themeStyles } from '../theme';
 import { uid } from '../constants';
@@ -47,15 +47,13 @@ function EditProjectScreen() {
         contentContainerStyle={themeStyles.scrollContainer}
       >
         <View style={themeStyles.card}>
-          <Text style={themeStyles.h2}>Name</Text>
           <TextInput
-            style={themeStyles.textInput}
+            label="Name"
             onChangeText={(text) => setName(text)}
             value={name}
           />
-          <Text style={themeStyles.h2}>Tiers</Text>
           <TextInput
-            style={themeStyles.textInput}
+            label="Tiers"
             onChangeText={(text) => setTiers(+text)}
             value={tiers}
           />
