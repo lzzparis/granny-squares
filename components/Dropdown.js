@@ -6,7 +6,7 @@ import { Icon } from 'react-native-elements';
 import { CustomPicker } from 'react-native-custom-picker';
 
 import {
-  halfGutter, gutter, colors as themeColors, styles as themeStyles,
+  halfGutter, gutter, colors as themeColors,
 } from '../theme';
 
 function Dropdown({
