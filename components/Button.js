@@ -88,7 +88,7 @@ const styles = {
   container: {
     ...themeStyles.shadow,
     ...themeStyles.roundedCorners,
-    margin: halfGutter,
+    marginLeft: gutter,
   },
 };
 

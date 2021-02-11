@@ -32,14 +32,16 @@ function Dropdown({
   );
 
   return (
-    <CustomPicker
-      options={options}
-      value={value}
-      onValueChange={onValueChange}
-      optionTemplate={({ item }) => getItem(item)}
-      fieldTemplate={({ selectedItem }) => getItem(selectedItem, true)}
-      style={styles.picker}
-    />
+    <View style={styles.container}>
+      <CustomPicker
+        options={options}
+        value={value}
+        onValueChange={onValueChange}
+        optionTemplate={({ item }) => getItem(item)}
+        fieldTemplate={({ selectedItem }) => getItem(selectedItem, true)}
+        style={styles.picker}
+      />
+    </View>
   );
 }
 
@@ -51,6 +53,10 @@ Dropdown.propTypes = {
 };
 
 const styles = {
+  container: {
+    flex: 1,
+    alignSelf: 'stretch',
+  },
   picker: {
     margin: gutter,
     borderBottomColor: themeColors.accent2,

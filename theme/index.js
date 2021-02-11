@@ -124,6 +124,9 @@ export const styles = {
   scrollContainer: {
     padding: gutter,
   },
+  row: {
+    flexDirection: 'row',
+  },
   card: {
     width: '100%',
     margin: 'auto',

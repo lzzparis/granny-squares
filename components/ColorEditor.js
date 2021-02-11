@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
 import { Text, View } from 'react-native';
 import { get, keys } from 'lodash';
 
+import ColorBlob from './ColorBlob';
+import ColorSliders from './ColorSliders';
 import Dropdown from './Dropdown';
 import Modal from './Modal';
 
 import {
-  halfGutter, colors as themeColors, styles as themeStyles,
+  halfGutter, gutter, colors as themeColors, styles as themeStyles,
 } from '../theme';
 
 function ColorEditor({
@@ -20,6 +21,7 @@ function ColorEditor({
 }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedColorId, setSelectedColorId] = useState(null);
+  const [color, setColor] = useState('#223344');
   const options = keys(projectColors);
 
   useEffect(() => {
@@ -51,12 +53,18 @@ function ColorEditor({
       onSave={onSaveColor(selectedColorId, colorToEditIndex)}
       showCancel
     >
-      <Dropdown
-        options={options}
-        value={selectedColorId}
-        onValueChange={(itemValue) => setSelectedColorId(itemValue)}
-        labelTemplate={labelTemplate}
-      />
+      <View style={styles.row}>
+        <View style={styles.blobSquare}>
+          <ColorBlob hex={color} style={{ width: 140 }} />
+        </View>
+        <Dropdown
+          options={options}
+          value={selectedColorId}
+          onValueChange={(itemValue) => setSelectedColorId(itemValue)}
+          labelTemplate={labelTemplate}
+        />
+      </View>
+      <ColorSliders color={color} updateColor={setColor} />
     </Modal>
   );
 }
@@ -70,6 +78,15 @@ ColorEditor.propTypes = {
 };
 
 const styles = {
+  row: {
+    ...themeStyles.row,
+    marginBottom: gutter,
+  },
+  blobSquare: {
+    width: 100,
+    height: 100,
+
+  },
   labelWrapper: {
     flexDirection: 'row',
     alignItems: 'center',

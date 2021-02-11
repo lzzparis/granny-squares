@@ -54,7 +54,9 @@ function Modal({
             onPress={onRequestClose}
           />
         </View>
-        {children}
+        <View style={styles.content}>
+          {children}
+        </View>
         <View style={styles.footer}>
           {onSave && (
             <Button
@@ -87,10 +89,8 @@ const styles = {
   },
   header: {
     width: '100%',
-    paddingTop: halfGutter,
-    paddingBottom: halfGutter,
-    paddingLeft: gutter,
-    paddingRight: gutter,
+    paddingVertical: halfGutter,
+    paddingHorizontal: gutter,
     backgroundColor: colors.accent3,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -98,6 +98,9 @@ const styles = {
     ...themeStyles.roundedCorners,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
+  },
+  content: {
+    padding: gutter,
   },
   footer: {
     width: '100%',

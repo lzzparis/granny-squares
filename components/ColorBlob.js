@@ -49,7 +49,6 @@ function ColorBlob({
 
 const styles = {
   container: {
-    margin: gutter,
     width: '100%',
     height: '100%',
     justifyContent: 'center',
