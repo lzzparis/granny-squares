@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { Text, View } from 'react-native';
-import { Icon } from 'react-native-elements';
-import { CustomPicker } from 'react-native-custom-picker';
 import { get, keys } from 'lodash';
 
+import Dropdown from './Dropdown';
 import Modal from './Modal';
 
 import {
-  halfGutter, gutter, colors as themeColors, styles as themeStyles,
+  halfGutter, colors as themeColors, styles as themeStyles,
 } from '../theme';
 
 function ColorEditor({
@@ -23,30 +22,6 @@ function ColorEditor({
   const [selectedColorId, setSelectedColorId] = useState(null);
   const options = keys(projectColors);
 
-  const getItem = (id, isField) => (
-    <View style={{ ...styles.itemContainer, borderBottomWidth: +!isField }}>
-      <View style={styles.labelWrapper}>
-        <View
-          style={{
-            ...styles.dot,
-            backgroundColor: get(projectColors, `${id}.hex`, themeColors.white),
-          }}
-        />
-        <Text style={themeStyles.p}>{get(projectColors, `${id}.name`, 'White')}</Text>
-      </View>
-      {
-        isField && (
-        <Icon
-          name="chevron-down"
-          type="font-awesome-5"
-          size={16}
-          color={themeColors.text}
-        />
-        )
-      }
-    </View>
-  );
-
   useEffect(() => {
     if (colorToEditId) {
       setSelectedColorId(colorToEditId);
@@ -56,6 +31,18 @@ function ColorEditor({
     }
   }, [colorToEditId]);
 
+  const labelTemplate = (colorId) => (
+    <View style={styles.labelWrapper}>
+      <View
+        style={{
+          ...styles.dot,
+          backgroundColor: get(projectColors, `${colorId}.hex`, themeColors.white),
+        }}
+      />
+      <Text style={themeStyles.p}>{get(projectColors, `${colorId}.name`, 'White')}</Text>
+    </View>
+  );
+
   return (
     <Modal
       title="Edit Color"
@@ -64,13 +51,11 @@ function ColorEditor({
       onSave={onSaveColor(selectedColorId, colorToEditIndex)}
       showCancel
     >
-      <CustomPicker
+      <Dropdown
         options={options}
         value={selectedColorId}
         onValueChange={(itemValue) => setSelectedColorId(itemValue)}
-        optionTemplate={({ item }) => getItem(item)}
-        fieldTemplate={({ selectedItem }) => getItem(selectedItem, true)}
-        style={styles.picker}
+        labelTemplate={labelTemplate}
       />
     </Modal>
   );
@@ -85,19 +70,6 @@ ColorEditor.propTypes = {
 };
 
 const styles = {
-  picker: {
-    margin: gutter,
-    borderBottomColor: themeColors.accent2,
-    borderBottomWidth: 4,
-  },
-  itemContainer: {
-    width: '100%',
-    padding: halfGutter,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderColor: themeColors.border,
-  },
   labelWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
