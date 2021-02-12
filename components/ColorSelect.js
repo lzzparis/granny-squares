@@ -12,7 +12,7 @@ import {
   halfGutter, gutter, colors as themeColors, styles as themeStyles,
 } from '../theme';
 
-function ColorEditor({
+function ColorSelect({
   colorToEditId,
   projectColors,
   onSaveColor,
@@ -53,23 +53,17 @@ function ColorEditor({
       onSave={onSaveColor(selectedColorId, colorToEditIndex)}
       showCancel
     >
-      <View style={styles.row}>
-        <View style={styles.blobSquare}>
-          <ColorBlob hex={color} style={{ width: 140 }} />
-        </View>
-        <Dropdown
-          options={options}
-          value={selectedColorId}
-          onValueChange={(itemValue) => setSelectedColorId(itemValue)}
-          labelTemplate={labelTemplate}
-        />
-      </View>
-      <ColorSliders color={color} updateColor={setColor} />
+      <Dropdown
+        options={options}
+        value={selectedColorId}
+        onValueChange={(itemValue) => setSelectedColorId(itemValue)}
+        labelTemplate={labelTemplate}
+      />
     </Modal>
   );
 }
 
-ColorEditor.propTypes = {
+ColorSelect.propTypes = {
   colorToEditId: PropTypes.string,
   projectColors: PropTypes.object.isRequired,
   onSaveColor: PropTypes.func.isRequired,
@@ -102,4 +96,4 @@ const styles = {
 
 };
 
-export default ColorEditor;
+export default ColorSelect;

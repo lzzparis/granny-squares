@@ -24,7 +24,7 @@ import {
 
 import Button from '../components/Button';
 import ColorBlob from '../components/ColorBlob';
-import ColorEditor from '../components/ColorEditor';
+import ColorSelect from '../components/ColorSelect';
 import FeedbackModal from '../components/FeedbackModal';
 import GrannySquare from '../components/GrannySquare';
 import GridItem from '../components/GridItem';
@@ -122,8 +122,8 @@ function ProjectScreen() {
                 withPadding
               >
                 <ColorBlob
-                  name={projectColors[colorId].name}
-                  hex={projectColors[colorId].hex}
+                  name={get(projectColors, `${colorId}.name`, '-NAME-')}
+                  hex={get(projectColors, `${colorId}.hex`, '#a1beef')}
                   onPress={openColorEditor(colorId, colorBlobIndex)}
                   locked={isLocked[colorBlobIndex]}
                 />
@@ -145,7 +145,7 @@ function ProjectScreen() {
           }))}
         />
       </View>
-      <ColorEditor
+      <ColorSelect
         projectColors={projectColors}
         colorToEditId={colorToEditId}
         onSaveColor={saveColor}

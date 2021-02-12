@@ -1,16 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Text,
   TextInput as ReactNativeTextInput,
   View,
 } from 'react-native';
 
-import { gutter, styles as themeStyles } from '../theme';
+import { styles as themeStyles } from '../theme';
 
-function TextInput({ label, onChangeText, value }) {
+function TextInput({
+  label, onChangeText, value,
+}) {
   return (
     <View style={styles.container}>
-      <Text style={themeStyles.h2}>{label}</Text>
+      <Text style={themeStyles.h3}>{label}</Text>
       <ReactNativeTextInput
         style={themeStyles.textInput}
         onChangeText={onChangeText}
@@ -19,11 +22,17 @@ function TextInput({ label, onChangeText, value }) {
     </View>
   );
 }
-
 const styles = {
   container: {
-    marginBottom: gutter,
+    flex: 1,
+    alignSelf: 'stretch',
   },
+};
+TextInput.propTypes = {
+  extraPadding: PropTypes.number,
+  label: PropTypes.string.isRequired,
+  onChangeText: PropTypes.func.isRequired,
+  value: PropTypes.string,
 };
 
 export default TextInput;

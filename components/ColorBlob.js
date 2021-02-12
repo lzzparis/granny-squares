@@ -4,17 +4,22 @@ import {
   Pressable,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
-import Color from 'color';
+import tinycolor from 'tinycolor2';
 import { noop } from 'lodash';
 import { gutter, colors as themeColors } from '../theme';
 
 function ColorBlob({
-  hex = '#FFFFFF',
+  hex,
+  hsl,
   locked,
   onPress = noop,
   onLongPress = noop,
 }) {
-  const isLight = Color(hex).luminosity() < 0.9;
+  const color = hex || tinycolor(hsl).toHexString();
+  const lockColor = tinycolor.mostReadable(
+    color,
+    [themeColors.darkWhite, themeColors.invertedText],
+  );
   const onPressBlob = (e) => {
     e.preventDefault(e);
     onPress();
@@ -30,13 +35,13 @@ function ColorBlob({
       onPress={onPressBlob}
       onLongPress={onLongPressBlob}
       delayLongPress={200}
-      style={{ ...styles.container, backgroundColor: hex }}
+      style={{ ...styles.container, backgroundColor: color }}
     >
       {
         !!locked
         && (
         <Icon
-          color={isLight ? themeColors.darkWhite : themeColors.invertedText}
+          color={lockColor}
           name="lock"
           type="font-awesome-5"
           size={20}

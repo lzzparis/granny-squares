@@ -8,12 +8,14 @@ import {
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import {
+  cloneDeep,
   get,
   map,
 } from 'lodash';
 
 import Button from '../components/Button';
 import ColorBlob from '../components/ColorBlob';
+import ColorPicker from '../components/ColorPicker';
 import GridItem from '../components/GridItem';
 import TextInput from '../components/TextInput';
 
@@ -32,12 +34,19 @@ function EditProjectScreen() {
   const [name, setName] = useState(savedName || 'New Project');
   const [tiers, setTiers] = useState(savedTiers || 4);
   const [projectColors, setProjectColors] = useState(savedColors);
-  const [colorToEdit, setColorToEdit] = useState();
+  const [colorToEditId, setColorToEditId] = useState();
+  const [colorPickerOpen, setColorPickerOpen] = useState(false);
 
-  const saveColors = (newColor) => {
-    const newProjectColors = [...projectColors];
-    newProjectColors[newColor.colorId] = newColor;
+  const openColorPicker = (colorId) => () => {
+    console.log('lzz opening', colorId, projectColors[colorId]);
+    setColorToEditId(colorId);
+    setColorPickerOpen(true);
+  };
+  const saveColors = ({ colorId, ...newColor }) => () => {
+    const newProjectColors = cloneDeep(projectColors);
+    newProjectColors[colorId] = newColor;
     setProjectColors(newProjectColors);
+    setColorPickerOpen(false);
   };
 
   return (
@@ -70,7 +79,7 @@ function EditProjectScreen() {
                 <ColorBlob
                   name={colorName}
                   hex={hex}
-                  onPress={() => console.log('Blob', projectColorId)}
+                  onPress={openColorPicker(projectColorId)}
                 />
                 <Text style={{ elevation: 2, marginTop: -32 }}>{projectColorId}</Text>
               </GridItem>
@@ -81,9 +90,17 @@ function EditProjectScreen() {
       <Button
         title="Save"
         onPress={
-          () => setColorToEdit({ name: 'pink', hex: 'pink', colorId: 'pink' })
+          () => {}
         }
         accessibilityLabel="Save"
+      />
+      <ColorPicker
+        visible={colorPickerOpen}
+        colorId={colorToEditId}
+        name={get(projectColors, `${colorToEditId}.name`, '-NAME-')}
+        hex={get(projectColors, `${colorToEditId}.hex`, '#a1beef')}
+        onSaveColor={saveColors}
+        onCancel={() => setColorToEditId(null)}
       />
     </SafeAreaView>
   );

@@ -1,26 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
 } from 'react-native';
 import { HueSlider, SaturationSlider, LightnessSlider } from 'react-native-color';
-import tinycolor from 'tinycolor2';
 
-function ColorSliders({ color, updateColor }) {
-  const [hue, setHue] = useState(tinycolor(color).toHsl().h);
-  const [saturation, setSaturation] = useState(tinycolor(color).toHsl().s);
-  const [lightness, setLightness] = useState(tinycolor(color).toHsl().l);
-
-  console.log('lzz tinycolor');
-  const getHex = (h, s, l) => {
-    console.log('lzz hsl', h, s, l);
-    const hsl = tinycolor(`hsl(${hue}, ${saturation}, ${lightness})`);
-    return `#${hsl.toHex()}`;
-  };
-
-  useEffect(() => {
-    const hex = getHex(hue, saturation, lightness);
-    updateColor(hex);
-  }, [hue, saturation, lightness]);
+function ColorSliders({
+  hue,
+  saturation,
+  lightness,
+  setHue,
+  setSaturation,
+  setLightness,
+}) {
   return (
     <View>
       <HueSlider
@@ -28,6 +20,7 @@ function ColorSliders({ color, updateColor }) {
         gradientSteps={40}
         value={hue}
         onValueChange={setHue}
+        animateTransitions={false}
       />
       <SaturationSlider
         style={styles.sliderRow}
@@ -35,6 +28,7 @@ function ColorSliders({ color, updateColor }) {
         value={saturation}
         color={{ h: hue, s: saturation, l: lightness }}
         onValueChange={setSaturation}
+        animateTransitions={false}
       />
       <LightnessSlider
         style={styles.sliderRow}
@@ -42,6 +36,7 @@ function ColorSliders({ color, updateColor }) {
         value={lightness}
         color={{ h: hue, s: saturation, l: lightness }}
         onValueChange={setLightness}
+        animateTransitions={false}
       />
     </View>
   );
@@ -52,6 +47,15 @@ const styles = {
   sliderRow: {
     alignSelf: 'stretch',
   },
+};
+
+ColorSliders.propTypes = {
+  hue: PropTypes.string.isRequired,
+  saturation: PropTypes.string.isRequired,
+  lightness: PropTypes.string.isRequired,
+  setHue: PropTypes.func.isRequired,
+  setSaturation: PropTypes.func.isRequired,
+  setLightness: PropTypes.func.isRequired,
 };
 
 export default ColorSliders;
