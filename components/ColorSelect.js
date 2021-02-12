@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { Text, View } from 'react-native';
 import { get, keys } from 'lodash';
 
-import ColorBlob from './ColorBlob';
-import ColorSliders from './ColorSliders';
 import Dropdown from './Dropdown';
 import Modal from './Modal';
 
@@ -21,7 +19,6 @@ function ColorSelect({
 }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedColorId, setSelectedColorId] = useState(null);
-  const [color, setColor] = useState('#223344');
   const options = keys(projectColors);
 
   useEffect(() => {
@@ -75,11 +72,6 @@ const styles = {
   row: {
     ...themeStyles.row,
     marginBottom: gutter,
-  },
-  blobSquare: {
-    width: 100,
-    height: 100,
-
   },
   labelWrapper: {
     flexDirection: 'row',

@@ -125,6 +125,7 @@ function ProjectScreen() {
                   name={get(projectColors, `${colorId}.name`, '-NAME-')}
                   hex={get(projectColors, `${colorId}.hex`, '#a1beef')}
                   onPress={openColorEditor(colorId, colorBlobIndex)}
+                  onLongPress={toggleLockColor(colorBlobIndex)}
                   locked={isLocked[colorBlobIndex]}
                 />
               </GridItem>

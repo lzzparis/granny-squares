@@ -54,7 +54,6 @@ Dropdown.propTypes = {
 
 const styles = {
   container: {
-    flex: 1,
     alignSelf: 'stretch',
   },
   picker: {
