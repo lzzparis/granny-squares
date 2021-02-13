@@ -19,7 +19,7 @@ function ColorBlob({
   const lockColor = tinycolor.mostReadable(
     color,
     [themeColors.darkWhite, themeColors.invertedText],
-  );
+  ).toHexString();
   const onPressBlob = (e) => {
     e.preventDefault(e);
     onPress();

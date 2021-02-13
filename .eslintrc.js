@@ -33,5 +33,7 @@ module.exports = {
     'semi': 2,
     'no-underscore-dangle': 1,
     "no-use-before-define": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }

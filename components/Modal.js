@@ -20,10 +20,13 @@ function Modal({
   title,
   visible,
 }) {
-  const saveAndClose = (e) => {
+  const saveAndClose = async (e) => {
     e.preventDefault();
+    console.log('lzz before saving', { visible });
     onSave();
+    console.log('lzz after saving before requestClose', { visible });
     onRequestClose();
+    console.log('lzz after requestClose', { visible });
   };
   const close = (e) => {
     e.preventDefault();
