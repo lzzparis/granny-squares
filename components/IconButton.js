@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'react-native-elements';
-import { keys } from 'lodash';
 import { colors, buttonSizes } from '../theme';
 
 function IconButton({
@@ -21,13 +20,11 @@ function IconButton({
   );
 }
 
-const buttonSizeKeys = keys(buttonSizes);
-
 IconButton.propTypes = {
-  level: PropTypes.oneOfType[PropTypes.string, PropTypes.number],
+  level: PropTypes.string,
   name: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
-  size: PropTypes.oneOf[buttonSizeKeys],
+  size: PropTypes.string,
 };
 
 export default IconButton;

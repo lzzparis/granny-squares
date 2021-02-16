@@ -79,6 +79,7 @@ function ColorPicker({
 }
 
 ColorPicker.propTypes = {
+  visible: PropTypes.bool.isRequired,
   colorId: PropTypes.string.isRequired,
   name: PropTypes.string,
   hex: PropTypes.string,

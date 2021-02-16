@@ -6,7 +6,7 @@ import {
 import { Icon } from 'react-native-elements';
 import tinycolor from 'tinycolor2';
 import { noop } from 'lodash';
-import { gutter, colors as themeColors } from '../theme';
+import { colors as themeColors } from '../theme';
 
 function ColorBlob({
   hex,
@@ -64,7 +64,8 @@ const styles = {
 };
 
 ColorBlob.propTypes = {
-  hex: PropTypes.string.isRequired,
+  hex: PropTypes.string,
+  hsl: PropTypes.object,
   locked: PropTypes.bool,
   onPress: PropTypes.func,
   onLongPress: PropTypes.func,

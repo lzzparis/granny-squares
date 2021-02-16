@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
   Pressable,
   Text,
-  View,
 } from 'react-native';
 import {
   halfGutter, gutter, colors, styles as themeStyles,
@@ -96,7 +95,8 @@ Button.propTypes = {
   level: PropTypes.string,
   onPress: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  type: PropTypes.oneOf['filled', 'outline'],
+  type: PropTypes.string,
+  size: PropTypes.string,
 };
 
 export default Button;

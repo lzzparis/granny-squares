@@ -38,21 +38,14 @@ function EditProjectScreen() {
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
 
   const openColorPicker = (colorId) => () => {
-    console.log('lzz opening', colorId, projectColors[colorId], colorToEditId);
     setColorToEditId(colorId);
-    console.log('lzz post setColorToEditId', { colorToEditId });
     setColorPickerOpen(true);
-    console.log('lzz post setColorPickerOpen', { colorPickerOpen });
   };
   const saveColors = ({ colorId, ...newColor }) => () => {
-    console.log('lzz enter savecolors', { colorToEditId });
     const newProjectColors = cloneDeep(projectColors);
     newProjectColors[colorId] = newColor;
-    console.log('lzz before setProjectColors', { colorToEditId, colorPickerOpen });
     setProjectColors(newProjectColors);
-    console.log('lzz before setColorPickerOpen', { colorToEditId, colorPickerOpen });
     setColorPickerOpen(false);
-    console.log('lzz after setColorPickerOpen', { colorToEditId, colorPickerOpen });
   };
 
   return (
@@ -106,7 +99,7 @@ function EditProjectScreen() {
         name={get(projectColors, `${colorToEditId}.name`, '-NAME-')}
         hex={get(projectColors, `${colorToEditId}.hex`, '#a1beef')}
         onSaveColor={saveColors}
-        onCancel={() => setColorToEditId(null)}
+        onCancel={() => setColorPickerOpen(false)}
       />
     </SafeAreaView>
   );

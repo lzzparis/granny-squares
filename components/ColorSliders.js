@@ -50,9 +50,9 @@ const styles = {
 };
 
 ColorSliders.propTypes = {
-  hue: PropTypes.string.isRequired,
-  saturation: PropTypes.string.isRequired,
-  lightness: PropTypes.string.isRequired,
+  hue: PropTypes.number.isRequired,
+  saturation: PropTypes.number.isRequired,
+  lightness: PropTypes.number.isRequired,
   setHue: PropTypes.func.isRequired,
   setSaturation: PropTypes.func.isRequired,
   setLightness: PropTypes.func.isRequired,

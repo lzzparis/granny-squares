@@ -29,7 +29,6 @@ const styles = {
   },
 };
 TextInput.propTypes = {
-  extraPadding: PropTypes.number,
   label: PropTypes.string.isRequired,
   onChangeText: PropTypes.func.isRequired,
   value: PropTypes.string,
