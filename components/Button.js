@@ -5,7 +5,10 @@ import {
   Text,
 } from 'react-native';
 import {
-  halfGutter, gutter, colors, styles as themeStyles,
+  halfGutter,
+  gutter,
+  colors as themeColors,
+  styles as themeStyles,
 } from '../theme';
 
 function Button({
@@ -15,7 +18,9 @@ function Button({
   type = 'filled',
   size = 'medium',
 }) {
-  const color = colors[`accent${level}`] || colors.accent1;
+  const color = level === 'destructive'
+    ? themeColors.warn
+    : (themeColors[`accent${level}`] || themeColors.accent1);
 
   const buttonSizeStyles = {
     small: {
@@ -75,7 +80,7 @@ function Button({
       <Text
         style={{
           ...buttonSizeStyles[size].text,
-          color: type === 'filled' ? colors.invertedText : color,
+          color: type === 'filled' ? themeColors.invertedText : color,
         }}
       >
         {title}

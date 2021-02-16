@@ -11,6 +11,7 @@ import {
   cloneDeep,
   get,
   map,
+  omit,
   sample,
 } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
@@ -20,9 +21,10 @@ import ColorBlob from '../components/ColorBlob';
 import ColorPicker from '../components/ColorPicker';
 import GridItem from '../components/GridItem';
 import IconButton from '../components/IconButton';
+import Modal from '../components/Modal';
 import TextInput from '../components/TextInput';
 
-import { styles as themeStyles } from '../theme';
+import { colors as themeColors, styles as themeStyles } from '../theme';
 import { uid, grannySquareColors } from '../constants';
 
 function EditProjectScreen() {
@@ -39,11 +41,19 @@ function EditProjectScreen() {
   const [projectColors, setProjectColors] = useState(savedColors);
   const [colorToEditId, setColorToEditId] = useState();
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
 
+  // Modal functions
   const openColorPicker = (colorId) => () => {
     setColorToEditId(colorId);
     setColorPickerOpen(true);
   };
+
+  const openDeleteConfirm = (colorId) => () => {
+    setColorToEditId(colorId);
+    setDeleteConfirmOpen(true);
+  };
+
   const saveColors = ({ colorId, ...newColor }) => () => {
     const newProjectColors = cloneDeep(projectColors);
     newProjectColors[colorId] = newColor;
@@ -59,9 +69,11 @@ function EditProjectScreen() {
     openColorPicker(uuid)();
   };
 
-  // const deleteColor = (colorId) => {
-  //
-  // }
+  const deleteColor = () => {
+    const newProjectColors = cloneDeep(projectColors);
+    setProjectColors(omit(newProjectColors, colorToEditId));
+    setDeleteConfirmOpen(false);
+  };
 
   return (
     <SafeAreaView style={themeStyles.screenContainer}>
@@ -94,6 +106,7 @@ function EditProjectScreen() {
                   name={colorName}
                   hex={hex}
                   onPress={openColorPicker(projectColorId)}
+                  onLongPress={openDeleteConfirm(projectColorId)}
                 />
               </GridItem>
             ))}
@@ -120,6 +133,20 @@ function EditProjectScreen() {
         onSaveColor={saveColors}
         onCancel={() => setColorPickerOpen(false)}
       />
+      <Modal
+        title="Delete color?"
+        headerColor={themeColors.error}
+        visible={deleteConfirmOpen}
+        onConfirm={deleteColor}
+        confirmLabel="Confirm"
+        onRequestClose={() => setDeleteConfirmOpen(false)}
+        isDestructive
+        showCancel
+      >
+        <Text style={themeStyles.h2}>
+          {`Are you sure you want to delete ${get(projectColors, `${colorToEditId}.name`)}?`}
+        </Text>
+      </Modal>
       <View styles={themeStyles.footer}>
         <Button
           title="Save"

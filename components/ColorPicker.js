@@ -46,11 +46,12 @@ function ColorPicker({
       title="Edit Color"
       visible={visible}
       onRequestClose={onCancel}
-      onSave={onSaveColor({
+      onConfirm={onSaveColor({
         name,
         hex: getHex(hue, saturation, lightness),
         colorId,
       })}
+      confirmLabel="Save"
       showCancel
     >
       <View style={styles.row}>

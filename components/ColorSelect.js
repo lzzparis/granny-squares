@@ -47,7 +47,8 @@ function ColorSelect({
       title="Edit Color"
       visible={modalOpen}
       onRequestClose={onCancel}
-      onSave={onSaveColor(selectedColorId, colorToEditIndex)}
+      onConfirm={onSaveColor(selectedColorId, colorToEditIndex)}
+      confirmLabel="Save"
       showCancel
     >
       <Dropdown

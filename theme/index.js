@@ -18,6 +18,7 @@ const lightBlack = getLight(black);
 const darkWhite = getDark(white);
 
 const error = '#c93732';
+const warn = '#c93732';
 const success = '#32c96a';
 
 export const shadow = Platform.select({
@@ -58,6 +59,7 @@ export const colors = {
   lightBlack,
   darkWhite,
   error,
+  warn,
   success,
 };
 

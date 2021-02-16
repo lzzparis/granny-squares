@@ -9,26 +9,32 @@ import ReactNativeModal from 'react-native-modal';
 
 import Button from './Button';
 import {
-  halfGutter, gutter, colors, styles as themeStyles,
+  halfGutter,
+  gutter,
+  colors as themeColors,
+  styles as themeStyles,
 } from '../theme';
 
 function Modal({
-  children,
-  onRequestClose,
-  onSave,
-  showCancel,
   title,
   visible,
+  onConfirm,
+  confirmLabel = 'No label',
+  onRequestClose,
+  showCancel,
+  children,
+  isDestructive,
 }) {
   const saveAndClose = async (e) => {
     e.preventDefault();
-    onSave();
+    onConfirm();
     onRequestClose();
   };
   const close = (e) => {
     e.preventDefault();
     onRequestClose();
   };
+  const headerColor = isDestructive ? themeColors.warn : themeColors.accent3;
   return (
     <ReactNativeModal
       isVisible={visible}
@@ -38,19 +44,19 @@ function Modal({
       onBackdropPress={close}
     >
       <View style={styles.container}>
-        <View style={styles.header}>
+        <View style={{ ...styles.header, backgroundColor: headerColor }}>
           <Icon
             name="times"
             type="font-awesome-5"
             size={32}
-            color={colors.accent3}
+            color={headerColor}
           />
           <Text style={themeStyles.h1}>{title}</Text>
           <Icon
             name="times"
             type="font-awesome-5"
             size={32}
-            color={colors.invertedText}
+            color={themeColors.invertedText}
             onPress={onRequestClose}
           />
         </View>
@@ -58,16 +64,18 @@ function Modal({
           {children}
         </View>
         <View style={styles.footer}>
-          {onSave && (
+          {onConfirm && (
             <Button
+              level={isDestructive && 'destructive'}
               style={styles.button}
-              title="Save"
+              title={confirmLabel}
               onPress={saveAndClose}
               size="small"
             />
           )}
           {showCancel && (
             <Button
+              level={isDestructive && 'destructive'}
               style={styles.button}
               title="Cancel"
               onPress={close}
@@ -83,7 +91,7 @@ function Modal({
 
 const styles = {
   container: {
-    backgroundColor: colors.paper,
+    backgroundColor: themeColors.paper,
     justifyContent: 'space-between',
     ...themeStyles.roundedCorners,
   },
@@ -91,7 +99,6 @@ const styles = {
     width: '100%',
     paddingVertical: halfGutter,
     paddingHorizontal: gutter,
-    backgroundColor: colors.accent3,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -115,8 +122,9 @@ const styles = {
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
   visible: PropTypes.bool.isRequired,
-  onSave: PropTypes.func,
+  onConfirm: PropTypes.func,
   onRequestClose: PropTypes.func.isRequired,
+  confirmLabel: PropTypes.string,
   showCancel: PropTypes.bool,
   title: PropTypes.string.isRequired,
 };
