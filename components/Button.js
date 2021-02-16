@@ -17,6 +17,8 @@ function Button({
   title,
   type = 'filled',
   size = 'medium',
+  addMargin,
+  fullWidth,
 }) {
   const color = level === 'destructive'
     ? themeColors.warn
@@ -75,12 +77,18 @@ function Button({
         ...styles.container,
         ...buttonSizeStyles[size].padding,
         ...buttonTypeStyles[type],
+        marginLeft: addMargin && gutter,
+        flex: fullWidth ? 1 : 0,
+        flexGrow: fullWidth ? 1 : 0,
+        flexShrink: fullWidth ? 1 : 0,
+
       }}
     >
       <Text
         style={{
           ...buttonSizeStyles[size].text,
           color: type === 'filled' ? themeColors.invertedText : color,
+          textAlign: 'center',
         }}
       >
         {title}
@@ -92,7 +100,6 @@ const styles = {
   container: {
     ...themeStyles.shadow,
     ...themeStyles.roundedCorners,
-    marginLeft: gutter,
   },
 };
 

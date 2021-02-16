@@ -31,7 +31,6 @@ function QuiltViewScreen() {
   const [showBorder, setShowBorder] = useState(true);
 
   const toggleBorder = () => {
-    console.log('lzz toggling', showBorder, !showBorder);
     setShowBorder(!showBorder);
   };
 

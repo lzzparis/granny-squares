@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import { useFirebase } from 'react-redux-firebase';
 import {
   cloneDeep,
   get,
@@ -43,6 +44,17 @@ function EditProjectScreen() {
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
 
+  // Database functions
+  const firebase = useFirebase();
+  const saveDataToDb = async () => {
+    const dataToSave = {
+      name,
+      tiers,
+      colors: projectColors,
+    };
+    await firebase.update(`projects/${uid}/${projectId}`, dataToSave);
+  };
+
   // Modal functions
   const openColorPicker = (colorId) => () => {
     setColorToEditId(colorId);
@@ -54,6 +66,7 @@ function EditProjectScreen() {
     setDeleteConfirmOpen(true);
   };
 
+  // Project color update functions
   const saveColors = ({ colorId, ...newColor }) => () => {
     const newProjectColors = cloneDeep(projectColors);
     newProjectColors[colorId] = newColor;
@@ -147,13 +160,12 @@ function EditProjectScreen() {
           {`Are you sure you want to delete ${get(projectColors, `${colorToEditId}.name`)}?`}
         </Text>
       </Modal>
-      <View styles={themeStyles.footer}>
+      <View style={themeStyles.footer}>
         <Button
           title="Save"
-          onPress={
-          () => {}
-        }
+          onPress={saveDataToDb}
           accessibilityLabel="Save"
+          fullWidth
         />
       </View>
     </SafeAreaView>

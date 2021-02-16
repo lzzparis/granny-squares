@@ -150,7 +150,11 @@ export const styles = {
     color: colors.invertedText,
   },
   footer: {
-    paddingVertical: gutter,
+    width: '100%',
+    padding: gutter,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 };
 

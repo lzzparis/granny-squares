@@ -71,6 +71,7 @@ function Modal({
               title={confirmLabel}
               onPress={saveAndClose}
               size="small"
+              addMargin
             />
           )}
           {showCancel && (

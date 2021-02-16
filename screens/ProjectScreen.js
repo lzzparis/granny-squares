@@ -70,7 +70,6 @@ function ProjectScreen() {
   // Database functions
   const saveSquare = async (e) => {
     e.preventDefault();
-    //
     const res = await firebase.push(`projects/${uid}/${projectId}/saved`, workingColorIds).then((res) => console.log('lzz res', res));
     if (res === 'error') {
       setFeedback({ type: 'error', message: 'Error saving square' });
@@ -134,18 +133,6 @@ function ProjectScreen() {
         </View>
         <GrannySquare projectColors={projectColors} colorIds={workingColorIds} />
       </ScrollView>
-      <View style={styles.buttonsGroup}>
-        <Button
-          title="Save"
-          onPress={saveSquare}
-        />
-        <Button
-          title="Randomize"
-          onPress={() => setWorkingColorIds(randomizeColors({
-            workingColorIds, isLocked, projectColors, tiers,
-          }))}
-        />
-      </View>
       <ColorSelect
         projectColors={projectColors}
         colorToEditId={colorToEditId}
@@ -154,6 +141,22 @@ function ProjectScreen() {
         colorToEditIndex={colorToEditIndex}
       />
       <FeedbackModal open={feedbackOpen} type={feedback.type} message={feedback.message} />
+      <View style={themeStyles.footer}>
+        <Button
+          title="Save"
+          onPress={saveSquare}
+          fullWidth
+        />
+        <Button
+          title="Randomize"
+          onPress={() => setWorkingColorIds(randomizeColors({
+            workingColorIds, isLocked, projectColors, tiers,
+          }))}
+          fullWidth
+          addMargin
+        />
+      </View>
+
     </SafeAreaView>
   );
 }
@@ -167,6 +170,7 @@ const styles = {
     flexWrap: 'wrap',
   },
   buttonsGroup: {
+    width: '100%',
     flexDirection: 'row',
   },
 };
