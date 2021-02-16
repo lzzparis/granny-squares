@@ -147,6 +147,9 @@ export const styles = {
     paddingRight: gutter,
     color: colors.invertedText,
   },
+  footer: {
+    paddingVertical: gutter,
+  },
 };
 
 export const navigationTheme = {

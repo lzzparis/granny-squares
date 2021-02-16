@@ -11,16 +11,19 @@ import {
   cloneDeep,
   get,
   map,
+  sample,
 } from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 
 import Button from '../components/Button';
 import ColorBlob from '../components/ColorBlob';
 import ColorPicker from '../components/ColorPicker';
 import GridItem from '../components/GridItem';
+import IconButton from '../components/IconButton';
 import TextInput from '../components/TextInput';
 
 import { styles as themeStyles } from '../theme';
-import { uid } from '../constants';
+import { uid, grannySquareColors } from '../constants';
 
 function EditProjectScreen() {
   const route = useRoute();
@@ -47,6 +50,18 @@ function EditProjectScreen() {
     setProjectColors(newProjectColors);
     setColorPickerOpen(false);
   };
+
+  const addNewColor = () => {
+    const newProjectColors = cloneDeep(projectColors);
+    const uuid = uuidv4();
+    newProjectColors[uuid] = sample(grannySquareColors);
+    setProjectColors(newProjectColors);
+    openColorPicker(uuid)();
+  };
+
+  // const deleteColor = (colorId) => {
+  //
+  // }
 
   return (
     <SafeAreaView style={themeStyles.screenContainer}>
@@ -80,19 +95,23 @@ function EditProjectScreen() {
                   hex={hex}
                   onPress={openColorPicker(projectColorId)}
                 />
-                <Text style={{ elevation: 2, marginTop: -32 }}>{projectColorId}</Text>
               </GridItem>
             ))}
+            <GridItem
+              key="add-color-button"
+              columns={4}
+              withPadding
+            >
+              <IconButton
+                size="small"
+                name="plus"
+                level={2}
+                onPress={addNewColor}
+              />
+            </GridItem>
           </View>
         </View>
       </ScrollView>
-      <Button
-        title="Save"
-        onPress={
-          () => {}
-        }
-        accessibilityLabel="Save"
-      />
       <ColorPicker
         visible={colorPickerOpen}
         colorId={colorToEditId}
@@ -101,6 +120,15 @@ function EditProjectScreen() {
         onSaveColor={saveColors}
         onCancel={() => setColorPickerOpen(false)}
       />
+      <View styles={themeStyles.footer}>
+        <Button
+          title="Save"
+          onPress={
+          () => {}
+        }
+          accessibilityLabel="Save"
+        />
+      </View>
     </SafeAreaView>
   );
 }
