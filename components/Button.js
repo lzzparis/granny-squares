@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Keyboard,
   Pressable,
   Text,
 } from 'react-native';
@@ -72,7 +73,7 @@ function Button({
 
   return (
     <Pressable
-      onPress={onPress}
+      onPress={(e) => { onPress(e); Keyboard.dismiss(); }}
       style={{
         ...styles.container,
         ...buttonSizeStyles[size].padding,

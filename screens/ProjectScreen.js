@@ -1,9 +1,4 @@
-// name
-// button for edit screen
-// button for colors? (new screen?)
-//
-
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useFirebase, useFirebaseConnect } from 'react-redux-firebase';
 import {
@@ -12,7 +7,7 @@ import {
   View,
   Text,
 } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import {
   get,
   keys,
@@ -52,12 +47,17 @@ const randomizeColors = ({
 
 function ProjectScreen() {
   const route = useRoute();
+  const navigation = useNavigation();
   const { projectId } = route.params;
 
   const firebase = useFirebase();
   useFirebaseConnect(`projects/${uid}`);
   const project = useSelector((state) => get(state, `firebase.data.projects.${uid}.${projectId}`, {}));
-  const { tiers = 3, colors: projectColors } = project;
+  const { name, tiers = 3, colors: projectColors } = project;
+
+  useEffect(() => {
+    navigation.setParams({ title: name });
+  }, [name]);
 
   const starterColors = randomizeColors({ projectColors, tiers });
   const [workingColorIds, setWorkingColorIds] = useState(starterColors);
@@ -66,6 +66,12 @@ function ProjectScreen() {
   const [isLocked, setIsLocked] = useState(new Array(tiers));
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [feedback, setFeedback] = useState({});
+
+  // Reinit workingColorIds if project colors change in redux
+  useEffect(() => {
+    const newWorkingColorIds = randomizeColors({ projectColors, tiers });
+    setWorkingColorIds(newWorkingColorIds);
+  }, [projectColors]);
 
   // Database functions
   const saveSquare = async (e) => {
