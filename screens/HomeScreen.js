@@ -15,7 +15,7 @@ import {
 import IconButton from '../components/IconButton';
 import ProjectListItem from '../components/ProjectListItem';
 import { uid } from '../constants';
-import { styles as themeStyles } from '../theme';
+import { gutter, styles as themeStyles } from '../theme';
 
 function HomeScreen() {
   useFirebaseConnect(`projects/${uid}`);
@@ -39,15 +39,27 @@ function HomeScreen() {
             ))
             : <View><Text>No projects</Text></View>
         }
+        <View style={styles.iconButtonWrapper}>
+          <IconButton
+            level="1"
+            onPress={() => navigation.navigate('EditProject', { new: true })}
+            size="medium"
+            name="plus"
+          />
+        </View>
+
       </ScrollView>
-      <IconButton
-        level="1"
-        onPress={() => navigation.navigate('EditProject', { new: true })}
-        size="medium"
-        name="plus"
-      />
     </SafeAreaView>
   );
 }
+
+const styles = {
+  iconButtonWrapper: {
+    width: '100%',
+    padding: gutter,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+};
 
 export default (HomeScreen);

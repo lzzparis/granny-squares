@@ -14,7 +14,7 @@ const accent4 = 'pink';
 
 const black = 'black';
 const white = 'white';
-const lightBlack = getLight(black);
+const lightBlack = '#484848';
 const darkWhite = getDark(white);
 
 const error = '#c93732';
