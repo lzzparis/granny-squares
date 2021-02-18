@@ -20,6 +20,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Button from '../components/Button';
 import ColorBlob from '../components/ColorBlob';
 import ColorPicker from '../components/ColorPicker';
+import FeedbackModal from '../components/FeedbackModal';
 import GridItem from '../components/GridItem';
 import IconButton from '../components/IconButton';
 import Modal from '../components/Modal';
@@ -43,16 +44,27 @@ function EditProjectScreen() {
   const [colorToEditId, setColorToEditId] = useState();
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [feedback, setFeedback] = useState({});
 
   // Database functions
   const firebase = useFirebase();
-  const saveDataToDb = async () => {
+  const saveDataToDb = async (e) => {
+    e.preventDefault();
     const dataToSave = {
       name,
       tiers,
       colors: projectColors,
     };
-    await firebase.update(`projects/${uid}/${projectId}`, dataToSave);
+    const res = await firebase.update(`projects/${uid}/${projectId}`, dataToSave);
+    if (res === 'error') {
+      setFeedback({ type: 'error', message: 'Error saving square' });
+      setFeedbackOpen(true);
+    } else {
+      setFeedback({ type: 'success', message: 'Save successful!' });
+      setFeedbackOpen(true);
+    }
+    setTimeout(() => setFeedbackOpen(false), 2000);
   };
 
   // Modal functions
@@ -168,6 +180,7 @@ function EditProjectScreen() {
           fullWidth
         />
       </View>
+      <FeedbackModal open={feedbackOpen} type={feedback.type} message={feedback.message} />
     </SafeAreaView>
   );
 }
