@@ -71,6 +71,7 @@ function ProjectScreen() {
   useEffect(() => {
     const newWorkingColorIds = randomizeColors({ projectColors, tiers });
     setWorkingColorIds(newWorkingColorIds);
+    setIsLocked(new Array(+tiers));
   }, [projectColors]);
 
   // Database functions
