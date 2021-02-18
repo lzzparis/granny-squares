@@ -1,4 +1,3 @@
-export const uid = 'lzz';
 export const grannySquareColors = {
   gsColor01: {
     name: 'Cornflower Blue',
@@ -24,5 +23,4 @@ export const grannySquareColors = {
 };
 
 export default {
-  uid,
 };

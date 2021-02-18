@@ -18,11 +18,11 @@ import QuiltSquare from '../components/QuiltSquare';
 import Switch from '../components/Switch';
 
 import { styles as themeStyles } from '../theme';
-import { uid } from '../constants';
 
 function QuiltViewScreen() {
   const route = useRoute();
   const { projectId } = route.params;
+  const uid = useSelector((state) => get(state, 'firebase.auth.uid'));
   const project = useSelector((state) => get(state, `firebase.data.projects.${uid}.${projectId}`, {}));
   const { colors: projectColors, saved } = project;
   const [width, setWidth] = useState(6);

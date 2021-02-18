@@ -125,12 +125,14 @@ export const styles = {
   },
   scrollContainer: {
     padding: gutter,
+    height: '100%',
   },
   row: {
     flexDirection: 'row',
   },
   card: {
     width: '100%',
+    height: 'auto',
     margin: 'auto',
     marginBottom: gutter,
     marginTop: gutter,

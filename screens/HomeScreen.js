@@ -14,10 +14,10 @@ import {
 
 import IconButton from '../components/IconButton';
 import ProjectListItem from '../components/ProjectListItem';
-import { uid } from '../constants';
 import { gutter, styles as themeStyles } from '../theme';
 
 function HomeScreen() {
+  const uid = useSelector((state) => get(state, 'firebase.auth.uid'));
   useFirebaseConnect(`projects/${uid}`);
   const projects = useSelector((state) => get(state, `firebase.data.projects.${uid}`, {}));
   const navigation = useNavigation();

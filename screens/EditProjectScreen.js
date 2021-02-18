@@ -27,11 +27,12 @@ import Modal from '../components/Modal';
 import TextInput from '../components/TextInput';
 
 import { colors as themeColors, styles as themeStyles } from '../theme';
-import { uid, grannySquareColors } from '../constants';
+import { grannySquareColors } from '../constants';
 
 function EditProjectScreen() {
   const route = useRoute();
   const { projectId } = route.params;
+  const uid = useSelector((state) => get(state, 'firebase.auth.uid'));
   const project = useSelector((state) => get(state, `firebase.data.projects.${uid}.${projectId}`, {}));
   const {
     name: savedName,

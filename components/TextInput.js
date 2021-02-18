@@ -6,26 +6,28 @@ import {
   View,
 } from 'react-native';
 
-import { styles as themeStyles } from '../theme';
+import { gutter, styles as themeStyles } from '../theme';
 
 function TextInput({
-  label, onChangeText, value,
+  label, onChangeText, value, addMargin, ...textInputProps
 }) {
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, marginTop: addMargin ? gutter : 0 }}>
       <Text style={themeStyles.h3}>{label}</Text>
       <ReactNativeTextInput
         style={themeStyles.textInput}
         onChangeText={onChangeText}
         value={value}
+        {...textInputProps}
       />
     </View>
   );
 }
 const styles = {
   container: {
-    flex: 1,
-    alignSelf: 'stretch',
+    // flex: 1,
+    // alignSelf: 'stretch',
+    // marginVertical: gutter,
   },
 };
 TextInput.propTypes = {

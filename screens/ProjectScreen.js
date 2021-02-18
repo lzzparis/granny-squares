@@ -24,7 +24,6 @@ import FeedbackModal from '../components/FeedbackModal';
 import GrannySquare from '../components/GrannySquare';
 import GridItem from '../components/GridItem';
 
-import { uid } from '../constants';
 import {
   styles as themeStyles,
 } from '../theme';
@@ -51,6 +50,7 @@ function ProjectScreen() {
   const { projectId } = route.params;
 
   const firebase = useFirebase();
+  const uid = useSelector((state) => get(state, 'firebase.auth.uid'));
   useFirebaseConnect(`projects/${uid}`);
   const project = useSelector((state) => get(state, `firebase.data.projects.${uid}.${projectId}`, {}));
   const { name, tiers = 3, colors: projectColors } = project;
