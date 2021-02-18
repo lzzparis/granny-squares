@@ -8,34 +8,34 @@ import {
   ScrollView,
   Text,
   View,
-  // TextInput,
 } from 'react-native';
 
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
 
-import { colors as themeColors, styles as themeStyles } from '../theme';
+import { halfGutter, colors as themeColors, styles as themeStyles } from '../theme';
 
 function LoginScreen(children) {
   const firebase = useFirebase();
   const auth = useSelector((state) => state.firebase.auth);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
-  const authInfo = {
-    auth,
-    isLoaded: isLoaded(auth),
-    isEmpty: isEmpty(auth),
-  };
+  const [authError, setAuthError] = useState(false);
 
   const loginUser = (e) => {
     e.preventDefault();
-    firebase.login({ email, password });
+    const res = firebase.login({ email, password })
+      .then((res) => res)
+      .catch((err) => setAuthError(err));
   };
   const registerUser = (e) => {
     e.preventDefault();
-    firebase.createUser({ email, password }, { email });
+    firebase.createUser({ email, password }, { email })
+      .then((res) => res)
+      .catch((err) => setAuthError(err));
   };
+
+  const disableButtons = !email || !password;
 
   return (
     <SafeAreaView style={{ ...themeStyles.screenContainer, backgroundColor: themeColors.primary }}>
@@ -61,10 +61,32 @@ function LoginScreen(children) {
               secureTextEntry
               addMargin
             />
+            { authError
+              && (
+              <View style={styles.textWrapper}>
+                <Text style={themeStyles.error}>
+                  Error logging in; please check your credentials
+                </Text>
+              </View>
+              )}
           </View>
           <View style={styles.buttonGroup}>
-            <Button title="Login" onPress={loginUser} fullWidth />
-            <Button title="Register" onPress={registerUser} fullWidth addMargin />
+            <Button
+              title="Login"
+              onPress={loginUser}
+              fullWidth
+              disabled={disableButtons}
+            />
+            <Button
+              title="Register"
+              onPress={registerUser}
+              fullWidth
+              addMargin
+              disabled={disableButtons}
+            />
+          </View>
+          <View style={styles.textWrapper}>
+            <Text style={themeStyles.link}>Forgot password?</Text>
           </View>
         </View>
       </ScrollView>
@@ -82,6 +104,9 @@ const styles = {
   buttonGroup: {
     width: '100%',
     flexDirection: 'row',
+  },
+  textWrapper: {
+    marginTop: halfGutter,
   },
 };
 

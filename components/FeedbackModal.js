@@ -29,7 +29,7 @@ function FeedbackModal({ open, type, message }) {
             type="font-awesome-5"
           />
           <Text style={{
-            ...themeStyles.em, textAlign: 'center', fontSize: 20, color,
+            ...themeStyles.strong, textAlign: 'center', fontSize: 20, color,
           }}
           >
             {message}

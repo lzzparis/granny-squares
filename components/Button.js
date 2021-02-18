@@ -20,10 +20,16 @@ function Button({
   size = 'medium',
   addMargin,
   fullWidth,
+  disabled,
 }) {
-  const color = level === 'destructive'
-    ? themeColors.warn
-    : (themeColors[`accent${level}`] || themeColors.accent1);
+  let color;
+  if (disabled) {
+    color = themeColors.disabled;
+  } else if (level === 'destructive') {
+    color = themeColors.warn;
+  } else {
+    color = themeColors[`accent${level}`] || themeColors.accent1;
+  }
 
   const buttonSizeStyles = {
     small: {
@@ -73,6 +79,7 @@ function Button({
 
   return (
     <Pressable
+      disabled={disabled}
       onPress={(e) => { onPress(e); Keyboard.dismiss(); }}
       style={{
         ...styles.container,

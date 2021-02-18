@@ -14,6 +14,7 @@ const accent4 = 'pink';
 
 const black = 'black';
 const white = 'white';
+const grey = '#aaa';
 const lightBlack = '#484848';
 const darkWhite = getDark(white);
 
@@ -54,10 +55,12 @@ export const colors = {
   border: darkWhite,
   background: getLight(darkWhite),
   paper: white,
+  disabled: grey,
   white,
   black,
   lightBlack,
   darkWhite,
+  grey,
   error,
   warn,
   success,
@@ -89,10 +92,28 @@ const typography = {
     fontSize: 16,
     color: colors.text,
   },
-  em: {
-    fontFamily: 'Poppins_500Medium',
+  strong: {
+    fontFamily: 'Poppins_600SemiBold',
     fontSize: 16,
     color: colors.text,
+  },
+  em: {
+    fontFamily: 'Poppins_500Medium_Italic',
+    fontSize: 16,
+    color: colors.text,
+  },
+  link: {
+    fontFamily: 'Poppins_500Medium',
+    textDecorationLine: 'underline',
+    textDecorationStyle: 'solid',
+    textDecorationColor: colors.accent2,
+    fontSize: 14,
+    color: colors.accent2,
+  },
+  error: {
+    fontFamily: 'Poppins_600SemiBold',
+    fontSize: 12,
+    color: colors.error,
   },
 };
 
