@@ -14,6 +14,7 @@ import {
   map,
   omit,
   sample,
+  size,
 } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -41,7 +42,7 @@ function EditProjectScreen() {
     colors: savedColors,
   } = project;
   const [name, setName] = useState(savedName || 'New Project');
-  const [tiers, setTiers] = useState(`${savedTiers}` || '4');
+  const [tiers, setTiers] = useState(`${savedTiers || 3}`);
   const [projectColors, setProjectColors] = useState(savedColors);
   const [colorToEditId, setColorToEditId] = useState();
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
@@ -58,7 +59,9 @@ function EditProjectScreen() {
       tiers,
       colors: projectColors,
     };
-    const res = await firebase.update(`projects/${uid}/${projectId}`, dataToSave);
+    const firebaseAction = projectId ? firebase.update : firebase.push;
+    const firebasePath = projectId ? `projects/${uid}/${projectId}` : `projects/${uid}`;
+    const res = await firebaseAction(firebasePath, dataToSave);
     if (res === 'error') {
       setFeedback({ type: 'error', message: 'Error saving square' });
       setFeedbackOpen(true);
@@ -124,6 +127,8 @@ function EditProjectScreen() {
         </View>
         <View style={themeStyles.card}>
           <Text style={themeStyles.h2}>Colors</Text>
+          {!size(projectColors)
+            && <Text style={themeStyles.info}>Add at least one color to save project</Text>}
           <View style={styles.blobs}>
             {map(projectColors, ({ name: colorName, hex }, projectColorId) => (
               <GridItem
@@ -182,6 +187,7 @@ function EditProjectScreen() {
           onPress={saveDataToDb}
           accessibilityLabel="Save"
           fullWidth
+          disabled={!size(projectColors)}
         />
       </View>
       <FeedbackModal open={feedbackOpen} type={feedback.type} message={feedback.message} />

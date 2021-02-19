@@ -110,6 +110,11 @@ const typography = {
     fontSize: 14,
     color: colors.accent2,
   },
+  info: {
+    fontFamily: 'Poppins_300Light_Italic',
+    fontSize: 12,
+    color: colors.text,
+  },
   error: {
     fontFamily: 'Poppins_600SemiBold',
     fontSize: 12,

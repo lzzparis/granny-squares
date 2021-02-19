@@ -9,6 +9,7 @@ import firebase from 'firebase';
 /* eslint-disable camelcase */
 import {
   useFonts,
+  Poppins_300Light_Italic,
   Poppins_400Regular,
   Poppins_500Medium,
   Poppins_500Medium_Italic,
@@ -46,6 +47,7 @@ const rrfProps = {
 function App() {
   const [isReady, setIsReady] = React.useState(false);
   const [fontsLoaded] = useFonts({
+    Poppins_300Light_Italic,
     Poppins_400Regular,
     Poppins_500Medium,
     Poppins_500Medium_Italic,
