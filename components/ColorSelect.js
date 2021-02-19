@@ -4,10 +4,6 @@ import PropTypes from 'prop-types';
 import Dropdown from './Dropdown';
 import Modal from './Modal';
 
-import {
-  gutter, styles as themeStyles,
-} from '../theme';
-
 function ColorSelect({
   colorToEditId,
   projectColors,
@@ -51,17 +47,6 @@ ColorSelect.propTypes = {
   onSaveColor: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   colorToEditIndex: PropTypes.number,
-};
-
-const styles = {
-  row: {
-    ...themeStyles.row,
-    marginBottom: gutter,
-  },
-  labelWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
 };
 
 export default ColorSelect;

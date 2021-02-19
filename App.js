@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
 import AppLoading from 'expo-app-loading';
 import 'react-native-get-random-values';
 import { Provider } from 'react-redux';
@@ -25,10 +26,12 @@ import { firebaseConfig } from './config/firebase';
 
 import reducer from './reducers';
 
+// eslint-disable-next-line no-console
 console.disableYellowBox = true;
 
 const store = createStore(
   reducer,
+  // eslint-disable-next-line max-len
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), // eslint-disable-line no-underscore-dangle
 );
 // react-redux-firebase config

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import {
-  useFirebase, isLoaded, isEmpty,
+  useFirebase,
 } from 'react-redux-firebase';
 import {
   SafeAreaView,
@@ -15,16 +14,15 @@ import TextInput from '../components/TextInput';
 
 import { halfGutter, colors as themeColors, styles as themeStyles } from '../theme';
 
-function LoginScreen(children) {
+function LoginScreen() {
   const firebase = useFirebase();
-  const auth = useSelector((state) => state.firebase.auth);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [authError, setAuthError] = useState(false);
 
   const loginUser = (e) => {
     e.preventDefault();
-    const res = firebase.login({ email, password })
+    firebase.login({ email, password })
       .then((res) => res)
       .catch((err) => setAuthError(err));
   };

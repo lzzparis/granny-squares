@@ -121,6 +121,9 @@ const styles = {
 };
 
 Button.propTypes = {
+  addMargin: PropTypes.bool,
+  disabled: PropTypes.bool,
+  fullWidth: PropTypes.bool,
   level: PropTypes.string,
   onPress: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
