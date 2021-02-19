@@ -1,20 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { CustomPicker } from 'react-native-custom-picker';
+import { get } from 'lodash';
 
 import {
-  halfGutter, gutter, colors as themeColors,
+  colors as themeColors,
+  gutter,
+  halfGutter,
+  styles as themeStyles,
 } from '../theme';
 
 function Dropdown({
-  options,
-  value,
   onValueChange,
-  labelTemplate,
+  options,
+  optionsMeta,
+  value,
 }) {
+  const labelTemplate = (colorId) => {
+    const dotColor = get(optionsMeta, `${colorId}.hex`);
+    return (
+      <View style={styles.labelWrapper}>
+        {
+        dotColor
+        && (
+        <View
+          style={{
+            ...styles.dot,
+            backgroundColor: dotColor,
+          }}
+        />
+        )
+      }
+        <Text style={themeStyles.p}>{get(optionsMeta, `${colorId}.name`, 'Invalid')}</Text>
+      </View>
+    );
+  };
+
   const getItem = (id, isField) => (
     <View style={{ ...styles.itemContainer, borderBottomWidth: +!isField }}>
       {labelTemplate(id)}
@@ -46,10 +69,10 @@ function Dropdown({
 }
 
 Dropdown.propTypes = {
-  options: PropTypes.array.isRequired,
-  value: PropTypes.string.isRequired,
   onValueChange: PropTypes.func.isRequired,
-  labelTemplate: PropTypes.func.isRequired,
+  options: PropTypes.array.isRequired,
+  optionsMeta: PropTypes.object.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 const styles = {
@@ -72,6 +95,14 @@ const styles = {
   labelWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  dot: {
+    width: 20,
+    height: 20,
+    margin: halfGutter,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: themeColors.border,
   },
 
 };

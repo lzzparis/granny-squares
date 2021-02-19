@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Text, View } from 'react-native';
-import { get, keys } from 'lodash';
+import { keys } from 'lodash';
 
 import Dropdown from './Dropdown';
 import Modal from './Modal';
 
 import {
-  halfGutter, gutter, colors as themeColors, styles as themeStyles,
+  gutter, styles as themeStyles,
 } from '../theme';
 
 function ColorSelect({
@@ -30,18 +29,6 @@ function ColorSelect({
     }
   }, [colorToEditId]);
 
-  const labelTemplate = (colorId) => (
-    <View style={styles.labelWrapper}>
-      <View
-        style={{
-          ...styles.dot,
-          backgroundColor: get(projectColors, `${colorId}.hex`, themeColors.white),
-        }}
-      />
-      <Text style={themeStyles.p}>{get(projectColors, `${colorId}.name`, 'White')}</Text>
-    </View>
-  );
-
   return (
     <Modal
       title="Edit Color"
@@ -52,10 +39,10 @@ function ColorSelect({
       showCancel
     >
       <Dropdown
-        options={options}
-        value={selectedColorId}
         onValueChange={(itemValue) => setSelectedColorId(itemValue)}
-        labelTemplate={labelTemplate}
+        options={options}
+        optionsMeta={projectColors}
+        value={selectedColorId}
       />
     </Modal>
   );
@@ -78,15 +65,6 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  dot: {
-    width: 20,
-    height: 20,
-    margin: halfGutter,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: themeColors.border,
-  },
-
 };
 
 export default ColorSelect;
