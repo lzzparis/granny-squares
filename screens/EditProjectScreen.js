@@ -43,7 +43,7 @@ function EditProjectScreen() {
   } = project;
   const [name, setName] = useState(savedName || 'New Project');
   const [tiers, setTiers] = useState(`${savedTiers || 3}`);
-  const [projectColors, setProjectColors] = useState(savedColors);
+  const [projectColors, setProjectColors] = useState(savedColors || {});
   const [colorToEditId, setColorToEditId] = useState();
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
