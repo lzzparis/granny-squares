@@ -1,3 +1,9 @@
+export const availableTiers = {
+  3: { name: 3 },
+  4: { name: 4 },
+  5: { name: 5 },
+};
+
 export const grannySquareColors = {
   gsColor01: {
     name: 'Cornflower Blue',

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { CustomPicker } from 'react-native-custom-picker';
-import { get } from 'lodash';
+import { get, keys } from 'lodash';
 
 import {
   colors as themeColors,
@@ -13,13 +13,14 @@ import {
 } from '../theme';
 
 function Dropdown({
+  addMargin,
+  label,
   onValueChange,
   options,
-  optionsMeta,
   value,
 }) {
   const labelTemplate = (colorId) => {
-    const dotColor = get(optionsMeta, `${colorId}.hex`);
+    const dotColor = get(options, `${colorId}.hex`);
     return (
       <View style={styles.labelWrapper}>
         {
@@ -33,7 +34,7 @@ function Dropdown({
         />
         )
       }
-        <Text style={themeStyles.p}>{get(optionsMeta, `${colorId}.name`, 'Invalid')}</Text>
+        <Text style={themeStyles.p}>{get(options, `${colorId}.name`, 'Invalid')}</Text>
       </View>
     );
   };
@@ -55,23 +56,25 @@ function Dropdown({
   );
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, marginTop: addMargin ? gutter : 0 }}>
+      {label && <Text style={themeStyles.h3}>{label}</Text>}
       <CustomPicker
-        options={options}
-        value={value}
-        onValueChange={onValueChange}
-        optionTemplate={({ item }) => getItem(item)}
         fieldTemplate={({ selectedItem }) => getItem(selectedItem, true)}
+        onValueChange={onValueChange}
+        options={keys(options)}
+        optionTemplate={({ item }) => getItem(item)}
         style={styles.picker}
+        value={value}
       />
     </View>
   );
 }
 
 Dropdown.propTypes = {
+  addMargin: PropTypes.bool,
+  label: PropTypes.string,
   onValueChange: PropTypes.func.isRequired,
-  options: PropTypes.array.isRequired,
-  optionsMeta: PropTypes.object.isRequired,
+  options: PropTypes.object.isRequired,
   value: PropTypes.string.isRequired,
 };
 
@@ -80,7 +83,6 @@ const styles = {
     alignSelf: 'stretch',
   },
   picker: {
-    margin: gutter,
     borderBottomColor: themeColors.accent2,
     borderBottomWidth: 4,
   },

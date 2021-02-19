@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { keys } from 'lodash';
 
 import Dropdown from './Dropdown';
 import Modal from './Modal';
@@ -18,7 +17,6 @@ function ColorSelect({
 }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedColorId, setSelectedColorId] = useState(null);
-  const options = keys(projectColors);
 
   useEffect(() => {
     if (colorToEditId) {
@@ -40,8 +38,7 @@ function ColorSelect({
     >
       <Dropdown
         onValueChange={(itemValue) => setSelectedColorId(itemValue)}
-        options={options}
-        optionsMeta={projectColors}
+        options={projectColors}
         value={selectedColorId}
       />
     </Modal>

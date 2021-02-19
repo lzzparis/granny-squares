@@ -20,6 +20,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Button from '../components/Button';
 import ColorBlob from '../components/ColorBlob';
 import ColorPicker from '../components/ColorPicker';
+import Dropdown from '../components/Dropdown';
 import FeedbackModal from '../components/FeedbackModal';
 import GridItem from '../components/GridItem';
 import IconButton from '../components/IconButton';
@@ -27,7 +28,7 @@ import Modal from '../components/Modal';
 import TextInput from '../components/TextInput';
 
 import { colors as themeColors, styles as themeStyles } from '../theme';
-import { grannySquareColors } from '../constants';
+import { availableTiers, grannySquareColors } from '../constants';
 
 function EditProjectScreen() {
   const route = useRoute();
@@ -113,10 +114,12 @@ function EditProjectScreen() {
             onChangeText={(text) => setName(text)}
             value={name}
           />
-          <TextInput
+          <Dropdown
             label="Tiers"
-            onChangeText={(text) => setTiers(text)}
+            options={availableTiers}
+            onValueChange={(text) => setTiers(text)}
             value={tiers}
+            addMargin
           />
         </View>
         <View style={themeStyles.card}>
