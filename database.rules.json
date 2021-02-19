@@ -1,0 +1,15 @@
+{
+  "rules": {
+    "projects": {
+      "$user": {
+        ".read": "auth.uid === $user",
+        ".write": "auth.uid === $user",
+      }
+    },
+    "users": {
+      "$user": {
+        ".read": "auth.uid === $user",
+        ".write": "auth.uid === $user",
+      }
+    }
+  }
