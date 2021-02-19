@@ -17,13 +17,17 @@ function ProjectHeaderIcons({ projectId }) {
         iconStyle={themeStyles.headerIcon}
         onPress={() => navigation.navigate('EditProject', { projectId })}
       />
-      <Icon
-        name="th"
-        type="font-awesome-5"
-        size={24}
-        iconStyle={themeStyles.headerIcon}
-        onPress={() => navigation.navigate('QuiltView', { projectId })}
-      />
+      {
+        /*
+          <Icon
+          name="th"
+          type="font-awesome-5"
+          size={24}
+          iconStyle={themeStyles.headerIcon}
+          onPress={() => navigation.navigate('QuiltView', { projectId })}
+        />
+        */
+      }
     </View>
 
   );

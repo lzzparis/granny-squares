@@ -12,7 +12,7 @@ import EditProjectScreen from './screens/EditProjectScreen';
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import ProjectScreen from './screens/ProjectScreen';
-import QuiltViewScreen from './screens/QuiltViewScreen';
+// import QuiltViewScreen from './screens/QuiltViewScreen';
 
 import { colors, navigationTheme, styles as themeStyles } from './theme';
 
@@ -92,13 +92,17 @@ export default function RootAppNavigator() {
                   title: route.params.new ? 'Add Project' : 'Edit Project',
                 })}
               />
-              <Stack.Screen
-                name="QuiltView"
-                component={QuiltViewScreen}
-                options={{
-                  title: 'Quilt View',
-                }}
-              />
+              {
+                /*
+                  <Stack.Screen
+                    name="QuiltView"
+                    component={QuiltViewScreen}
+                    options={{
+                      title: 'Quilt View',
+                    }}
+                  />
+                */
+              }
               <Stack.Screen
                 name="Account"
                 component={AccountScreen}
