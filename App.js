@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import AppLoading from 'expo-app-loading';
+import 'react-native-get-random-values';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import {
