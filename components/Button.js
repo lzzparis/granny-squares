@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Keyboard,
@@ -8,6 +8,7 @@ import {
 import {
   halfGutter,
   gutter,
+  getDark,
   colors as themeColors,
   styles as themeStyles,
 } from '../theme';
@@ -22,6 +23,8 @@ function Button({
   fullWidth,
   disabled,
 }) {
+  const [pressedIn, setPressedIn] = useState(false);
+
   let color;
   if (disabled) {
     color = themeColors.disabled;
@@ -29,6 +32,10 @@ function Button({
     color = themeColors.warn;
   } else {
     color = themeColors[`accent${level}`] || themeColors.accent1;
+  }
+
+  if (pressedIn) {
+    color = getDark(color);
   }
 
   const buttonSizeStyles = {
@@ -81,6 +88,8 @@ function Button({
     <Pressable
       disabled={disabled}
       onPress={(e) => { onPress(e); Keyboard.dismiss(); }}
+      onPressIn={() => setPressedIn(true)}
+      onPressOut={() => setPressedIn(false)}
       style={{
         ...styles.container,
         ...buttonSizeStyles[size].padding,

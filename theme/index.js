@@ -3,8 +3,8 @@ import { DefaultTheme } from '@react-navigation/native';
 
 import Color from 'color';
 
-const getLight = (color) => Color(color).lighten(0.15).hex();
-const getDark = (color) => Color(color).darken(0.2).hex();
+export const getLight = (color) => Color(color).lighten(0.15).hex();
+export const getDark = (color) => Color(color).darken(0.2).hex();
 
 const primary = 'cornflowerblue';
 const accent1 = 'plum';
