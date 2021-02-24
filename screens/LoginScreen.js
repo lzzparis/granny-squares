@@ -3,11 +3,14 @@ import {
   useFirebase,
 } from 'react-redux-firebase';
 import {
+  Image,
   SafeAreaView,
   ScrollView,
   Text,
   View,
 } from 'react-native';
+
+import Logo from '../assets/adaptive-icon.png';
 
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
@@ -44,6 +47,7 @@ function LoginScreen() {
         contentContainerStyle={themeStyles.scrollContainer}
       >
         <View style={styles.centerOnPage}>
+          <Image style={styles.logo} source={Logo} />
           <Text style={themeStyles.h1}>Welcome!</Text>
           <View style={themeStyles.card}>
             <TextInput
@@ -98,6 +102,10 @@ const styles = {
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  logo: {
+    width: 100,
+    height: 100,
   },
   buttonGroup: {
     width: '100%',
