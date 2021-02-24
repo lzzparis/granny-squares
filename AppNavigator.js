@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useFirebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 import { Icon } from 'react-native-elements';
 
+import PlaceholderIcon from './components/PlaceholderIcon';
 import ProjectHeaderIcons from './components/ProjectHeaderIcons';
 
 import AccountScreen from './screens/AccountScreen';
@@ -56,12 +57,7 @@ export default function RootAppNavigator() {
                 component={HomeScreen}
                 options={({ navigation }) => ({
                   headerLeft: () => (
-                    <Icon
-                      name="minus-circle"
-                      type="font-awesome-5"
-                      size={24}
-                      iconStyle={{ ...themeStyles.headerIcon, color: colors.primary }}
-                    />
+                    <PlaceholderIcon />
                   ),
                   headerRight: () => (
                     <Icon
@@ -90,6 +86,9 @@ export default function RootAppNavigator() {
                 component={EditProjectScreen}
                 options={({ route }) => ({
                   title: route.params.new ? 'Add Project' : 'Edit Project',
+                  headerRight: () => (
+                    <PlaceholderIcon />
+                  ),
                 })}
               />
               {
@@ -108,6 +107,9 @@ export default function RootAppNavigator() {
                 component={AccountScreen}
                 options={{
                   title: 'Account',
+                  headerRight: () => (
+                    <PlaceholderIcon />
+                  ),
                 }}
               />
             </>

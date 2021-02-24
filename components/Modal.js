@@ -8,6 +8,7 @@ import { Icon } from 'react-native-elements';
 import ReactNativeModal from 'react-native-modal';
 
 import Button from './Button';
+import PlaceholderIcon from './PlaceholderIcon';
 import {
   halfGutter,
   gutter,
@@ -45,17 +46,14 @@ function Modal({
     >
       <View style={styles.container}>
         <View style={{ ...styles.header, backgroundColor: headerColor }}>
+          <PlaceholderIcon />
+          <Text style={{ ...themeStyles.h2, color: themeColors.invertedText }}>
+            {title}
+          </Text>
           <Icon
             name="times"
             type="font-awesome-5"
-            size={32}
-            color={headerColor}
-          />
-          <Text style={themeStyles.h1}>{title}</Text>
-          <Icon
-            name="times"
-            type="font-awesome-5"
-            size={32}
+            size={24}
             color={themeColors.invertedText}
             onPress={onRequestClose}
           />

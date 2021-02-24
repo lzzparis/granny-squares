@@ -174,7 +174,7 @@ export const styles = {
     borderBottomWidth: 4,
   },
   headerIcon: {
-    paddingRight: gutter,
+    marginRight: gutter,
     color: colors.invertedText,
   },
   footer: {
