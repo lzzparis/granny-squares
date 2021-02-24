@@ -25,12 +25,10 @@ function TextInput({
 }
 const styles = {
   container: {
-    // flex: 1,
-    // alignSelf: 'stretch',
-    // marginVertical: gutter,
   },
 };
 TextInput.propTypes = {
+  addMargin: PropTypes.bool,
   label: PropTypes.string.isRequired,
   onChangeText: PropTypes.func.isRequired,
   value: PropTypes.string,
