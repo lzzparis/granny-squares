@@ -8,7 +8,12 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 
-import { colors as themeColors, halfGutter, styles as themeStyles } from '../theme';
+import {
+  colors as themeColors,
+  gutter,
+  halfGutter,
+  styles as themeStyles,
+} from '../theme';
 
 function ProjectListItem({ name, projectId }) {
   const navigation = useNavigation();
@@ -38,10 +43,9 @@ ProjectListItem.propTypes = {
 const styles = {
   container: {
     width: 'auto',
-    marginTop: halfGutter,
-    marginBottom: halfGutter,
-    paddingLeft: halfGutter,
-    paddingRight: halfGutter,
+    marginVertical: halfGutter,
+    paddingHorizontal: gutter,
+    paddingVertical: halfGutter,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
