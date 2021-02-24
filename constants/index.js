@@ -1,6 +1,10 @@
 export const MODE_AUTH_SIGN_IN = 'MODE_AUTH_SIGN_IN';
 export const MODE_AUTH_SIGN_UP = 'MODE_AUTH_SIGN_UP';
 
+export const authErrors = {
+
+};
+
 export const availableTiers = {
   3: { name: 3 },
   4: { name: 4 },

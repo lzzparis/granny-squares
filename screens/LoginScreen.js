@@ -9,6 +9,8 @@ import {
 import {
   useFirebase,
 } from 'react-redux-firebase';
+import EmailValidator from 'email-validator';
+import PasswordValidator from 'password-validator';
 
 import Logo from '../assets/adaptive-icon.png';
 
@@ -26,12 +28,37 @@ function LoginScreen() {
   const [mode, setMode] = useState(MODE_AUTH_SIGN_UP);
   const [name, setName] = useState();
   const [email, setEmail] = useState();
+  const [emailError, setEmailError] = useState();
   const [password, setPassword] = useState();
+  const [passwordError, setPasswordError] = useState();
   const [authError, setAuthError] = useState();
+
+  // Validator functions
+  const validateEmail = () => {
+    const valid = EmailValidator.validate(email);
+    if (valid) {
+      setEmailError();
+    } else {
+      setEmailError('Invalid email');
+    }
+  };
+  const validatePassword = () => {
+    const schema = new PasswordValidator();
+    schema
+      .is().min(6)
+      .is().max(32);
+    const valid = schema.validate(password);
+    if (valid) {
+      setPasswordError();
+    } else {
+      setPasswordError('Password must have 6-32 characters');
+    }
+  };
 
   // Button functions
   const switchMode = (newMode) => (e) => {
     e.preventDefault();
+    setAuthError();
     setMode(newMode);
   };
 
@@ -74,16 +101,20 @@ function LoginScreen() {
               label="Email"
               value={email}
               onChangeText={(text) => setEmail(text)}
+              onBlur={validateEmail}
               autoCapitalize="none"
               addMargin={mode === MODE_AUTH_SIGN_UP}
             />
+            {emailError && <Text style={themeStyles.error}>{emailError}</Text>}
             <TextInput
               label="Password"
               value={password}
               onChangeText={(text) => setPassword(text)}
+              onBlur={validatePassword}
               secureTextEntry
               addMargin
             />
+            {passwordError && <Text style={themeStyles.error}>{passwordError}</Text>}
             { authError
               && (
               <View style={styles.textWrapper}>
