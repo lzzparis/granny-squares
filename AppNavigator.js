@@ -10,6 +10,7 @@ import ProjectHeaderIcons from './components/ProjectHeaderIcons';
 
 import AccountScreen from './screens/AccountScreen';
 import EditProjectScreen from './screens/EditProjectScreen';
+import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import ProjectScreen from './screens/ProjectScreen';
@@ -42,13 +43,23 @@ export default function RootAppNavigator() {
       >
         {!isLoggedIn
           ? (
-            <Stack.Screen
-              name="Login"
-              component={LoginScreen}
-              options={{
-                headerShown: false,
-              }}
-            />
+            <>
+              <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="ForgotPassword"
+                component={ForgotPasswordScreen}
+                options={{
+                  headerStyle: { backgroundColor: colors.primary, elevation: 0, zIndex: 0 },
+                  title: '',
+                }}
+              />
+            </>
           )
           : (
             <>

@@ -6,24 +6,23 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import {
   useFirebase,
 } from 'react-redux-firebase';
 import EmailValidator from 'email-validator';
-import PasswordValidator from 'password-validator';
 
 import Logo from '../assets/adaptive-icon.png';
-
 import Button from '../components/Button';
 import Link from '../components/Link';
 import TextInput from '../components/TextInput';
-
 import { MODE_AUTH_SIGN_IN, MODE_AUTH_SIGN_UP } from '../constants';
-
 import { halfGutter, colors as themeColors, styles as themeStyles } from '../theme';
+import { passwordSchema } from '../utils';
 
 function LoginScreen() {
   // Hooks
+  const navigation = useNavigation();
   const firebase = useFirebase();
   const [mode, setMode] = useState(MODE_AUTH_SIGN_UP);
   const [name, setName] = useState();
@@ -43,11 +42,7 @@ function LoginScreen() {
     }
   };
   const validatePassword = () => {
-    const schema = new PasswordValidator();
-    schema
-      .is().min(6)
-      .is().max(32);
-    const valid = schema.validate(password);
+    const valid = passwordSchema.validate(password);
     if (valid) {
       setPasswordError();
     } else {
@@ -77,7 +72,7 @@ function LoginScreen() {
       .catch((err) => setAuthError(err.message));
   };
 
-  const disableButtons = !email || !password;
+  const disableButtons = !email || emailError || !password || passwordError;
 
   return (
     <SafeAreaView style={{ ...themeStyles.screenContainer, backgroundColor: themeColors.primary }}>
@@ -126,7 +121,7 @@ function LoginScreen() {
               </View>
               )}
           </View>
-          <View style={styles.buttonGroup}>
+          <View style={styles.buttonWrapper}>
             {mode === MODE_AUTH_SIGN_UP
               ? (
                 <Button
@@ -154,7 +149,7 @@ function LoginScreen() {
               )
               : (
                 <View style={styles.textApart}>
-                  <Link>Forgot password?</Link>
+                  <Link onPress={() => navigation.navigate('ForgotPassword')}>Forgot password?</Link>
                   <Link onPress={switchMode(MODE_AUTH_SIGN_UP)}>Sign up</Link>
                 </View>
               )
@@ -176,7 +171,7 @@ const styles = {
     width: 64,
     height: 64,
   },
-  buttonGroup: {
+  buttonWrapper: {
     width: '100%',
     flexDirection: 'row',
   },
