@@ -36,10 +36,13 @@ function ColorPicker({
 
   useEffect(() => {
     setName(savedName);
+  }, [savedName]);
+
+  useEffect(() => {
     setHue(getHue(savedHex));
     setSaturation(getSaturation(savedHex));
     setLightness(getLightness(savedHex));
-  }, [savedName, savedHex]);
+  }, [savedHex]);
 
   return (
     <Modal
