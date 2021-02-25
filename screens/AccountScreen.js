@@ -12,6 +12,7 @@ import {
 
 import Button from '../components/Button';
 import FeedbackModal from '../components/FeedbackModal';
+import InfoSubheader from '../components/InfoSubheader';
 import TextInput from '../components/TextInput';
 
 import { styles as themeStyles } from '../theme';
@@ -29,22 +30,20 @@ function AccountScreen() {
   const [feedback, setFeedback] = useState({});
   const [feedbackOpen, setFeedbackOpen] = useState(false);
 
+  const unsavedChanges = displayName !== savedName;
+
   // Button functions
   const saveData = async (e) => {
     e.preventDefault();
     if (uid) {
       await firebase.update(`users/${uid}`, { displayName })
-        .then(() => {
-          setFeedback({ type: 'success', message: 'Save successful!' });
-          setFeedbackOpen(true);
-        })
         .catch((err) => {
           setFeedback({ type: 'error', message: 'Error saving account' });
           console.error('Error saving account:', err.message);
           setFeedbackOpen(true);
         });
 
-      setTimeout(() => setFeedbackOpen(false), 2000);
+      setTimeout(() => setFeedbackOpen(false), 1000);
     }
   };
 
@@ -55,6 +54,7 @@ function AccountScreen() {
 
   return (
     <SafeAreaView style={themeStyles.screenContainer}>
+      {unsavedChanges && <InfoSubheader>Account has unsaved changes</InfoSubheader>}
       <ScrollView
         contentContainerStyle={themeStyles.scrollContainer}
         style={{ width: '100%' }}

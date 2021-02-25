@@ -95,8 +95,6 @@ function EditProjectScreen() {
     await firebaseAction(firebasePath, dataToSave)
       .then(() => {
         setProjectColorsHaveChanged(false);
-        setFeedback({ type: 'success', message: 'Save successful!' });
-        setFeedbackOpen(true);
       })
       .catch((err) => {
         setFeedback({ type: 'error', message: 'Error saving project' });
@@ -104,7 +102,7 @@ function EditProjectScreen() {
         setFeedbackOpen(true);
       });
 
-    setTimeout(() => setFeedbackOpen(false), 2000);
+    setTimeout(() => setFeedbackOpen(false), 1000);
   };
 
   // Modal functions
