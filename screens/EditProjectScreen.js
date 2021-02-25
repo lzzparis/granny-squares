@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
   SafeAreaView,
@@ -11,6 +11,7 @@ import { useFirebase } from 'react-redux-firebase';
 import {
   cloneDeep,
   get,
+  keys,
   map,
   omit,
   sample,
@@ -25,6 +26,7 @@ import Dropdown from '../components/Dropdown';
 import FeedbackModal from '../components/FeedbackModal';
 import GridItem from '../components/GridItem';
 import IconButton from '../components/IconButton';
+import InfoSubheader from '../components/InfoSubheader';
 import Modal from '../components/Modal';
 import TextInput from '../components/TextInput';
 
@@ -39,18 +41,45 @@ function EditProjectScreen() {
   const {
     name: savedName,
     tiers: savedTiers,
-    colors: savedColors,
+    colors: savedProjectColors,
   } = project;
 
   // State hooks
   const [name, setName] = useState(savedName || 'New Project');
   const [tiers, setTiers] = useState(`${savedTiers || 3}`);
-  const [projectColors, setProjectColors] = useState(savedColors || {});
+  const [projectColors, setProjectColors] = useState(savedProjectColors || {});
+  const [projectColorsHaveChanged, setProjectColorsHaveChanged] = useState(false);
   const [colorToEditId, setColorToEditId] = useState();
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [feedback, setFeedback] = useState({});
+
+  // Detect if project colors have changed since last save
+  useEffect(() => {
+    const numProjectColors = size(projectColors);
+    const numSavedProjectColors = size(savedProjectColors);
+    if (numProjectColors !== numSavedProjectColors) {
+      setProjectColorsHaveChanged(true);
+      return;
+    }
+    let compareFailed = false;
+    const projectColorsKeys = keys(projectColors);
+    for (let i = 0; i < numProjectColors; i++) {
+      const key = projectColorsKeys[i];
+      const { name: savedColorName, hex: savedColorHex } = get(savedProjectColors, key, {});
+      const { name: projectColorName, hex: projectColorHex } = get(projectColors, key, {});
+      if (savedColorName !== projectColorName || savedColorHex !== projectColorHex) {
+        compareFailed = true;
+        break;
+      }
+    }
+    setProjectColorsHaveChanged(compareFailed);
+  }, [projectColors]);
+
+  const unsavedChanges = projectColorsHaveChanged
+    || (name !== savedName)
+    || (+tiers !== +savedTiers);
 
   // Database functions
   const firebase = useFirebase();
@@ -65,6 +94,7 @@ function EditProjectScreen() {
     const firebasePath = projectId ? `projects/${uid}/${projectId}` : `projects/${uid}`;
     await firebaseAction(firebasePath, dataToSave)
       .then(() => {
+        setProjectColorsHaveChanged(false);
         setFeedback({ type: 'success', message: 'Save successful!' });
         setFeedbackOpen(true);
       })
@@ -112,6 +142,7 @@ function EditProjectScreen() {
 
   return (
     <SafeAreaView style={themeStyles.screenContainer}>
+      {unsavedChanges && <InfoSubheader>Project has unsavedChanges</InfoSubheader>}
       <ScrollView
         style={{ width: '100%' }}
         contentContainerStyle={themeStyles.scrollContainer}
