@@ -61,14 +61,17 @@ function EditProjectScreen() {
     };
     const firebaseAction = projectId ? firebase.update : firebase.push;
     const firebasePath = projectId ? `projects/${uid}/${projectId}` : `projects/${uid}`;
-    const res = await firebaseAction(firebasePath, dataToSave);
-    if (res === 'error') {
-      setFeedback({ type: 'error', message: 'Error saving square' });
-      setFeedbackOpen(true);
-    } else {
-      setFeedback({ type: 'success', message: 'Save successful!' });
-      setFeedbackOpen(true);
-    }
+    await firebaseAction(firebasePath, dataToSave)
+      .then(() => {
+        setFeedback({ type: 'success', message: 'Save successful!' });
+        setFeedbackOpen(true);
+      })
+      .catch((err) => {
+        setFeedback({ type: 'error', message: 'Error saving project' });
+        console.error('Error saving project:', err.message);
+        setFeedbackOpen(true);
+      });
+
     setTimeout(() => setFeedbackOpen(false), 2000);
   };
 

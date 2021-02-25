@@ -77,14 +77,17 @@ function ProjectScreen() {
   // Database functions
   const saveSquare = async (e) => {
     e.preventDefault();
-    const response = await firebase.push(`projects/${uid}/${projectId}/saved`, workingColorIds).then((res) => res);
-    if (response === 'error') {
-      setFeedback({ type: 'error', message: 'Error saving square' });
-      setFeedbackOpen(true);
-    } else {
-      setFeedback({ type: 'success', message: 'Save successful!' });
-      setFeedbackOpen(true);
-    }
+    await firebase.push(`projects/${uid}/${projectId}/saved`, workingColorIds)
+      .then(() => {
+        setFeedback({ type: 'success', message: 'Save successful!' });
+        setFeedbackOpen(true);
+      })
+      .catch((err) => {
+        setFeedback({ type: 'error', message: 'Error saving square' });
+        console.error('Error saving square:', err.message);
+        setFeedbackOpen(true);
+      });
+
     setTimeout(() => setFeedbackOpen(false), 2000);
   };
 

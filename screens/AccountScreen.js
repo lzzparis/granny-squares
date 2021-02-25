@@ -6,30 +6,45 @@ import {
   ScrollView,
   View,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import {
-  get, map, size,
+  get,
 } from 'lodash';
 
 import Button from '../components/Button';
+import FeedbackModal from '../components/FeedbackModal';
 import TextInput from '../components/TextInput';
 
-import { gutter, styles as themeStyles } from '../theme';
+import { styles as themeStyles } from '../theme';
 
 function AccountScreen() {
+  // Hooks
   const firebase = useFirebase();
   const uid = useSelector((state) => get(state, 'firebase.auth.uid'));
   const {
     displayName: savedName,
   } = useSelector((state) => get(state, 'firebase.profile'));
 
+  // State hooks
   const [displayName, setDisplayName] = useState(savedName);
+  const [feedback, setFeedback] = useState({});
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
 
   // Button functions
-  const saveData = (e) => {
+  const saveData = async (e) => {
     e.preventDefault();
     if (uid) {
-      firebase.update(`users/${uid}`, { displayName });
+      await firebase.update(`users/${uid}`, { displayName })
+        .then(() => {
+          setFeedback({ type: 'success', message: 'Save successful!' });
+          setFeedbackOpen(true);
+        })
+        .catch((err) => {
+          setFeedback({ type: 'error', message: 'Error saving account' });
+          console.error('Error saving account:', err.message);
+          setFeedbackOpen(true);
+        });
+
+      setTimeout(() => setFeedbackOpen(false), 2000);
     }
   };
 
@@ -57,10 +72,9 @@ function AccountScreen() {
           fullWidth
         />
       </View>
+      <FeedbackModal open={feedbackOpen} type={feedback.type} message={feedback.message} />
     </SafeAreaView>
   );
 }
-
-const styles = {};
 
 export default (AccountScreen);

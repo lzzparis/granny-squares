@@ -59,6 +59,8 @@ function LoginScreen() {
   const switchMode = (newMode) => (e) => {
     e.preventDefault();
     setAuthError();
+    setEmailError();
+    setPasswordError();
     setMode(newMode);
   };
 
