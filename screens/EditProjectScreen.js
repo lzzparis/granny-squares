@@ -41,6 +41,8 @@ function EditProjectScreen() {
     tiers: savedTiers,
     colors: savedColors,
   } = project;
+
+  // State hooks
   const [name, setName] = useState(savedName || 'New Project');
   const [tiers, setTiers] = useState(`${savedTiers || 3}`);
   const [projectColors, setProjectColors] = useState(savedColors || {});
@@ -130,8 +132,8 @@ function EditProjectScreen() {
         </View>
         <View style={themeStyles.card}>
           <Text style={themeStyles.h2}>Colors</Text>
-          {!size(projectColors)
-            && <Text style={themeStyles.info}>Add at least one color to save project</Text>}
+          {size(projectColors) !== +tiers
+            && <Text style={themeStyles.info}>{`Add at least ${tiers} colors to save the project`}</Text>}
           <View style={styles.blobs}>
             {map(projectColors, ({ name: colorName, hex }, projectColorId) => (
               <GridItem
@@ -190,7 +192,7 @@ function EditProjectScreen() {
           onPress={saveDataToDb}
           accessibilityLabel="Save"
           fullWidth
-          disabled={!size(projectColors)}
+          disabled={size(projectColors) !== +tiers}
         />
       </View>
       <FeedbackModal open={feedbackOpen} type={feedback.type} message={feedback.message} />
