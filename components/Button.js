@@ -27,11 +27,20 @@ function Button({
 
   let color;
   if (disabled) {
-    color = themeColors.disabled;
+    color = type === 'filled' ? themeColors.darkWhite : themeColors.grey;
   } else if (level === 'destructive') {
     color = themeColors.warn;
   } else {
     color = themeColors[`accent${level}`] || themeColors.accent1;
+  }
+
+  let textColor;
+  if (disabled) {
+    textColor = themeColors.lightBlack;
+  } else if (type === 'filled') {
+    textColor = themeColors.invertedText;
+  } else {
+    textColor = color;
   }
 
   if (pressedIn) {
@@ -104,7 +113,7 @@ function Button({
       <Text
         style={{
           ...buttonSizeStyles[size].text,
-          color: type === 'filled' ? themeColors.invertedText : color,
+          color: textColor,
           textAlign: 'center',
         }}
       >

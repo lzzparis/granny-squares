@@ -12,11 +12,11 @@ const accent2 = 'peachpuff';
 const accent3 = 'palegreen';
 const accent4 = 'pink';
 
-const black = 'black';
-const white = 'white';
-const grey = '#aaa';
+const white = '#fff';
+const darkWhite = '#ccc';
+const grey = '#888';
 const lightBlack = '#484848';
-const darkWhite = getDark(white);
+const black = '#000';
 
 const error = '#c93732';
 const warn = '#c93732';
@@ -55,12 +55,11 @@ export const colors = {
   border: darkWhite,
   background: getLight(darkWhite),
   paper: white,
-  disabled: grey,
   white,
-  black,
-  lightBlack,
   darkWhite,
   grey,
+  lightBlack,
+  black,
   error,
   warn,
   success,
