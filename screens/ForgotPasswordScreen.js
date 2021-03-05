@@ -14,6 +14,14 @@ import Button from '../components/Button';
 import TextInput from '../components/TextInput';
 import { halfGutter, colors as themeColors, styles as themeStyles } from '../theme';
 
+const actionCodeSettings = {
+  // URL you want to redirect back to. The domain (www.example.com) for this
+  // URL must be whitelisted in the Firebase Console.
+  url: 'http://lizzieparis.com',
+  // This must be true.
+  handleCodeInApp: true,
+};
+
 function ForgotPasswordScreen() {
   // Hooks
   const firebase = useFirebase();
@@ -36,8 +44,8 @@ function ForgotPasswordScreen() {
   };
 
   // Functions
-  const sendResetPasswordEmail = async () => {
-    await firebase.resetPassword(email)
+  const resetPassword = async () => {
+    await firebase.auth().sendPasswordResetEmail(email, actionCodeSettings)
       .then(() => setSendEmailFeedback({ type: 'success', message: 'Success! Check your email for a reset link.' }))
       .catch(({ message }) => setSendEmailFeedback({ type: 'error', message }));
   };
@@ -73,7 +81,7 @@ function ForgotPasswordScreen() {
           <View style={styles.buttonWrapper}>
             <Button
               title="Send Email"
-              onPress={sendResetPasswordEmail}
+              onPress={resetPassword}
               disabled={emailError}
               fullWidth
             />

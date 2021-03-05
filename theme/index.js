@@ -1,6 +1,3 @@
-import { Platform } from 'react-native';
-import { DefaultTheme } from '@react-navigation/native';
-
 import Color from 'color';
 
 export const getLight = (color) => Color(color).lighten(0.15).hex();
@@ -21,18 +18,6 @@ const black = '#000';
 const error = '#c93732';
 const warn = '#c93732';
 const success = '#32c96a';
-
-export const shadow = Platform.select({
-  android: {
-    elevation: 2,
-  },
-  default: {
-    shadowColor: 'rgba(0,0,0, .4)',
-    shadowOffset: { height: 1, width: 1 },
-    shadowOpacity: 1,
-    shadowRadius: 1,
-  },
-});
 
 export const colors = {
   primary,
@@ -65,44 +50,53 @@ export const colors = {
   success,
 };
 
-const typography = {
+export const typography = {
   h1: {
     fontFamily: 'Poppins_500Medium',
+    fontWeight: '500',
     fontSize: 24,
     color: colors.invertedText,
   },
   h2: {
     fontFamily: 'Poppins_500Medium',
+    fontWeight: '500',
     fontSize: 20,
     color: colors.text,
   },
   h3: {
     fontFamily: 'Poppins_500Medium',
+    fontWeight: '500',
     fontSize: 18,
     color: colors.text,
   },
   h4: {
     fontFamily: 'Poppins_500Medium',
+    fontWeight: '500',
     fontSize: 14,
     color: colors.text,
   },
   p: {
     fontFamily: 'Poppins_400Regular',
+    fontWeight: '400',
     fontSize: 16,
     color: colors.text,
   },
   strong: {
     fontFamily: 'Poppins_600SemiBold',
+    fontWeight: '600',
     fontSize: 16,
     color: colors.text,
   },
   em: {
     fontFamily: 'Poppins_500Medium_Italic',
+    fontWeight: '500',
+    fontStyle: 'italic',
     fontSize: 16,
     color: colors.text,
   },
   link: {
     fontFamily: 'Poppins_500Medium',
+    fontWeight: '500',
     textDecorationLine: 'underline',
     textDecorationStyle: 'solid',
     textDecorationColor: colors.accent2,
@@ -111,11 +105,14 @@ const typography = {
   },
   info: {
     fontFamily: 'Poppins_300Light_Italic',
+    fontWeight: '300',
+    fontStyle: 'italic',
     fontSize: 12,
     color: colors.text,
   },
   error: {
     fontFamily: 'Poppins_600SemiBold',
+    fontWeight: '600',
     fontSize: 12,
     color: colors.error,
   },
@@ -182,19 +179,6 @@ export const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-};
-
-export const navigationTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary,
-    background: colors.background,
-    card: colors.paper,
-    text: colors.text,
-    border: colors.border,
-    notification: colors.accent1,
   },
 };
 

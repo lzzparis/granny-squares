@@ -166,8 +166,6 @@ export const styles = {
     ...typography.p,
     paddingLeft: halfGutter,
     paddingRight: halfGutter,
-    borderStyle: 'none',
-    borderBottomStyle: 'solid',
     borderBottomColor: colors.accent2,
     borderBottomWidth: 4,
   },

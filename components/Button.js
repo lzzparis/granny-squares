@@ -12,6 +12,7 @@ import {
   colors as themeColors,
   styles as themeStyles,
 } from '../theme';
+import { shadow } from '../theme/platform';
 
 function Button({
   level,
@@ -89,7 +90,9 @@ function Button({
   const buttonTypeStyles = {
     filled: { backgroundColor: color },
     outline: {
-      backgroundColor: null, ...buttonSizeStyles[size].border, borderColor: color,
+      backgroundColor: themeColors.paper,
+      ...buttonSizeStyles[size].border,
+      borderColor: color,
     },
   };
 
@@ -124,7 +127,7 @@ function Button({
 }
 const styles = {
   container: {
-    ...themeStyles.shadow,
+    ...shadow,
     ...themeStyles.roundedCorners,
   },
 };

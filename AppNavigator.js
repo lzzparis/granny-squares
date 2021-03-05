@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import { useFirebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 import { Icon } from 'react-native-elements';
 
@@ -16,7 +17,20 @@ import LoginScreen from './screens/LoginScreen';
 import ProjectScreen from './screens/ProjectScreen';
 // import QuiltViewScreen from './screens/QuiltViewScreen';
 
-import { colors, navigationTheme, styles as themeStyles } from './theme';
+import { colors as themeColors, styles as themeStyles } from './theme';
+
+const navigationTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: themeColors.primary,
+    background: themeColors.background,
+    card: themeColors.paper,
+    text: themeColors.text,
+    border: themeColors.border,
+    notification: themeColors.accent1,
+  },
+};
 
 const Stack = createStackNavigator();
 
@@ -31,10 +45,10 @@ export default function RootAppNavigator() {
         initialRouteName="Home"
         screenOptions={{
           headerStyle: {
-            backgroundColor: colors.primary,
+            backgroundColor: themeColors.primary,
 
           },
-          headerTintColor: colors.invertedText,
+          headerTintColor: themeColors.invertedText,
           headerTitleStyle: {
             alignSelf: 'center',
             fontFamily: 'Poppins_500Medium', //
@@ -55,7 +69,7 @@ export default function RootAppNavigator() {
                 name="ForgotPassword"
                 component={ForgotPasswordScreen}
                 options={{
-                  headerStyle: { backgroundColor: colors.primary, elevation: 0, zIndex: 0 },
+                  headerStyle: { backgroundColor: themeColors.primary, elevation: 0, zIndex: 0 },
                   title: '',
                 }}
               />

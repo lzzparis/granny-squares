@@ -1,6 +1,6 @@
 import { Dimensions } from 'react-native';
 import PasswordValidator from 'password-validator';
-import { halfGutter, gutter } from '../theme';
+import { gutter } from '../theme';
 
 export const windowWidth = Dimensions.get('window').width;
 export const windowHeight = Dimensions.get('window').height;
@@ -14,9 +14,7 @@ passwordSchema
   .is().max(32);
 
 export default {
-  halfGutter,
   getGridItemWidth,
-  gutter,
   windowHeight,
   windowWidth,
   passwordSchema,
