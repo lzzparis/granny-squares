@@ -6,14 +6,14 @@ import theme from '../theme';
 const { gutter, styles: themeStyles } = theme;
 
 function TextInput({
-  label, onChangeText, onBlur, value, addMargin, type,
+  label, onChangeText, onBlur, value, addMargin, type = 'text',
 }) {
   return (
     <div style={{ ...styles.container, marginTop: addMargin ? gutter : 0 }}>
       <h3 style={themeStyles.h3}>{label}</h3>
       <input
+        style={themeStyles.textInput}
         type={type}
-        style={{ ...themeStyles.textInput, width: '100%' }}
         onChange={(e) => onChangeText(e.target.value)}
         onBlur={onBlur}
         value={value}

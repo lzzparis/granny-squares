@@ -84,9 +84,14 @@ function Button({
   };
 
   const buttonTypeStyles = {
-    filled: { backgroundColor: color },
+    filled: {
+      backgroundColor: color,
+      borderColor: color,
+    },
     outline: {
-      backgroundColor: null, ...buttonSizeStyles[size].border, borderColor: color,
+      backgroundColor: 'transparent',
+      ...buttonSizeStyles[size].border,
+      borderColor: color,
     },
   };
 
@@ -122,6 +127,7 @@ function Button({
 const styles = {
   container: {
     ...themeStyles.roundedCorners,
+    borderStyle: 'solid',
   },
 };
 

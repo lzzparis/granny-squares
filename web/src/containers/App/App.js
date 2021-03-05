@@ -17,6 +17,7 @@ function App() {
   const [password2, setPassword2] = useState('');
   const [validError, setValidError] = useState('');
   const [matchError, setMatchError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   // Form functions
   const validatePassword = () => {
@@ -53,6 +54,7 @@ function App() {
         />
         {validError && <p style={themeStyles.error}>{validError}</p>}
         <TextInput
+          type="password"
           label="Confirm Password"
           onChangeText={setPassword2}
           onBlur={checkMatch}

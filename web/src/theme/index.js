@@ -8,6 +8,10 @@ export default {
     ...typography,
     textInput: {
       ...styles.textInput,
+      width: '100%',
+      borderStyle: 'none',
+      borderBottomStyle: 'solid',
+      boxSizing: 'border-box',
       ...typography.p,
     },
   },
