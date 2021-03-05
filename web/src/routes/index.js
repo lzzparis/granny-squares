@@ -15,7 +15,7 @@ function App() {
         map(
           routes,
           ({ path, component }) => (
-            <Route exact={path === '/'} key={`route-${path}`} path={path}>{component}</Route>
+            <Route exact={path === '/'} key={`route-${path}`} path={path} component={component} />
           ),
         )
       }
