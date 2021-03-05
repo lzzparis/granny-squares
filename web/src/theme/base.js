@@ -183,6 +183,8 @@ export const styles = {
 };
 
 export default {
+  getLight,
+  getDark,
   colors,
   styles,
   buttonSizes,
