@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import firebase from 'firebase';
 import { get } from 'lodash';
 import Button from '../../../../components/Button';
@@ -15,12 +15,12 @@ function ResetPassword(props) {
   const search = get(props, 'location.search');
   const params = new URLSearchParams(search);
   const code = params.get('oobCode');
+
+  // State
   const [status, setStatus] = useState({});
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [validError, setValidError] = useState('');
-  const [matchError, setMatchError] = useState('');
 
   useEffect(async () => {
     await firebase.auth().checkActionCode(code)
@@ -28,22 +28,10 @@ function ResetPassword(props) {
       .catch((err) => setStatus({ success: false, message: err.message }));
   }, [code]);
 
+  const isPassword1Valid = (newPassword1) => passwordSchema.validate(newPassword1);
+  const isPassword2Valid = (newPassword2) => password1 === newPassword2;
+
   // Form functions
-  const validatePassword = () => {
-    const valid = passwordSchema.validate(password1);
-    if (valid) {
-      setValidError();
-    } else {
-      setValidError('Password must have 6-32 characters');
-    }
-  };
-  const checkMatch = () => {
-    if (password1 !== password2) {
-      setMatchError('Passwords do not match');
-    } else {
-      setMatchError();
-    }
-  };
   const confirmPasswordReset = async (e) => {
     e.preventDefault();
     await firebase.auth().confirmPasswordReset(code, password2)
@@ -60,32 +48,35 @@ function ResetPassword(props) {
               <TextInput
                 type="password"
                 label="New Password"
-                onChangeText={setPassword1}
-                onBlur={validatePassword}
                 value={password1}
+                onChangeText={setPassword1}
+                validate={isPassword1Valid}
+                errorMessage="Password must have 6-32 characters"
               />
-              {validError && <p style={themeStyles.error}>{validError}</p>}
               <TextInput
                 type="password"
                 label="Confirm Password"
-                onChangeText={setPassword2}
-                onBlur={checkMatch}
                 value={password2}
+                onChangeText={setPassword2}
+                validate={isPassword2Valid}
+                errorMessage="Passwords do not match"
                 addMargin
               />
-              {matchError && <p style={themeStyles.error}>{matchError}</p>}
             </div>
             <Button
               title="Reset Password"
               onPress={confirmPasswordReset}
+              disabled={!password1 || !password2 || !isPassword1Valid(password1) || !isPassword2Valid(password2)}
             />
           </>
         )
         : (
           <div style={styles.card}>
-            {status.message
-              ? <p style={status.success === true ? themeStyles.success : themeStyles.error}>{status.message}</p>
-              : <div style={styles.loaderContainer}><DotLoader /></div>}
+            <div style={styles.centerContent}>
+              {status.message
+                ? <p style={status.success === true ? themeStyles.success : themeStyles.error}>{status.message}</p>
+                : <DotLoader />}
+            </div>
           </div>
         )}
     </div>
@@ -108,7 +99,7 @@ const styles = {
   logo: {
     width: '160px',
   },
-  loaderContainer: {
+  centerContent: {
     width: '100%',
     height: '100%',
     display: 'flex',
