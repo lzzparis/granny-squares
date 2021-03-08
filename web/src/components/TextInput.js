@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import theme from '../theme';
@@ -6,18 +6,39 @@ import theme from '../theme';
 const { gutter, styles: themeStyles } = theme;
 
 function TextInput({
-  label, onChangeText, onBlur, value, addMargin, type = 'text',
+  addMargin,
+  errorMessage,
+  label,
+  onChangeText,
+  onBlur,
+  type = 'text',
+  validate,
+  value,
 }) {
+  const [valid, setValid] = useState(false);
+  const [touched, setTouched] = useState(false);
+
+  const onChange = (e) => {
+    const newValue = e.target.value;
+    if (!touched) {
+      setTouched(true);
+    }
+    // validate should return true or false
+    setValid(validate(newValue));
+    onChangeText(newValue);
+  };
+
   return (
     <div style={{ ...styles.container, marginTop: addMargin ? gutter : 0 }}>
       <h3 style={themeStyles.h3}>{label}</h3>
       <input
         style={themeStyles.textInput}
         type={type}
-        onChange={(e) => onChangeText(e.target.value)}
+        onChange={onChange}
         onBlur={onBlur}
         value={value}
       />
+      {touched && !valid && <p style={themeStyles.error}>{errorMessage}</p>}
     </div>
   );
 }
